@@ -1,0 +1,62 @@
+<!--pages/home/home.wxml-->
+<view class="container">
+  <view class="head-view">
+    <view class="user-box">
+      <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
+      <button open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="nickname">{{userInfo==false?'登录/注册':nickName}}
+      </button>
+      <!-- <text class="nickname" bindtap="{{userInfo==false?'':''}}">{{userInfo==false?'登录/注册':nickName}}</text> -->
+    </view>
+    <view class="report" bindtap="reportTap">
+      <image class="report-image" src="{{hasReports==true?'../../style/images/baogao1.png':'../../style/images/baogao2.png'}}"></image>
+    </view>
+  </view>
+
+  <view class="list-page">
+    <view class="list-page-left">
+      <block wx:for="{{itemList}}" wx:key="key">
+        <view wx:if="{{index%2==0}}" class="list-item">
+          <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" >
+            <view class="item-tip">
+              <text>暂未开通</text>
+            </view> 
+          </view>
+          <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" bindtap="gotoStart">
+            <view wx:if="{{userInfo}}" hidden="{{!hasReports}}" class="time">
+              <text>{{record.score}}题 {{record.times}}秒</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="list-page-right">
+      <block wx:if="{{index%2!=0}}" wx:for="{{itemList}}" wx:key="key">
+        <view class="list-item">
+          <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}" >
+            <view class="item-tip">
+              <text>暂未开通</text>
+            </view> 
+          </view>
+          <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" bindtap="gotoStart">
+            <view wx:if="{{userInfo}}" hidden="{{!hasReports}}" class="time">
+              <text>{{record.score}}题 {{record.times}}秒</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<image class="feedback" src="../../style/images/yijianfankui.png" bindtap="feedbackTap"></image>
+
+<view hidden="{{hideShadow}}" class="shadow" bindtap="hideShadowTap">
+  <view class="tankuang">
+    <image src="../../style/images/tankuang.png"></image>
+    <view class="tankuang-text">
+      <text>还没有报告</text>
+    </view>
+  </view>
+
+</view>

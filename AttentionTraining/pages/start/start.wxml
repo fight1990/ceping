@@ -1,0 +1,31 @@
+<!--pages/start/start.wxml-->
+<view class="container">
+  <view wx:if="{{loading}}" class='startView' >
+    <view class="title">
+      <text>欢迎来到--</text>
+      <text>儿童注意力训练</text>
+      <image src="../../style/images/loading.gif"></image>
+    </view>
+  </view>
+  <block wx:if="{{!loading}}">
+    <image class="pic_background" src="../../style/images/beijing3.png"></image>
+    <view class="guide-view">
+      <!-- <view class="head-view">
+        <text class="head-text">专注力交通灯推荐</text>
+      </view>
+      <view class="explain-view"> 
+        <text class="explain-text" decode="{{true}}">&emsp;&emsp;专注力交通灯是一款专注力测试和练习游戏。前期使用可以有效检测孩子大脑的选择性注意力，注意力持久度，注意力转移能力，复杂注意力，和冲动控制能力。长期练习可以提高孩子在学习生活中的注意力，观察力，短期记忆力，反应力，和思维能力。</text>
+      </view>  -->
+      <view class="tip-view">
+        <text class="tip-text">请将手机交于您的孩子，开始测试</text>
+      </view>
+      <view class="start-view">
+        <!-- <button open-type='getUserInfo' bindgetuserinfo="isReadBtnAction" class="start-button">已阅读开始</button> -->
+        <button bindtap="readBtnAction" class="start-button">已阅读开始</button>
+      </view>
+    </view>
+  </block>
+  
+</view>
+
+  

@@ -1,0 +1,254 @@
+/* pages/information/information.wxss */
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-box {
+  margin-top: 50rpx;
+}
+
+.title-box text {
+   height:40rpx;
+   font-size:40rpx;
+   font-weight:bold;
+   color: #333333;
+   line-height:40rpx;
+}
+
+.tip-box {
+  margin-top: 30rpx;
+}
+
+.tip-box text {
+  height:24rpx;
+  font-size:24rpx;
+  font-weight:bold;
+  color: #999999;
+  line-height:24rpx;
+}
+
+.name-box {
+  margin-top: 56rpx; 
+  height: 102rpx;
+  width: 680rpx;
+  border-bottom: 2rpx solid #D2D2D2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name-box .icon image{
+  height: 28rpx;
+  width: 24rpx;
+}
+
+.name-title {
+  margin-left: 18rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.name-box input {
+  margin-left: 190rpx;
+  width: 270rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.sex-box {
+  height: 102rpx;
+  width: 680rpx;
+  border-bottom: 2rpx solid #D2D2D2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.sex-box .icon image {
+  height: 28rpx;
+  width: 28rpx;
+}
+
+.sex-title {
+  margin-left: 18rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.sex {
+  width: 270rpx;
+  margin-left: 190rpx;
+  font-size:22rpx;
+  font-weight:bold;
+  color: #999999;
+  line-height: 20rpx;
+}
+
+.sex text {
+  text-align: right;
+}
+
+.right {
+  margin-left: 16rpx;
+  width: 18rpx;
+  height: 36rpx;
+}
+
+.right image {
+  width: 18rpx;
+  height: 36rpx;
+}
+
+.age-box {
+  height: 102rpx;
+  width: 680rpx;
+  border-bottom: 2rpx solid #D2D2D2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.age-box .icon image {
+  height: 30rpx;
+  width: 28rpx;
+}
+
+.age-title {
+  margin-left: 18rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.age {
+  width: 270rpx;
+  margin-left: 190rpx;
+  font-size:22rpx;
+  font-weight:bold;
+  color: #999999;
+  line-height: 20rpx;
+}
+
+.phone-box {
+  height: 102rpx;
+  width: 680rpx;
+  border-bottom: 2rpx solid #D2D2D2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.phone-box .icon image {
+  height: 28rpx;
+  width: 28rpx;
+}
+
+.phone-title {
+  margin-left: 18rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.phone-box input {
+  width: 270rpx;
+  margin-left: 190rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+
+.code-box {
+  height: 102rpx;
+  width: 680rpx;
+  border-bottom: 2rpx solid #D2D2D2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.code-box .icon image {
+  height: 30rpx;
+  width: 26rpx;
+}
+
+.code-title {
+  margin-left: 18rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.code-box input {
+  width: 160rpx;
+  margin-left: 220rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color: #333333;
+}
+
+.code-box button {
+  width:150rpx;
+  height:60rpx;
+  background-color: #00B461;
+  border-radius:10rpx;
+  padding: 0rpx;
+  font-size:24rpx;
+  font-weight:bold;
+  color:white;
+  line-height:60rpx;
+}
+
+.time-box {
+  margin-top: 14rpx;
+  margin-left: 516rpx;
+  width:150rpx;
+  height:60rpx;
+}
+
+.time-box button {
+  width:150rpx;
+  height:60rpx;
+  background-color: #00B461;
+  border-radius:10rpx;
+  padding: 0rpx;
+  font-size:24rpx;
+  font-weight:bold;
+  color:white;
+  line-height:60rpx;
+}
+
+.commit-box {
+  margin-top: 256rpx;
+}
+
+.commit-box button {
+  width:540rpx;
+  height:80rpx;
+  background-color: #923179;
+  border-radius:10rpx;
+  padding: 0rpx;
+  font-size:40rpx;
+  font-weight:bold;
+  color:white;
+  line-height:80rpx;
+}
+
+
+button::after {
+  border: none;
+}
+
+
+

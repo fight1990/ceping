@@ -1,0 +1,128 @@
+<!--pages/lights/lights.wxml-->
+<view class="container">
+  <view class="main-view">
+    <view class="title-view">
+      <view class="title-text">
+        <text>答对：</text>
+        <text style="color:#1ED545">{{rightCount}}</text>
+        <text> 题</text>
+      </view>
+      <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
+    </view>
+
+    <view class="time-view">
+      <!-- <image src="../../style/images/daojishi.png"></image>
+      <view class="timer">
+        <text>{{count}}</text>
+      </view> -->
+      <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
+      </view>
+      
+    </view>
+
+   <view class="scroll_box">
+     <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
+      <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="item" wx:for-index="answerIndex">
+        <view wx:if="{{answerIndex == scrId}}" id="pic_{{answerIndex}}" class="item_list" bindtap="move2left" animation="{{ani1}}">
+          <block wx:if="{{answerIndex>=0 && answerIndex<=50}}">
+            <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view"  data-index='{{answerIndex}}'>
+              <block wx:for="{{lights}}" wx:key="index"> 
+                <view class="lights-one" style="background-color:{{index==showPositionArr[0] ? '#058005':'#fff'}}"></view>
+              </block>
+               <text>{{answerIndex}}</text>
+
+            </view>
+          </block>
+
+          <block wx:if="{{answerIndex>=51}}">
+            <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
+              <block wx:for="{{lights}}" wx:key="index"> 
+                <view class="lights-one" style="background-color:{{showPositionArr[index]}}"></view>
+              </block>
+            </view>        
+          </block>
+
+          <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
+            <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+          </view>
+
+        </view>    
+       
+        <view wx:if="{{answerIndex == selectedIndex}}" hidden="{{hideBottom}}" class="bottom-view">
+          <button class="different-button" bindtap="differentTap">不同</button>
+          <view class="line-view"></view>
+          <button class="identical-button" bindtap="identicalTap">相同</button>
+        </view>
+     </block>
+    </scroll-view>
+   </view>
+
+   
+    
+    
+  </view>
+</view>
+
+<view wx:if="{{showIntroduce}}" class="shadow" bindtap="closeIntroduceTap">
+  <view class="introduce">
+    <view class="introduce-head">
+      <view class="introduce-title">
+        <text>专注力交通灯推荐</text>
+      </view>
+      <image class="introduce-close" src="../../style/images/guanbi.png" bindtap="closeIntroduceTap"></image>
+    </view>
+    <image class="introduce-backgroud" src="../../style/images/beiijingkuang.png"></image>
+    <view class="introduce-medium">
+      <view class="introduce-content">
+        <text>专注力交通灯是一款专业的专注力测试 和练习游戏，初期可以有效检测孩子大 脑的选择性注意力，注意力持久度，注 意力转移能力，复杂注意力，冲动控制能力，大脑总执行功能和信息处理速度。长期练习可以提高孩子在学习生活中的注意力，观察力、短期记忆力、反应力、思维力能力水平。</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view hidden="{{hideTipShadow}}" class="shadow" bindtap="cancelTipTap">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel">
+      <image src="../../style/images/guanbi2.png" bindtap="cancelTipTap"></image>
+    </view>
+    <view class="title">
+      <text>确认放弃此次作答</text>
+    </view>
+    <view class="bottom">
+      <button class="give-up" bindtap="giveUpTap">放 弃</button>
+      <button class="go-on" bindtap="goOnTap">继 续</button>
+    </view>
+  </view>
+</view>
+<view hidden="{{hideResultShadow}}" class="shadow" bindtap="cancelResultTap">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel" bindtap="cancelResultTap">
+      <image src="../../style/images/guanbi2.png"></image>
+    </view>
+    <view class="title">
+      <view class="right">
+        <text>答对</text>
+        <text style="color:#E40303">{{rightCount}}</text>
+        <text>题</text>
+      </view>
+      <view class="time" >
+        <text>用时</text>
+        <text style="color:#FB7000">{{globalCount}}</text>
+        <text>秒</text>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="once-more" bindtap="moreTap">再来一次</button>
+      <button open-type="share" class="share-report" bindtap="shareTap">分享查看测试报告</button>
+    </view>
+  </view>
+</view>
+

@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/transition/transition",
+    "pages/index/index",
+    "pages/lights/lights",
+    "pages/guide/guide",
+    "pages/analysis/analysis",
+    "pages/information/information",
+    "pages/test/test",
+    "pages/canvasDemo/canvasDemo",
+    "pages/feedback/feedback",
+    "pages/report/report",
+    "pages/start/start",
+    "pages/logs/logs",
+    "pages/siterupu/siterupu",
+    "pages/kuaisujiyi/kuaisujiyi",
+    "pages/xiaofuhao/xiaofuhao",
+    "pages/zongheceping/zongheceping"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00B461",
+    "navigationBarTitleText": "注意力测评",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,94 @@
+<!--pages/information/information.wxml-->
+<view class="container">
+  <view class="title-box">
+    <text>请关联信息后查看分析报告</text>
+  </view>
+  <view class="tip-box">
+    <text>以下信息填入后不可更改，请准确填写，以便结果的准确性。</text>
+  </view>
+  <view class="name-box">
+    <view class="icon">
+      <image src="../../style/images/xingming.png"></image>
+    </view>
+    <view class="name-title">
+      <text>孩子姓名</text>
+    </view>
+    <input style="text" value="{{name}}" bindinput="nameInput"></input>
+  </view>
+  <view class="sex-box" bindtap="showSexTap">
+    <view class="icon">
+      <image src="../../style/images/xingbie.png"></image>
+    </view>
+    <view class="sex-title">
+      <text>孩子性别</text>
+    </view>
+    <view class="sex">
+      <text style="{{showSex==true?'font-size:32rpx;font-weight:bold;color: #333333;':''}}">{{sex}}</text>
+    </view>
+    <view class="right">
+      <image src="../../style/images/right.png"></image> 
+    </view>
+  </view>
+  <view class="age-box" bindtap="showAgeTap">
+    <view class="icon">
+      <image src="../../style/images/nianling.png"></image>
+    </view>
+    <view class="age-title">
+      <text>孩子年龄</text>
+    </view>
+    <view class="age">
+      <picker mode="date" value="{{age}}" start="1978-01-01" end="" bindchange="bindDateChange">  
+        <view class="picker">  
+          <text style="{{showAge==true?'font-size:32rpx;font-weight:bold;color: #333333;':''}}">{{age}}</text>
+        </view>  
+      </picker> 
+    </view>
+    <view class="right">
+      <image src="../../style/images/right.png"></image> 
+    </view>
+  </view>
+  <view class="phone-box">
+    <view class="icon">
+      <image src="../../style/images/dianhua.png"></image>
+    </view>
+    <view class="phone-title">
+      <text>联系电话</text>
+    </view>
+    <input style="text" placeholder="" value="{{phone}}" placeholder-style="font-size:16px;font-weight:bold;color: #333333;" bindinput="phoneInput"></input>
+  </view>
+  <view class="code-box">
+    <view class="icon">
+      <image src="../../style/images/yanzhengma.png"></image>
+    </view>
+    <view class="code-title">
+      <text>验证码</text>
+    </view>
+    <input style="number" placeholder="" value="{{code}}" bindinput="codeInput" placeholder-style="font-size:16px;font-weight:bold;color: #333333;"></input>
+    <button bindtap="getCodeTap" disabled="{{codeDisabled}}" style="background-color:{{codeDisabled==true?'#999999':''}};color:{{codeDisabled==true?'#fff':''}}">{{hideCountDown==true?'获取验证码':count+'s'}}</button>
+  </view>
+  <!-- <view class="time-box">
+    <button hidden="{{hideCountDown}}">{{count}}s</button>
+  </view> -->
+  <view class="commit-box">
+    <button disabled="{{commitDisable}}" style="background-color:{{commitDisable==true?'#D4D3D3':''}};color:{{commitDisable==true?'#333333':''}};font-weight:{{commitDisable==true?'300':''}};" bindtap="commitTap">提交</button>
+  </view>
+</view>
+<view hidden="{{hideShadow}}" class="shadow">
+  <view class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel">
+      <image src="../../style/images/guanbi2.png"></image>
+    </view>
+    <view class="title">
+      <text>确认放弃此次作答</text>
+    </view>
+    <view class="bottom">
+      <button class="give-up" bindtap="giveUpTap">放 弃</button>
+      <button class="go-on" bindtap="goOnTap">继 续</button>
+    </view>
+  </view>
+</view>
+
+

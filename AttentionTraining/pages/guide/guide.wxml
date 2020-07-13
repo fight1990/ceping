@@ -1,0 +1,136 @@
+<!--pages/guide/guide.wxml-->
+<view class="container">
+  <!-- <view wx:if='{{!isTry}}' class="main-view">
+    <view class="title-view">
+      <view class="title-text">
+        <text>答对：</text>
+        <text style="color:#1ED545">{{rightCount}}</text>
+        <text> 题</text>
+      </view>
+      <image hidden="true" class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
+    </view>
+
+    <view class="time-view">
+      <image src="../../style/images/daojishi.png"></image>
+      <view class="timer">
+        <text>{{count}}</text>
+      </view>
+
+    </view>
+    <view hidden="{{!hideShadow}}" class="lights-view">
+      <view class="lights-one"></view>
+      <view class="lights-two"></view>
+      <view class="lights-three"></view>
+    </view>
+    <view hidden="{{hideResult}}" class="result-view">
+      <image src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+    </view>
+    <view hidden="{{hideBottom}}" class="bottom-view">
+      <button class="different-button">不同</button>
+      <view class="line-view"></view>
+      <button class="identical-button">相同</button>
+    </view>
+  </view> -->
+
+  <view class="main-view">
+    <view class="title-view">
+      <view class="title-text">
+        <text>答对：</text>
+        <text style="color:#1ED545">{{rightCount}}</text>
+        <text> 题</text>
+      </view>
+      <image hidden="true" class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
+    </view>
+
+    <view class="time-view">
+      <!-- <image src="../../style/images/daojishi.png"></image>
+      <view class="timer">
+        <text>{{count}}</text>
+      </view> -->
+      <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
+      </view>
+    </view>
+    <block wx:for="{{answerList}}" wx:key="index" wx:for-item="item" wx:for-index="answerIndex">
+      <view hidden="{{!hideShadowOne}}" wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
+        <block wx:for="{{lights}}" wx:key="index"> 
+                <view class="lights-one" style="background-color:{{index==showPositionArr[0] ? showColor:'#fff'}}"></view>
+        </block>
+
+      </view>
+      <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
+        <image hidden="{{hideBottom || hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+    </view>
+      <view wx:if="{{answerIndex == selectedIndex}}" hidden="{{hideBottom}}" class="bottom-view">
+        <button class="different-button" bindtap="differentTap">不同</button>
+        <view class="line-view"></view>
+        <button class="identical-button" bindtap="identicalTap">相同</button>
+       </view>
+    </block> 
+  </view>
+
+</view>
+
+<view hidden="{{hideShadowOne}}" class="shadow">
+  <view class="lights-view">
+    <view class="lights-one"></view>
+    <view class="lights-two"></view>
+    <view class="lights-three"></view>
+  </view>
+  <view class="tip-one-image">
+    <image src="../../style/images/yuansu.png"></image>
+  </view>
+  <view class="tip-one">
+    <view>
+      <text>请记住亮灯位置</text>
+    </view>   
+  </view>
+  <view class="tip-two" bindtap="hideShadowView">
+    <text>我知道了</text>
+  </view>
+</view>
+
+<view hidden="{{hideShadowTwo}}" class="shadow-two">
+  <view  class="shadow" bindtap="">
+    <view class="tipTwo-one" bindtap="tryTap">
+      <text>试一试</text>
+    </view>
+  <view class="tipTwo-two" bindtap="hideShadowView">
+    <text>判断当前页面图形与前一页
+          是否相同
+    </text>
+  </view>
+  <!-- <view class="tipTwo-one-image">
+    <image src="../../style/images/yuansu2.png"></image>
+  </view> -->
+ </view>
+ <view class="tipTwo-one-image">
+    <image src="../../style/images/yuansu2.png"></image>
+ </view>
+ <view class="bottom-view">
+   <button class="different-button">不同</button>
+   <view class="line-view"></view>
+   <button class="identical-button">相同</button>
+ </view>
+ 
+</view>
+
+
+<view hidden="{{hideShadowThree}}" class="shadow-three" bindtap="hideShadowThreeTap">
+  <view class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang2.png"></image>
+    </view>
+    <view class="cancel">
+      <image src="../../style/images/guanbi2.png" bindtap="hideShadowThreeTap"></image>
+    </view>
+    <view class="title">
+      <text>顺利通过新手历练</text>
+    </view>
+    <button bindtap="startTap">正式开始</button>
+  </view>  
+</view>
+
+
+

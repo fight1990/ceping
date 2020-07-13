@@ -1,0 +1,45 @@
+<!--pages/transition/transition.wxml-->
+<view class="container">
+  <image class="pic_background" src="../../style/images/beijing_03.jpg"></image>
+  <view class="notif">
+    <text>注册通知</text>
+  </view>
+  <view class="tip">
+    <text>我们需要获得您基本信息才能提供更 
+    精确的数据</text>
+  </view>
+  <button class="register" open-type='getUserInfo' bindgetuserinfo="getUserInfoClick">注册完善信息</button>
+  <!-- <button class="register" open-type='getUserInfo' bindtap="registerTap">注册完善信息</button> -->
+  <button class="later" bindtap="laterTap">稍后再填</button>
+
+</view>
+
+<view hidden="{{hideResultShadow}}" class="shadow">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel" bindtap="cancelResultTap">
+      <!-- <image src="../../style/images/guanbi2.png"></image> -->
+    </view>
+    <view class="success">
+      <text wx:if="{{rightCount == 100}}">通关成功</text>
+    </view>
+    <view class="title">
+      <view class="right">
+        <text>答对</text>
+        <text style="color:#E40303">{{rightCount}}</text>
+        <text>题</text>
+      </view>
+      <view class="time" >
+        <text>用时</text>
+        <text style="color:#FB7000">{{globalCount}}</text>
+        <text>秒</text>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="once-more" bindtap="moreTap">再来一次</button>
+      <button open-type="share" class="share-report">分享查看测试报告</button>
+    </view>
+  </view>
+</view>

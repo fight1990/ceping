@@ -1,0 +1,69 @@
+<!--pages/analysis/analysis.wxml-->
+<view class="container">
+  <image class="bgView" src="../../style/images/beijing2.png"></image>
+  <view class="detail">
+    <view class="detail-head">
+      <view class="detail-title">
+        <text class="nickname">{{user.name}}</text>
+        <text class="sex">{{user.sex}}</text>
+        <text class="age">{{user.newAge}}</text>
+        <view class="phone"> 
+          <text>{{user.phone}}</text>
+        </view>
+        
+      </view>
+    </view>
+    <view class="detail-medium">
+
+      <view class="detail-info">
+        <view class="right">
+          <view class="right-head">
+            <image src="../../style/images/tubiao.png"></image>
+            <view class="text">
+              <text>答对/题</text>
+            </view>
+          </view>
+          <view class="count">
+            <text>{{game.score}}</text>
+          </view>
+        </view>
+        <view class="time">
+          <view class="time-head">
+            <image src="../../style/images/tubiao2.png"></image>
+            <view class="text">
+              <text>计时/秒</text>
+            </view>   
+          </view>
+          <view class="count">
+            <text>{{game.times}}</text>
+          </view>
+        </view>
+        <view class="rank">
+          <view class="rank-head">
+            <image src="../../style/images/tubiao3.png"></image>
+            <view class="text">
+              <text>排名/同年龄</text>
+            </view>
+          </view>
+          <view class="count">
+            <text>{{game.scale}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="detail-content" style="{{isX==true?'margin-top: 380rpx;':''}}">
+        <view class="title">
+          <text>{{'《'+game.title+'》'}}</text>
+        </view>
+
+        <view class="content">
+          <text style="text-align-last: justify;">{{game.questions}}</text>
+        </view>  
+      </view>
+    </view>
+    <view class="detail-bottom">
+      <button class="more-button" bindtap="moreTap">再来一次</button>
+
+    </view>
+  </view>
+</view>

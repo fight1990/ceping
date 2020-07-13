@@ -1,0 +1,261 @@
+/* pages/analysis/analysis.wxss */
+
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.bgView {
+  height: 100%;
+  width:100%;
+  position:absolute;
+  z-index: -1;
+}
+
+
+.detail {
+  height: 100%;
+  width: 700rpx;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.detail-head {
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  border-bottom: 2rpx solid #CCCCCC;
+}
+
+.detail-title {
+  align-items: center;
+}
+
+.detail-title text{
+  height:72rpx;
+  font-size:30rpx;
+  font-weight:bold;
+  color:#333333;
+  line-height:72rpx;
+}
+
+.name {
+  margin-left: 6rpx;
+}
+
+.sex {
+  margin-left: 30rpx;
+}
+
+.age {
+  margin-left: 30rpx;
+}
+
+.phone {
+  position: absolute;
+  margin-top: -72rpx;
+  margin-left: 510rpx;
+  height:72rpx;
+  font-size:30rpx;
+  font-weight:bold;
+  color:#333333;
+  line-height:72rpx;
+}
+
+.detail-medium {
+  width: 100%;
+}
+.detail-time {
+  margin-top: 30rpx;
+  margin-right: 34rpx;
+  border-left: 4rpx solid #00B461;
+}
+
+.detail-time text {
+  padding-left: 10rpx;
+  height: 34rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  line-height: 34rpx;
+}
+
+.detail-info {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.right-head {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  height: 56rpx;
+  font-size:28rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(113,113,113,1);
+  line-height:56rpx;
+}
+.right-head image {
+  height: 42rpx;
+  width: 42rpx;
+}
+.right-head .text {
+  margin-left: 6rpx;
+}
+
+.right .count {
+  margin-top: 40rpx;
+  font-size:42rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(51,51,51,1);
+  line-height:50rpx;
+}
+
+.time {
+  margin-left: 100rpx;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.time-head {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  height: 56rpx;
+  font-size:28rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(113,113,113,1);
+  line-height:56rpx;
+}
+
+.time-head image {
+  height: 42rpx;
+  width: 42rpx;
+}
+
+.time-head .text {
+  margin-left: 4rpx;
+}
+
+
+.time .count {
+  margin-top: 40rpx;
+  font-size:42rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(51,51,51,1);
+  line-height:50rpx;
+}
+
+.rank {
+  margin-left: 100rpx;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.rank-head {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  height: 56rpx;
+  font-size:28rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(113,113,113,1);
+  line-height:56rpx;
+}
+
+.rank-head image {
+  height: 34rpx;
+  width: 46rpx;
+}
+
+.rank-head .text {
+  margin-left: 4rpx;
+}
+
+.rank .count {
+  margin-top: 40rpx;
+  font-size:42rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(51,51,51,1);
+  line-height:50rpx;
+}
+
+
+.detail-content {
+  margin-top: 290rpx;
+  /* background-color:rgba(0,0,0,0.1); */
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  /* opacity: 0; */
+}
+
+.detail-content .title {
+  font-size:36rpx;
+  font-family:Adobe Heiti Std;
+  font-weight:normal;
+  color:rgba(0,0,0,1);
+  line-height:50rpx;
+}
+
+.detail-content .content{
+  margin-top: 40rpx; 
+  font-size:34rpx;
+  font-family:SimHei;
+  font-weight:400;
+  color:rgba(254,255,222,1);
+  line-height:44rpx;
+}
+
+
+.detail-content .content text{
+  text-align: justify;
+}
+.detail-content .content text::after{
+  width: 100%;
+  display: inline-block;
+  content: '';
+}
+
+
+.more-button {
+  width: 540rpx;
+  height: 80rpx;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  color: #00A455;
+  background-color: #fff;
+  padding: 0rpx;
+  font-weight: 400;
+  border-radius: 10rpx;  
+}
+
+.detail-bottom {
+  position: fixed;
+  bottom: 80rpx;
+
+
+}
+
+button::after {
+  border: none;
+}

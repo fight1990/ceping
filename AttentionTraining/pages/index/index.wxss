@@ -1,0 +1,125 @@
+/**index.wxss**/
+
+.container {
+  padding: 0rpx;
+  margin: 0rpx;
+  width: 100%;
+  height: 100%;
+}
+
+.startView {
+  position: fixed;
+  padding: 0rpx;
+  margin: 0rpx;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: #FBFBFB;
+}
+
+.startView .title {
+  margin-top: 384rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.startView image {
+  margin-top: 50rpx;
+  width: 200rpx;
+  height: 40rpx;
+}
+
+.indexView {
+  padding: 0rpx;
+  margin: 0rpx;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.head-view {
+  height: 80rpx;
+  width: 100%;
+  margin-top: 80rpx;
+  margin-left: 40rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.head-image {
+  height: 80rpx;
+  width: 80rpx;
+}
+
+.head-text {
+  height: 80rpx;
+  margin-left: 20rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+  line-height: 80rpx;
+}
+
+.middle-view {
+  margin-top: 40rpx;
+  margin-left: 40rpx;
+  height: 32rpx;
+  width: 100%;
+  align-items: center
+}
+
+.middle-view text {
+  height: 36rpx;
+  margin-left: 20rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  line-height: 36rpx;
+}
+
+.tip-view {
+  margin-top: 32rpx;
+  margin-left: 40rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tip-image {
+  height: 32rpx;
+  width: 32rpx;
+  margin-top: -28rpx;
+  margin-left: 20rpx;
+}
+
+.tip-text {
+  margin-left: 14rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #666666;
+}
+
+.agree-view {
+    margin-top: 72%;
+}
+
+.agree-button {
+  width: 540rpx;
+  height: 80rpx;
+  margin-left: 105rpx;
+  font-size: 40rpx;
+  line-height: 80rpx;
+  color: white;
+  background-color: #923179;
+  padding: 0rpx;
+  font-weight: bold;
+  border-radius: 10rpx;  
+}
+
+button::after {
+  border: none;
+}

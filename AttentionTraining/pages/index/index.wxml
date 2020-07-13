@@ -1,0 +1,29 @@
+<!--index.wxml  首页  -->
+<view class="container">
+
+  <view wx:if="{{loading}}" class='startView' >
+    <view class="title">
+      <text>欢迎来到--</text>
+      <text>儿童注意力训练</text>
+      <image src="../../style/images/loading.gif"></image>
+    </view>
+  </view>
+
+  <view wx:if="{{!loading}}" class="indexView">
+      <view class="head-view">
+        <image class="head-image" src="../../style/images/touxiang.png"></image>
+        <text class="head-text">儿童注意力 申请获得</text>
+      </view>
+      <view class="middle-view">
+        <text>以下权限</text>
+      </view>
+      <view class="tip-view">
+        <image class="tip-image" src="../../style/images/xuanze.png"></image>
+        <text class="tip-text">获取您的公开信息(昵称、头像、地区、性别
+        等)</text>
+      </view>
+      <view class="agree-view">
+        <button class="agree-button" open-type='getUserInfo' bindgetuserinfo='getUserInfoClick' hover-class='none'>同意</button>
+      </view>    
+  </view>
+</view>
