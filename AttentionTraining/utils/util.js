@@ -14,6 +14,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+function sortArray(arr) {
+  for(let i = 0,len = arr.length; i < len; i++){
+    let currentRandom = parseInt(Math.random() * (len - 1));
+    let current = arr[i];
+    arr[i] = arr[currentRandom];
+    arr[currentRandom] = current;
+  }
+  return arr
+}
+
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  sortArray: sortArray
 }

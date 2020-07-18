@@ -30,6 +30,8 @@ App({
     //   }
     // })
     // this.getOpenId()
+
+
   },
   onShow: function (options) {
     var that = this
@@ -43,7 +45,37 @@ App({
         that.globalData.windowHeight = res.windowHeight
       },
     })
+
+    this.onGetSysInfo()
+
   },
+
+  // 获取设备信号 底部适配
+  onGetSysInfo() {
+    // 先缓存获取
+    let isiPhoneX = wx.getStorageSync('isiPhoneX') || false
+    // 缓存没有 再获取
+    if (!isiPhoneX) {
+        wx.getSystemInfo({
+            success: res => {
+                // 手机品牌
+                let modelmes = res.model;
+                // 如果是 X,XS,XR,XS MAX 均可适配
+                if (modelmes.indexOf('iPhone X') != -1) {
+                    // 存储型号
+                    this.globalData.isiPhoneX = true
+                    wx.setStorageSync('isiPhoneX', true)
+                    // 加入回调
+                    this.sysCallback && this.sysCallback()
+                }
+            },
+        })
+    } else {
+        this.globalData.isiPhoneX = isiPhoneX
+    }
+  },
+
+
   getOpenId: function () {
     var that = this
     wx.login({
@@ -84,6 +116,7 @@ App({
     windowHeight: 0,
     isX: false,
     windowWidth: 0,
-    isIOS: false
+    isIOS: false,
+    isiPhoneX: false
   }
 })
