@@ -1,2 +1,129 @@
 <!--pages/siterupu/siterupu.wxml-->
-<text>pages/siterupu/siterupu.wxml</text>
+<view class="container">
+  <view class="main-view">
+
+    <view class="time-view">
+      <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
+      </view>
+      
+    </view>
+
+   <view class="scroll_box">
+     <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="item" wx:for-index="answerIndex">
+      <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
+        <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
+          
+
+          <block wx:if="{{answerIndex>=0}}">
+            <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
+              <view class="tip">文字颜色与其表达的意思是否相同?</view>
+              <view class="color">红</view>
+            </view>        
+          </block>
+
+          <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
+            <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+            <view hidden="{{!hideResult}}" class="result-tip">
+              <!-- <text wx:if="{{answerIndex == 0}}">请记住交通灯的位置</text>
+              <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text> -->
+            </view>
+          </view>
+
+        </view>    
+      </scroll-view> 
+      <view wx:if="{{answerIndex == selectedIndex}}" class="bottom-view">
+        <button class="different-button" bindtap="differentTap">不同</button>
+        <view class="line-view"></view>
+        <button class="identical-button" bindtap="identicalTap">相同</button>
+      </view>
+    </block>
+   </view>
+
+   
+    
+    
+  </view>
+</view>
+
+<!-- <view wx:if="{{showIntroduce}}" class="shadow" bindtap="closeIntroduceTap">
+  <view class="introduce">
+    <view class="introduce-head">
+      <view class="introduce-title">
+        <text>专注力交通灯推荐</text>
+      </view>
+      <image class="introduce-close" src="../../style/images/guanbi.png" bindtap="closeIntroduceTap"></image>
+    </view>
+    <image class="introduce-backgroud" src="../../style/images/beiijingkuang.png"></image>
+    <view class="introduce-medium">
+      <view class="introduce-content">
+        <text decode="{{true}}">&emsp;&emsp;专注力交通灯是一款专注力测试和练习游戏。前期使用可以有效检测孩子大脑的选择性注意力，注意力持久度，注意力转移能力，复杂注意力，和冲动控制能力。长期练习可以提高孩子在学习生活中的注意力，观察力，短期记忆力，反应力，和思维能力。</text>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+<view hidden="{{hideTipShadow}}" class="shadow" bindtap="cancelTipTap">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel">
+      <image src="../../style/images/guanbi2.png" bindtap="cancelTipTap"></image>
+    </view>
+    <view class="title">
+      <text>确认放弃此次作答</text>
+    </view>
+    <view class="bottom">
+      <button class="give-up" bindtap="giveUpTap">放 弃</button>
+      <button class="go-on" bindtap="goOnTap">继 续</button>
+    </view>
+  </view>
+</view>
+<view hidden="{{hideThreeShadow}}" class="shadow" bindtap="">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel">
+      <!-- <image src="../../style/images/guanbi2.png" bindtap=""></image> -->
+    </view>
+    <view class="title">
+      <text>请认真答题</text>
+    </view>
+    <view class="bottom">
+      <button class="other-once-more" bindtap="moreTap">再来一次</button>
+    </view>
+  </view>
+</view>
+<view hidden="{{hideResultShadow}}" class="shadow">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel" bindtap="cancelResultTap">
+      <!-- <image src="../../style/images/guanbi2.png"></image> -->
+    </view>
+    <view class="success">
+      <text wx:if="{{rightCount == 100}}">通关成功</text>
+    </view>
+    <view class="title">
+      <view class="right">
+        <text>答对</text>
+        <text style="color:#E40303">{{rightCount}}</text>
+        <text>题</text>
+      </view>
+      <view class="time" >
+        <text>用时</text>
+        <text style="color:#FB7000">{{globalCount}}</text>
+        <text>秒</text>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="once-more" bindtap="moreTap">再来一次</button>
+      <button open-type="share" class="share-report">分享查看测试报告</button>
+    </view>
+  </view>
+</view>
+

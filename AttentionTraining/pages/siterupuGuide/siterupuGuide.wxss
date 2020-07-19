@@ -1,4 +1,4 @@
-/* pages/siterupu/siterupu.wxss */
+/* pages/siterupuGuide/siterupuGuide.wxss */
 
 .container {
   padding: 0rpx;
@@ -13,28 +13,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.title-view {
-  margin-top: 26rpx;
-  width: 750rpx;
-  height: 54rpx;
-  margin-left: 0rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.title-text {
-  margin-left: 28rpx;
-}
-
-.title-image {
-  position: absolute;
-  width: 52rpx;
-  height: 52rpx;
-  margin-top: 0rpx;
-  margin-left: 670rpx;
 }
 
 .time-view {
@@ -215,87 +193,130 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.75);
-}
 
-/* .introduce {
-  margin-top: 150rpx;
-  margin-left: 75rpx;
-  background-color: white;
-  height: 780rpx;
-  width: 600rpx;
-  border-radius: 10rpx;
-}
-
-.introduce-head {
-  background-color: #00B461;
-  height: 80rpx;
   display: flex;
-  flex-direction: row; 
-  align-items: center;
-  border-radius: 10rpx  10rpx   0rpx  0rpx;
+  flex-direction: column;
+  /* align-items: center; */
 }
 
-.introduce-title {
-  margin-left: 160rpx;
-  width: 280rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.shadow .lights-view {
+  margin-left: 92rpx;
+  margin-top: 366rpx;
+  width: 566rpx;
+  height: 292rpx;
+  border:1px dashed white;
 }
 
-.introduce-title text{
-  height:72rpx;
-  font-size:36rpx;
+.shadow .lights-view .segment {
+  margin-top: 26rpx;
+  width: 536rpx;
+  height: 240rpx;
+  margin-bottom: 26rpx;
+  background-color: #FF0000;  
+}
+
+
+.shadow .color {
+  margin-left: 307rpx;
+  background-color: #D9D9D9;
+  border-radius: 4rpx; 
+  margin-top: 20rpx;
+  height: 106rpx;
+  width: 136rpx;
+  font-weight:600;
+  color:rgba(51,51,51,1);
+  border:1px dashed white;
+  line-height: 106rpx;
+  font-size: 98rpx;
+  text-align: center;
+}
+
+.shadow .tip-one-image {
+  position: fixed;
+  bottom: 144rpx;
+  margin-left: 60rpx;
+}
+
+.shadow .tip-one-image image {
+  width: 30rpx;
+  height: 120rpx;
+}
+
+.shadow .tip-two-image {
+  margin-top: -110rpx;
+  margin-left: 540rpx;
+}
+
+.shadow .tip-two-image image {
+  width: 104rpx;
+  height: 64rpx;
+}
+
+.shadow .tip-one {
+  position: fixed;
+  bottom: 290rpx;
+  margin-left: 36rpx;
+}
+
+.shadow .tip-one text {
+  height: 36rpx;
+  font-size:32rpx;
   font-weight:bold;
   color:white;
-  line-height:72rpx; 
+  line-height:36rpx;
 }
 
-.introduce-close {
-  margin-left: 96rpx;
-  height: 36rpx;
-  width: 36rpx;
+.shadow .tip-two {
+  position: fixed;
+  bottom: 200rpx;
+  margin-left: 130rpx;
+  width: 200rpx;
+  height: 50rpx;
+  border:2px dashed white;
+  border-radius:10rpx;
+  text-align: center;
 }
 
-.introduce-backgroud {
-  position:absolute;
-  height: 700rpx;
-  width: 600rpx;
+.shadow .tip-two text {
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
 }
 
-.introduce-medium {
-  position:relative;
-  height: 700rpx;
-  width: 600rpx;
-}
-.introduce-time {
-  margin-top: 40rpx;
-  margin-left: 20rpx;
-  margin-right: 34rpx;
-  border-left: 4rpx solid #00B461;
+.shadow .tip-three {
+  margin-top: 10rpx;
+  margin-left: 530rpx;
+  width: 220rpx;
+  height: 50rpx;
+  text-align: left; 
 }
 
-.introduce-time text {
-  padding-left: 10rpx;
-  height: 34rpx;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333333;
-  line-height: 34rpx;
+.tip-three text {
+  /* display：block;
+  white-space：pre-line; */
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
 }
 
-.introduce-content {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  margin-right: 34rpx;
+.shadow .tip-four {
+  margin-top: 110rpx;
+  margin-left: 560rpx;
+  width: 150rpx;
+  height: 50rpx;
+  border:2px dashed white;
+  border-radius:10rpx;
+  text-align: center;
 }
 
-.introduce-content text{
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #666666;
-  line-height:32rpx;
-} */
+.tip-four text {
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
 
 
 
@@ -449,63 +470,6 @@
   border-radius: 0 10rpx 10rpx 0;
 }
 
-.introduce {
-  margin-top: 150rpx;
-  margin-left: 75rpx;
-  background-color: white;
-  height: 780rpx;
-  width: 600rpx;
-  border-radius: 10rpx;
-}
-
-.introduce-head {
-  background-color: #00B461;
-  height: 80rpx;
-  width: 600rpx;
-  border-radius: 10rpx  10rpx   0rpx  0rpx;
-}
-
-.introduce-title {
-  width: 600rpx;
-  display: flex;
-  flex-direction: row; 
-  align-items: center;
-}
-
-.introduce-title text{
-  height:72rpx;
-  font-size:36rpx;
-  font-weight:bold;
-  color:white;
-  line-height:72rpx; 
-  text-align: center;
-}
-
-.introduce-close {
-  position: absolute;
-  margin-left: 534rpx;
-  height: 36rpx;
-  width: 36rpx;
-}
-
-.introduce-backgroud {
-  position:absolute;
-  height: 700rpx;
-  width: 600rpx;
-}
-
-.introduce-content {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  margin-right: 34rpx;
-}
-
-.introduce-content text{
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #666666;
-  line-height:32rpx;
-}
 
 
 button::after {
@@ -531,6 +495,71 @@ button::after {
   height: 260rpx; 
 }
 .progress_canvas{
+  position: absolute;
+  margin-left: 0rpx;
+  margin-top: 0rpx;
+  width:260rpx;
+  height: 260rpx; 
+}
+
+
+ /* 过渡页面 */
+.containerTwo {
+  padding: 0rpx;
+  margin: 0rpx;
+  width: 100%;
+  height: 100%;
+}
+
+.guodu {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 310rpx;
+}
+
+.guodu .tip {
+  height:52rpx;
+  font-size:50rpx;
+  font-weight:600;
+  color:rgba(51,51,51,1);
+  
+  text-align: center;
+}
+
+.guodu .tip text {
+  line-height:52rpx;
+}
+
+
+.time {
+  margin-top: 250rpx;
+  width: 130rpx;
+  height: 130rpx;
+  background-color: white;
+}
+
+
+.progress_boxTwo{
+  position: relative;
+  width:130rpx;
+  height:130rpx;  
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 65rpx;
+}
+.progress_bgTwo{
+  position: absolute;
+  margin-left: 0rpx;
+  margin-top: 0rpx;
+  width:260rpx;
+  height: 260rpx; 
+}
+.progress_canvasTwo{
   position: absolute;
   margin-left: 0rpx;
   margin-top: 0rpx;

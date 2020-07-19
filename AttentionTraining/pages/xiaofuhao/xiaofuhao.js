@@ -1,6 +1,7 @@
 // pages/xiaofuhao/xiaofuhao.js
 
 var api = require("../../Api/api.js")
+const ctx2 = wx.createCanvasContext('runCanvas')
 
 var util = require("../../utils/util")
 

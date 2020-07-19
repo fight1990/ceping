@@ -1,0 +1,164 @@
+<!--pages/xiaofuhaoGuide/xiaofuhaoGuide.wxml-->
+<view hidden="{{!hideGuoduye}}"  class="container">
+
+  <view class="main-view">
+    <view class="time-view">
+      <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
+      </view>      
+    </view>
+  </view>
+
+
+    <view class="scroll_box">
+     <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="" wx:for-index="answerIndex">
+      <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
+        <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
+          <view class="root">
+            <view class='table'>
+              <view class="section-top">
+                <block wx:for="{{symbolArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                   <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
+                       <text style="text-align: center; line-height: 72rpx;">{{item}}</text>
+                   </view>        
+                </block>
+              </view>
+
+              <view class="section2">
+                 <block wx:for="{{orignalArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                     <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
+                        <input value="{{item}}" class="{{index == symbolArr.length-1 ? 'input2 end2 ' : 'input2 '}}" disabled />
+                     </view>       
+                 </block>
+              </view>
+            </view>
+          </view>
+
+          <view class='table2'>
+            <view class="section-top">
+              <block wx:for="{{numberArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                 <view class="{{index == numberArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx; ">
+                     <text style="text-align: center; line-height: 88rpx;">{{item}}</text>
+                 </view>
+        
+              </block>
+            </view>
+
+            <view class="section2">
+              <block wx:for="{{numberArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                <view class="{{index == numberArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx;" >
+                   <input wx:if="{{index<=1}}" type="" value="{{item}}" class="{{index == numberArr.length-1 ? 'input2 end2 ' : 'input2 '}}" style="width: 114rpx; height: 88rpx;" disabled />
+
+                  <input wx:else focus bindinput="input" type="number" value="{{}}" class="{{index == numberArr.length-1 ? 'input2 end2 ' : 'input2 '}}"  style="width: 114rpx; height: 88rpx;" />
+
+                </view>       
+              </block>
+            </view>
+          </view>
+
+
+        </view>    
+      </scroll-view> 
+    </block>  
+  </view>
+
+
+
+  <!-- 底部键盘 -->
+  <view class="footer">
+    <view class="lineOne">
+      <button class="btnOne" bindtap="btnTap">1</button>
+      <button class="btnOne">2</button>
+      <button class="btnOne">3</button>
+      <button class="btnOne">4</button>
+    </view>
+    <view class="lineTwo">
+      <button class="btnTwo">5</button>
+      <button class="btnTwo">6</button>
+      <button class="btnTwo">7</button>
+    </view>
+    <view class="lineTwo">
+      <button class="btnTwo">8</button>
+      <button class="btnTwo">9</button>
+      <button class="btnTwo">0</button>
+    </view>
+  </view>
+
+</view>
+
+
+
+<view hidden="{{hideShadowOne}}" class="shadow">
+
+  <view class="tip-one-view">
+    <view class="one" style="">%</view>
+    <view class="two" style=""></view>
+  </view>
+  <view class="tip-one-image">
+    <image src="../../style/images/xiaoguhaoGuide_518.png"></image>
+  </view>
+
+  <view class="tip-one">
+    <text>记住这个符号</text>
+  </view>
+  <view class="tip-one-next" bindtap="hideShadowOneView">
+    <text>下一步</text>
+  </view>
+</view>
+
+
+
+<view hidden="{{hideShadowTwo}}" class="shadow">
+
+  <view class="tip-two-view">
+    <view class="one" style="">%</view>
+    <view class="two" style=""></view>
+  </view>
+  <view class="tip-two-image">
+    <image src="../../style/images/xiaofuhaoGuide_2_518.png"></image>
+  </view>
+  <view class="tip-two">
+    <text>找到相同的符号 
+        并记住符号对应的数字
+    </text>
+  </view>
+
+  <view class="tip-two-next" bindtap="hideShadowTwoView">
+    <text>下一步</text>
+  </view>
+</view>
+
+<view hidden="{{hideShadowThree}}" class="shadow">
+
+  <view class="tip-three-view">
+    <view class="one" style="">5</view>
+  </view>
+  <view class="tip-three-image">
+    <image src="../../style/images/xiaofuhaoGuide_3_518.png"></image>
+  </view>
+  <view class="tip-three">
+    <text>选择数字输入</text>
+  </view>
+
+  <view class="tip-three-next" bindtap="hideShadowThreeView">开始</view>
+</view>
+
+
+<view hidden="{{hideGuoduye}}" class="containerTwo">
+  <view class="guodu" >
+    <view class="tip">
+      <text>
+        交通灯答题结束 
+        进入小符号测验
+      </text>
+      
+    </view>
+    <view class="time">
+      <view class='progress_boxTwo'>
+        <canvas class="progress_bgTwo"   canvas-id="canvasProgressbgTwo">  </canvas> 
+        <canvas class="progress_canvasTwo" canvas-id="secondCanvasTwo"></canvas>
+      </view>      
+    </view>
+  </view>
+</view>

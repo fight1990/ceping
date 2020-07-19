@@ -15,7 +15,7 @@
   <view class="scroll_box">
      <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="" wx:for-index="answerIndex">
       <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
-        <view id="pic_{{answerIndex}}" class="root" wx:if="{{answerIndex == selectedIndex}}">
+        <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
           <view class="root">
             <view class='table'>
               <view class="section-top">
@@ -63,14 +63,7 @@
     </block>  
   </view>
 
-  <!-- <view class="transition">
-    <view class="time-view">
-      <view class='progress_box'>
-          <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
-          <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
-      </view>      
-    </view>
-  </view> -->
+ 
 
   <!-- <view class="guodu" >
     <view>1222222222222222222</view>
@@ -81,6 +74,20 @@
       </view>      
     </view>
   </view> -->
+
+</view>
+
+
+<view class="containerTwo">
+  <view class="guodu" >
+    <view class="tip">答题结束，进入二级测试</view>
+    <view class="time">
+      <view class='progress_box'>
+        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
+        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
+      </view>      
+    </view>
+  </view>
 
 </view>
 
