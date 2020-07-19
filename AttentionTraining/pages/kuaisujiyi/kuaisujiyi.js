@@ -40,6 +40,7 @@ var bR = r - 8 * lineWidth;
 var soffset = -(PI / 2); // 圆动画起始位置
 var circleLock = true; // 起始动画锁
 var lastFrameTime = 0;
+var rotateNumber = 0;//旋转度数
 
 Page({
 
@@ -78,6 +79,7 @@ Page({
     gameid: 0,
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
+    animationData: {}
   },
 
   /**
@@ -726,6 +728,27 @@ Page({
     } else {
       that.moreTap()
     }
+
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'linear',
+    })
+    this.animation = animation
+    var next = true;
+    //连续动画关键步骤
+    setInterval(function () {
+      if (next) {
+        this.animation.scale(0.95).step() 
+        next = !next;
+      } else {
+        this.animation.scale(1).step()
+        next = !next;
+      }
+
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 500)
   },
 
   /**
@@ -905,7 +928,8 @@ Page({
   clearData: function() {
     nowrange = range;
     nowdata = 0;
-    lastFrameTime = 0
+    lastFrameTime = 0;
+    rotateNumber = 0;
   },
   drawWaveFlow: function() {
     this.abortAnimationFrame(tid);
@@ -942,6 +966,7 @@ Page({
     // 写字
     this.drawText();
     ctxWave.draw();
+
     tid = this.doAnimationFrame(this.drawWaveFlow);
   },
   doAnimationFrame: function(callback) {

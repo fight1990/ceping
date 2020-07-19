@@ -17,7 +17,7 @@
             <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
               <view class="waterview">
                   <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
-                  <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
+                  <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
               </view>
             </view>        
           </block>
