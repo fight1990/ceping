@@ -7,14 +7,6 @@
         <text style="color:#1ED545">{{rightCount}}</text>
         <text> 题</text>
       </view>
-      <!-- <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image> -->
-    </view>
-
-    <view class="time-view">
-      <view class='progress_box'>
-        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
-        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
-      </view>
     </view>
 
    <view class="scroll_box">
@@ -23,15 +15,15 @@
         <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
           <block wx:if="{{answerIndex>=0}}">
             <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
-              <!-- <block wx:for="{{lights}}" wx:key="index"> 
-                <view class="lights-one" style="background-color:{{showPositionArr[index]}}"></view>
-              </block> -->
+              <view class="waterview">
+                  <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
+              </view>
             </view>        
           </block>
           <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
             <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
             <view hidden="{{!hideResult}}" class="result-tip">
-              <text wx:if="{{answerIndex == 0}}">请记住交通灯的位置</text>
+              <text wx:if="{{answerIndex == 0}}">请记住图案的颜色</text>
               <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text>
             </view>
           </view>
@@ -52,7 +44,7 @@
   <view class="introduce">
     <view class="introduce-head">
       <view class="introduce-title">
-        <text>专注力交通灯推荐</text>
+        <text>快速记忆</text>
       </view>
       <image class="introduce-close" src="../../style/images/guanbi.png" bindtap="closeIntroduceTap"></image>
     </view>

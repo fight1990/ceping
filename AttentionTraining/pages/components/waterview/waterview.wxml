@@ -1,4 +1,0 @@
-<!--pages/components/waterview.wxml-->
-<view class="container">
-  <canvas canvas-id='canvasArcCir' width='250' height='250'></canvas>
-</view>
