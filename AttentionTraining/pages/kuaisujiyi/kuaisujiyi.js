@@ -3,6 +3,7 @@ var api = require("../../Api/api.js")
 var utils=require('../../utils/util.js');
 const util = require("../../utils/util.js");
 const ctxWave = wx.createCanvasContext('canvasArcCir')
+const ctxGraph = wx.createCanvasContext('canvasgraph')
 
 var tid;
 var M = Math;
@@ -825,32 +826,46 @@ Page({
   },
   drawText: function() {
     ctxWave.globalCompositeOperation = 'source-over';
-    var size = 45;
+    var size = 18;
     ctxWave.font = 'bold ' + size + 'px Microsoft Yahei';
     var number = (nowdata.toFixed(2) * 100).toFixed(0);
-    var txt = number+ '%';
+    var txt = "颜色是否与前面相同";
+    //number+ '%';
     var fonty = r + size / 2;
     var fontx = r - size * 0.8;
-    
-    if (number >= 50)
-    {
-      ctxWave.fillStyle = "#FFFFFF";
-    }
-    else{
-      ctxWave.fillStyle = "#38D560";
-    }
+  
     ctxWave.textAlign = 'center';
     ctxWave.textBaseline = 'middle'
     ctxWave.fillText(txt, r , r )
   },
-  //最外面淡黄色圈
-  drawCircle: function() {
-    ctxWave.beginPath();
-    ctxWave.lineWidth = 15;
-    ctxWave.strokeStyle = '#fff89d';
-    ctxWave.arc(r, r, cR + 7, 0, 2 * Math.PI);
-    ctxWave.stroke();
-    ctxWave.restore();
+  drawTriangle: function() {
+    ctxGraph.beginPath();
+    ctxGraph.lineWidth = 15;
+    ctxGraph.moveTo(r, (r-cR)/2.0)
+    ctxGraph.lineTo(cR,(r-cR)*2.0)
+    ctxGraph.lineTo(r+(r-cR), (r-cR)*2.0)
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
+
+    ctxGraph.beginPath();
+    ctxGraph.moveTo((r-cR)/2.0, r)
+    ctxGraph.lineTo((r-cR)*2.0, r-(r-cR))
+    ctxGraph.lineTo((r-cR)*2.0, r+(r-cR))
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
+
+    ctxGraph.beginPath();
+    ctxGraph.moveTo((r+cR+(r-cR)/2.0), r)
+    ctxGraph.lineTo((r+cR-(r-cR)), r-(r-cR))
+    ctxGraph.lineTo((r+cR-(r-cR)), r+(r-cR))
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
   },
   //灰色圆圈
   grayCircle: function() {
@@ -862,16 +877,6 @@ Page({
     ctxWave.restore();
     ctxWave.beginPath();
   },
-  //橘黄色进度圈
-  orangeCircle: function() {
-    ctxWave.beginPath();
-    ctxWave.strokeStyle = '#fbdb32';
-    //使用这个使圆环两端是圆弧形状
-    ctxWave.lineCap = 'round';
-    ctxWave.arc(r, r, cR - 5, 0 * (Math.PI / 180.0) - (Math.PI / 2), (nowdata * 360) * (Math.PI / 180.0) - (Math.PI / 2));
-    ctxWave.stroke();
-    ctxWave.save()
-  },
   //裁剪中间水圈
   clipCircle: function() {
     ctxWave.beginPath();
@@ -881,17 +886,26 @@ Page({
   //渲染canvas
   render: function() {
     ctxWave.clearRect(0, 0, oW, oH);
-    //最外面淡黄色圈
-    // this.drawCircle();
+    ctxGraph.clearRect(0, 0, oW, oH);
+    this.clearData();
+    //绘制形状图
+    this.drawTriangle();
+    ctxGraph.draw();
+
     //灰色圆圈  
     this.grayCircle();
-    //橘黄色进度圈
-    // this.orangeCircle();
     //裁剪中间水圈  
     this.clipCircle();
     ctxWave.save();
     this.drawWaveFlow();
     ctxWave.draw();
+
+  },
+
+  clearData: function() {
+    nowrange = range;
+    nowdata = 0;
+    lastFrameTime = 0
   },
   drawWaveFlow: function() {
     this.abortAnimationFrame(tid);
