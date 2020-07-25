@@ -1,6 +1,46 @@
 // pages/kuaisujiyi/kuaisujiyi.js
 var api = require("../../Api/api.js")
-const ctx2 = wx.createCanvasContext('runCanvas')
+var utils=require('../../utils/util.js');
+const util = require("../../utils/util.js");
+const ctxWave = wx.createCanvasContext('canvasArcCir')
+const ctxGraph = wx.createCanvasContext('canvasgraph')
+
+var tid;
+var M = Math;
+var Sin = M.sin;
+var Cos = M.cos;
+var Sqrt = M.sqrt;
+var Pow = M.pow;
+var PI = M.PI;
+var Round = M.round;
+var oW =  600.0 / util.getRpx() * 1.0;
+var oH =  600.0 / util.getRpx() * 1.0;
+// 线宽
+var lineWidth = 2;
+// 大半径
+var r = (oW / 2);
+var cR = r - 10 * lineWidth;
+ctxWave.beginPath();
+ctxWave.lineWidth = lineWidth;
+// 水波动画初始参数
+var axisLength = 2 * r - 16 * lineWidth;  // Sin 图形长度
+var unit = axisLength / 9; // 波浪宽
+var range = .4 // 浪幅
+var nowrange = range;
+var xoffset = 8 * lineWidth; // x 轴偏移量
+
+var data = ~~(100) / 100;   // 数据量
+
+var sp = 0; // 周期偏移量
+var nowdata = 0;
+var waveupsp = 0.006; // 水波上涨速度
+// 圆动画初始参数
+var arcStack = [];  // 圆栈
+var bR = r - 8 * lineWidth;
+var soffset = -(PI / 2); // 圆动画起始位置
+var circleLock = true; // 起始动画锁
+var lastFrameTime = 0;
+var rotateNumber = 0;//旋转度数
 
 Page({
 
@@ -39,6 +79,7 @@ Page({
     gameid: 0,
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
+    animationData: {}
   },
 
   /**
@@ -51,20 +92,6 @@ Page({
     })
     that.data.share = false
   },
-
-  drawProgressbg: function () {
-    // 使用 wx.createContext 获取绘图上下文 context
-    var ctx = wx.createCanvasContext('canvasProgressbg')
-    ctx.setLineWidth(10);// 设置圆环的宽度
-    ctx.setStrokeStyle('#a4a4a4'); // 设置圆环的颜色
-    ctx.setLineCap('round') // 设置圆环端点的形状
-    ctx.beginPath();//开始一个新的路径
-    ctx.arc(65, 65, 35, 0, 2 * Math.PI, false);
-    //设置一个原点(100,100)，半径为90的圆的路径到当前路径
-    ctx.stroke();//对当前路径进行描边
-    ctx.draw();
-  },
-
   /**
    * 暂停倒计时
    */
@@ -79,7 +106,6 @@ Page({
    */
   startTimer: function () {
     var that = this
-    // that.globalCountDown()
     var param = { isAnswer: that.data.isAnswer }
     that.data.suspend = true
     clearInterval(that.data.timer)
@@ -318,7 +344,6 @@ Page({
       }, 1000);
     }
   },
-
   /**
    * 下一题
    */
@@ -381,13 +406,14 @@ Page({
         break
       }
     }
+    
     if (position1 == current1) {
       that.data.isSame = true
     } else {
       that.data.isSame = false
     }
     var param = { isAnswer: that.data.isAnswer }
-    that.countDown(param)
+    // that.countDown(param)
   },
 
   /**
@@ -441,10 +467,7 @@ Page({
 
     return colorArr
   },
-
-
-
-  /**
+/**
    * 出题计时器
    */
   countDown: function (param) {
@@ -538,7 +561,6 @@ Page({
       }, 1000)
     })  
   },
-
   /**
    * 判断是否是最后一题
    */
@@ -691,7 +713,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+  
   },
 
   /**
@@ -699,12 +721,34 @@ Page({
    */
   onShow: function () {
     var that = this
-    that.drawProgressbg()
+    // that.drawProgressbg()
+    that.waveCreater();
     if (that.data.share == true) {
       that.shareTap()
     } else {
       that.moreTap()
     }
+
+    var animation = wx.createAnimation({
+      duration: 500,
+      timingFunction: 'linear',
+    })
+    this.animation = animation
+    var next = true;
+    //连续动画关键步骤
+    setInterval(function () {
+      if (next) {
+        this.animation.scale(0.95).step() 
+        next = !next;
+      } else {
+        this.animation.scale(1).step()
+        next = !next;
+      }
+
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 500)
   },
 
   /**
@@ -761,5 +805,179 @@ Page({
         }
       }
     }
+  },
+  
+  //绘制圆圈进度
+  waveCreater: function() {
+    // 获取圆动画轨迹点集
+    for (var i = soffset; i < soffset + 2 * PI; i += 1 / (8 * PI)) {
+      arcStack.push([
+        r + bR * Cos(i),
+        r + bR * Sin(i)
+      ])
+    }
+    // 圆起始点
+    var cStartPoint = arcStack.shift();
+    ctxWave.strokeStyle = "#1c86d1";
+    ctxWave.moveTo(cStartPoint[0], cStartPoint[1]);
+    // 开始渲染
+    this.render();
+  },
+
+  drawSine: function() {
+    ctxWave.beginPath();
+    ctxWave.save();
+    var Stack = []; // 记录起始点和终点坐标
+    for (var i = xoffset; i <= xoffset + axisLength; i += 20 / axisLength) {
+      var x = sp + (xoffset + i) / unit;
+      var y = Sin(x) * nowrange;
+      var dx = i;
+      var dy = 2 * cR * (1 - nowdata) + (r - cR) - (unit * y);
+      ctxWave.lineTo(dx, dy);
+      Stack.push([dx, dy])
+    }
+    // 获取初始点和结束点
+    var startP = Stack[0]
+    var endP = Stack[Stack.length - 1]
+    ctxWave.lineTo(xoffset + axisLength, oW);
+    ctxWave.lineTo(xoffset, oW);
+    ctxWave.lineTo(startP[0], startP[1])
+    ctxWave.fillStyle = "#4BEF8B";
+
+    ctxWave.fill();
+    ctxWave.restore();
+  },
+  drawText: function() {
+    ctxWave.globalCompositeOperation = 'source-over';
+    var size = 18;
+    ctxWave.font = 'bold ' + size + 'px Microsoft Yahei';
+    var number = (nowdata.toFixed(2) * 100).toFixed(0);
+    var txt = "颜色是否与前面相同";
+    //number+ '%';
+    var fonty = r + size / 2;
+    var fontx = r - size * 0.8;
+  
+    ctxWave.textAlign = 'center';
+    ctxWave.textBaseline = 'middle'
+    ctxWave.fillText(txt, r , r )
+  },
+  drawTriangle: function() {
+    ctxGraph.beginPath();
+    ctxGraph.lineWidth = 15;
+    ctxGraph.moveTo(r, (r-cR)/2.0)
+    ctxGraph.lineTo(cR,(r-cR)*2.0)
+    ctxGraph.lineTo(r+(r-cR), (r-cR)*2.0)
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
+
+    ctxGraph.beginPath();
+    ctxGraph.moveTo((r-cR)/2.0, r)
+    ctxGraph.lineTo((r-cR)*2.0, r-(r-cR))
+    ctxGraph.lineTo((r-cR)*2.0, r+(r-cR))
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
+
+    ctxGraph.beginPath();
+    ctxGraph.moveTo((r+cR+(r-cR)/2.0), r)
+    ctxGraph.lineTo((r+cR-(r-cR)), r-(r-cR))
+    ctxGraph.lineTo((r+cR-(r-cR)), r+(r-cR))
+    ctxGraph.fillStyle = '#6495ED';
+    ctxGraph.closePath()
+    ctxGraph.fill()
+    ctxGraph.restore();
+  },
+  //灰色圆圈
+  grayCircle: function() {
+    ctxWave.beginPath();
+    ctxWave.lineWidth = 2;
+    ctxWave.strokeStyle = '#7ce99e';
+    ctxWave.arc(r, r, cR-8, 0, 2 * Math.PI);
+    ctxWave.stroke();
+    ctxWave.restore();
+    ctxWave.beginPath();
+  },
+  //裁剪中间水圈
+  clipCircle: function() {
+    ctxWave.beginPath();
+    ctxWave.arc(r, r, cR - 10, 0, 2 * Math.PI, false);
+    ctxWave.clip();
+  },
+  //渲染canvas
+  render: function() {
+    ctxWave.clearRect(0, 0, oW, oH);
+    ctxGraph.clearRect(0, 0, oW, oH);
+    this.clearData();
+    //绘制形状图
+    this.drawTriangle();
+    ctxGraph.draw();
+
+    //灰色圆圈  
+    this.grayCircle();
+    //裁剪中间水圈  
+    this.clipCircle();
+    ctxWave.save();
+    this.drawWaveFlow();
+    ctxWave.draw();
+
+  },
+
+  clearData: function() {
+    nowrange = range;
+    nowdata = 0;
+    lastFrameTime = 0;
+    rotateNumber = 0;
+  },
+  drawWaveFlow: function() {
+    this.abortAnimationFrame(tid);
+    if (data >= 0.85) {
+      if (nowrange > range / 4) {
+        var t = range * 0.01;
+        nowrange -= t;
+      }
+    } else if (data <= 0.1) {
+      if (nowrange < range * 1.5) {
+        var t = range * 0.01;
+        nowrange += t;
+      }
+    } else {
+      if (nowrange <= range) {
+        var t = range * 0.01;
+        nowrange += t;
+      }
+      if (nowrange >= range) {
+        var t = range * 0.01;
+        nowrange -= t;
+      }
+    }
+    if ((data - nowdata) > 0) {
+      nowdata += waveupsp;
+    }
+    if ((data - nowdata) < 0) {
+      nowdata -= waveupsp
+    }
+    sp += 0.07;
+    // sp = self.data.countDown / self.data.count
+    // 开始水波动画
+    this.drawSine();
+    // 写字
+    this.drawText();
+    ctxWave.draw();
+
+    tid = this.doAnimationFrame(this.drawWaveFlow);
+  },
+  doAnimationFrame: function(callback) {
+    var currTime = new Date().getTime();
+    var timeToCall = Math.max(0, 16 - (currTime - lastFrameTime));
+    var id = setTimeout(function () { callback(currTime + timeToCall); }, timeToCall);
+    lastFrameTime = currTime + timeToCall;
+    return id;
+  },
+  // 模拟 cancelAnimationFrame
+  abortAnimationFrame: function(id) {
+    clearTimeout(id)
   }
 })

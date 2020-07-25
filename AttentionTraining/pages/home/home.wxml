@@ -16,7 +16,9 @@
     <view class="list-page-left">
       <block wx:for="{{itemList}}" wx:key="key">
         <view wx:if="{{index%2==0}}" class="list-item">
-          <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          <view wx:if="{{item.imgUrl}}">
+            <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          </view>
           <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" >
             <view class="item-tip">
               <text>暂未开通</text>
@@ -33,7 +35,9 @@
     <view class="list-page-right">
       <block wx:if="{{index%2!=0}}" wx:for="{{itemList}}" wx:key="key">
         <view class="list-item">
-          <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          <view wx:if="{{item.imgUrl}}">
+            <image src='../../style/images/{{item.imgUrl}}.png'></image>
+          </view> 
           <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}" >
             <view class="item-tip">
               <text>暂未开通</text>

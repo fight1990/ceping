@@ -36,45 +36,6 @@
   margin-left: 670rpx;
 }
 
-.time-view {
-  margin-top: 32rpx;
-  width: 130rpx;
-  height: 130rpx;
-}
-
-.time-view image {
-  position: absolute;
-  width: 130rpx;
-  height: 130rpx;
-}
-
-.time-view .timer {
-  position: relative;
-  height: 130rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.time-view .timer text {
-  height:130rpx;
-  width: 130rpx;
-  font-size:78rpx;
-  font-weight:bold;
-  color: #333333;
-  line-height:130rpx;
-  text-align: center;
-}
-
-.runCanvas {
-  position: absolute;
-
-  width: 130rpx;
-  height: 130rpx;
-  transform: translate3d(-999rpx, 0, 0);
-
-}
-
 .scroll_box{
   width: 100%;
   overflow: hidden;
@@ -89,6 +50,24 @@
 }
 
 
+.waterview {
+  /* background-color: #923179; */
+  width: 600rpx;
+  height: 600rpx;
+}
+.canvasgraph_bg {
+  position: fixed;
+  width: 600rpx;
+  height: 600rpx;
+  opacity: 0.8;
+  align-items: center;
+}
+.canvasArcCir_bg {
+  position: fixed;
+  width: 600rpx;
+  height: 600rpx;
+  align-items: center;
+}
 
 
 .item_list{
@@ -106,7 +85,7 @@
   margin-top: 62rpx;
   margin-left: 75prx;
   width: 600rpx;
-  height: 548rpx;
+  height: 600rpx;
   background-color: #fff;
   border-radius: 10rpx; 
   display: flex;
