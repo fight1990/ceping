@@ -1,2 +1,19 @@
 <!--pages/zongheceping/zongheceping.wxml-->
-<text>pages/zongheceping/zongheceping.wxml</text>
+<view>
+  <scroll-view>
+    <view class="user_info">
+      <view class="user_info_element"><text>{{userData.userName}} {{userData.sex}} {{userData.age}}</text></view>
+      <view class="user_info_element"><text>手机：{{userData.mobile}}</text></view>
+    </view>
+    <view class="score">
+      <view class="table_title"><text>得分情况：</text></view>
+      <view class="score_table">
+        <s-table hasBorder='yes' width='{{screenWidth}}' tdWidth='65'  s-class-header='my-class' s-class-row='my-class-row' headers='{{deFen.headers}}' list='{{deFen.row}}'></s-table>
+      </view>
+    </view>
+    <view class="share">分享</view>
+    <view class="ability">
+      <view class="table_title"><text>能力体现：</text></view>
+    </view>
+  </scroll-view>
+</view>

@@ -1,6 +1,5 @@
 // pages/kuaisujiyi/kuaisujiyi.js
 var api = require("../../Api/api.js")
-var utils=require('../../utils/util.js');
 const util = require("../../utils/util.js");
 const ctxWave = wx.createCanvasContext('canvasArcCir')
 const ctxGraph = wx.createCanvasContext('canvasgraph')
@@ -518,8 +517,7 @@ Page({
    */
   onHide: function () {
     var that = this
-    clearInterval(that.data.timer);
-    clearInterval(that.data.globalTimer)
+    this.abortAnimationFrame(tid);
   },
 
   /**

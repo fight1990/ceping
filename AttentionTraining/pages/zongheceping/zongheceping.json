@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "s-table": "../components/table/index"
+  },
   "navigationBarTitleText": "综合测评"
 }

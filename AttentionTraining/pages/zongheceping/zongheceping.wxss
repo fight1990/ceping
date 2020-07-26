@@ -1,1 +1,28 @@
 /* pages/zongheceping/zongheceping.wxss */
+.user_info .user_info_element{
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+.table_title {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+}
+.share {
+  text-align:right;
+  padding-right:30rpx;
+  margin-top: 20rpx;
+}
+.my-class{
+  color:gray;
+  background-color: lightgrey;
+}
+.my-class-row:nth-child(odd){
+  color: black;
+}
+.my-class-row:nth-child(even){
+  color: black;
+}
+.score_table {
+  text-align: center;
+  margin: 20rpx;
+}
