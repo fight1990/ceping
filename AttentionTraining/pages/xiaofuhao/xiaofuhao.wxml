@@ -16,48 +16,70 @@
      <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="" wx:for-index="answerIndex">
       <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
         <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
+
+         <!-- <text>{{selectedIndex}}</text> -->
+
+         <text>{{answerIndex}}</text>
+        
           <view class="root">
             <view class='table'>
+              
               <view class="section-top">
-                <block wx:for="{{symbolArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
-                   <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
-                       <text>{{item}}</text>
-                   </view>        
+                <block wx:for="{{orignalArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+
+                  <view wx:if="{{answerIndex<3}}" class="{{index == showArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx; ">
+                     <text style="text-align: center; line-height: 88rpx;">{{item.symbol}}</text>
+                   </view>
+
+                   <view wx:if="{{ answerIndex<7 &&  answerIndex>=3}}" class="{{index == showArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 90rpx; height: 88rpx; ">
+                     <text style="text-align: center; line-height: 88rpx;">{{item.symbol}}</text>
+                   </view>
+
+                   <view wx:if="{{ answerIndex>=9}}" class="{{index == orignalArr.length-1 ? 'input-top end ' : 'input-top '}}">
+                       <text style="text-align: center; line-height: 72rpx;">{{item.symbol}}</text>
+                   </view>                      
                 </block>
               </view>
-
               <view class="section2">
-                 <block wx:for="{{numberArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
-                     <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
-                        <input value="{{item}}" class="{{index == symbolArr.length-1 ? 'input2 end2 ' : 'input2 '}}" disabled />
-                     </view>       
+                 <block wx:for="{{orignalArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                     <view wx:if="{{answerIndex<3}}" class="{{index == orignalArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx;">
+                      <input value="{{item.num}}" class="{{index == orignalArr.length-1 ? 'input2 end2 ' : 'input2 '}}" style="width: 114rpx; height: 88rpx;" disabled />
+                    </view> 
+
+                    <view wx:if="{{ answerIndex<7 &&  answerIndex>=3}}" class="{{index == orignalArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 90rpx; height: 88rpx;">
+                      <input value="{{item.num}}" class="{{index == orignalArr.length-1 ? 'input2 end2 ' : 'input2 '}}" style="width: 90rpx; height: 88rpx;" disabled />
+                    </view>  
+
+                     
+                    <view wx:if="{{ answerIndex>=9}}" class="{{index == orignalArr.length-1 ? 'input-top end ' : 'input-top '}}">
+                        <input value="{{item.num}}" class="{{index == orignalArr.length-1 ? 'input2 end2 ' : 'input2 '}}" disabled />
+                    </view> 
+
                  </block>
               </view>
             </view>
-          </view>
 
-          <view class='table2'>
-            <view class="section-top">
-              <block wx:for="{{symbolArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
-                 <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
-                     <text>{{item}}</text>
-                 </view>
+
+            <view class='table2'>
+              <view class="section2-top">
+                <block wx:for="{{showArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                   <view class="{{index == showArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx; ">
+                     <text style="text-align: center; line-height: 88rpx;">{{item.symbol}}</text>
+                   </view>
         
-              </block>
+                </block>
+              </view>
+              <view class="section2">
+                <block wx:for="{{showArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+                   <view class="{{index == showArr.length-1 ? 'input-top end ' : 'input-top '}}" style="width: 114rpx; height: 88rpx;" >
+                       <!-- <input type="number" value="" class="{{index == showArr.length-1 ? 'input2 end2 ' : 'input2 '}}" style="width: 114rpx; height: 88rpx;" disabled /> -->
+                       <input id="input_{{index}}" type="number" value="" class="{{index == showArr.length-1 ? 'input2 end2 ' : 'input2 '}}" style="width: 114rpx; height: 88rpx;"  bindinput="numbindinput" disabled="{{(index==inputIdIndex && inputvalue.length>0)? true : false }}" />
+                   </view>       
+                </block>
+              </view> 
             </view>
 
-            <view class="section2">
-              <block wx:for="{{numberArr}}" wx:key="index" wx:for-item="item" wx:for-index="index">
-                <view class="{{index == symbolArr.length-1 ? 'input-top end ' : 'input-top '}}">
-                   <input wx:if="{{index<=6}}" type="" value="{{item}}" class="{{index == symbolArr.length-1 ? 'input2 end2 ' : 'input2 '}}" disabled />
-
-                  <input wx:else focus bindinput="input" type="number" value="{{}}" class="{{index == symbolArr.length-1 ? 'input2 end2 ' : 'input2 '}}" />
-                </view>       
-              </block>
-            </view>
           </view>
-
-
         </view>    
       </scroll-view> 
     </block>  
@@ -78,7 +100,7 @@
 </view>
 
 
-<view class="containerTwo">
+<!-- <view class="containerTwo">
   <view class="guodu" >
     <view class="tip">答题结束，进入二级测试</view>
     <view class="time">
@@ -89,7 +111,7 @@
     </view>
   </view>
 
-</view>
+</view> -->
 
 
 

@@ -12,7 +12,8 @@ Page({
   data: {
     user: {},
     game: {},// 报告详情
-    isX: false
+    isX: false,
+    type: 0,
   },
 
   /**

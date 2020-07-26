@@ -2,7 +2,6 @@
 
 
 var api = require("../../Api/api.js")
-const ctx2 = wx.createCanvasContext('runCanvas')
 
 Page({
 
@@ -10,21 +9,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(100), // 题目总数
+    answerList: Array(90), // 题目总数
     selectedIndex: -1,
     isRead:false, // 判断是否现实游戏页面
     result: -2, // 结果对错 0-错 1-对
     showIntroduce: false, // 显示简介
-    count: 4, // 倒计时
+    count: 5, // 倒计时
     timer: '',// 出题定时器名字
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
 
-    showColor: "", // 显示当前颜色
-    showPositionArr: Array(2), // 记录当前亮灯位置
 
-    previousColor: "", // 记录前一个颜色
-    previousPositionArr: Array(2), // 记录前一个亮灯位置
+
+    showColorArr: ["blue","purple","yellow","green","red"],
+    showTitleArr: ["蓝","紫","黄","绿","红"],
+    // 干扰字
+    disturbTitleArr: ["纡","璜","录","监","橴","蓝","紫","黄","绿","红"],
+    showColor: "" , // 方块的颜色 / 文字颜色
+    showTitle: "", // 文字
 
 
     lights: Array(3),
@@ -53,7 +55,7 @@ Page({
   shareTap: function () {
     var that = this
     wx.navigateTo({
-      url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1",
+      url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1" + "&type=3",
     })
     that.data.share = false
   },
@@ -180,10 +182,6 @@ Page({
    * 放弃
    */
   giveUpTap: function () {
-    // wx.navigateTo({
-    //   url: '/pages/home/home',
-    // })
-
     wx.redirectTo({
       url: '/pages/home/home',
     })
@@ -275,10 +273,13 @@ Page({
     } else {
       // 下一题
       clearInterval(that.data.timer)
-      setTimeout(function () {
-        clearInterval(that.data.globalTimer)
-        that.doNext();
-      }, 1000);
+      // setTimeout(function () {
+      //   clearInterval(that.data.globalTimer)
+      //   that.doNext();
+      // }, 1000);
+
+      clearInterval(that.data.globalTimer)
+      that.doNext();
     }
   },
 
@@ -318,10 +319,12 @@ Page({
     } else {
       // 下一题
       clearInterval(that.data.timer)
-      setTimeout(function () {
-        clearInterval(that.data.globalTimer)
-        that.doNext();
-      }, 1000);
+      // setTimeout(function () {
+      //   clearInterval(that.data.globalTimer)
+      //   that.doNext();
+      // }, 1000);
+      clearInterval(that.data.globalTimer)
+      that.doNext();
     }
   },
 
@@ -342,119 +345,85 @@ Page({
 
     that.scrollTap()
     
-    if (that.data.selectedIndex == 0) {
-      that.setData({
-        hideBottom: true,
-      })
-    } else {
-      that.globalCountDown()
-      that.setData({
-        hideBottom: false,
-      })
-    }
-
-    var position = 0
-    var colorNum = 0
-    var color = "#fff"
-    var positionArray = Array()
-
-    // 
-    positionArray = that.randomTwo()
-
-
-    // if (that.data.selectedIndex > 0) {
-      that.data.previousColor = that.data.showColor
-      that.data.previousPositionArr = that.data.showPositionArr
+    // if (that.data.selectedIndex == 0) {
+    //   that.setData({
+    //     hideBottom: true,
+    //   })
+    // } else {
+    //   that.globalCountDown()
+    //   that.setData({
+    //     hideBottom: false,
+    //   })
     // }
+
+    that.globalCountDown()
+
+
+
+
+    var num1 = Math.floor(Math.random() * 5)  
+    var num2 = 0  
+    var title = ""
+    if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 64) {
+      num2 = Math.floor(Math.random() * 5) 
+      title = that.data.showTitleArr[num2]
+    }  else  {
+      // 带干扰项
+      num2 = Math.floor(Math.random() * 10) 
+      title = that.data.disturbTitleArr[num2]
+    } 
 
     that.setData({
       count: that.data.count,
-      showPositionArr: positionArray,
-      showColor: color,
+      showColor: that.data.showColorArr[num1],
+      showTitle: title,
       hideResult: true,
     })
 
+    switch (that.data.showColor) {
+      case "blue":
+        if(that.data.showTitle == "蓝") {
+          that.data.isSame = true
+        } else {
+          that.data.isSame = false
+        }
+        break
+      case "purple":
+        if(that.data.showTitle == "紫") {
+          that.data.isSame = true
+        } else {
+          that.data.isSame = false
+        }
+        break
+      case "yellow":
+        if(that.data.showTitle == "黄") {
+          that.data.isSame = true
+        } else {
+          that.data.isSame = false
+        }
+        break
+      case "green":
+        if(that.data.showTitle == "绿") {
+          that.data.isSame = true
+        } else {
+          that.data.isSame = false
+        }
+        break
 
-    var position1 = 0 // 绿灯位置
-    var current1 = 0 // 绿灯位置
-    for (var i = 0; i < positionArray.length; i++) {
-      var obj = positionArray[i]
-      if (obj == "#058005") {
-        position1 = i
-        console.log('position1==' + position1)
+      case "red":
+        if(that.data.showTitle == "红") {
+          that.data.isSame = true
+        } else {
+          that.data.isSame = false
+        }
         break
-      }
+      default:
+        that.data.isSame = false
     }
-    for (var j = 0; j < that.data.previousPositionArr.length; j++) {
-      var obj = that.data.previousPositionArr[j]
-      if (obj == "#058005") {
-        current1 = j
-        console.log('current1==' + current1)
-        break
-      }
-    }
-    if (position1 == current1) {
-      that.data.isSame = true
-    } else {
-      that.data.isSame = false
-    }
+
     var param = { isAnswer: that.data.isAnswer }
     that.countDown(param)
   },
-
-  /**
-   *  随机三个不同的数
-   */
-  randomTwo: function () {
-    var that = this
-    var arr = [];
-    while (arr.length < 3) {
-      var num = Math.floor(Math.random() * 3) 
-      if (arr.length === 0) { 
-        arr.push(num)
-      } else {
-        for (var i = 0; i < arr.length; i++) { 
-          if (arr.join(',').indexOf(num) < 0) {
-          　arr.push(num)
-          }
-        }
-      }
-    }
-
-    console.log('function=' + arr)
-    var colorArr = []
-
-    if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 50) {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#fff")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('绿灯colorArr=' + colorArr)
-
-    } else {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#FF3838")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('红绿灯colorArr=' + colorArr)
-    }
-
-    return colorArr
-  },
-
-
 
   /**
    * 出题计时器
@@ -466,14 +435,14 @@ Page({
     if (that.data.suspend == true) { // 暂停状态
       that.data.suspend = false
     } else {
-      if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 20) {
+      if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 14) {
+        newCount = 5
+      } else if (that.data.selectedIndex >= 15 && that.data.selectedIndex <= 34) {
         newCount = 4
-      } else if (that.data.selectedIndex >= 21 && that.data.selectedIndex <= 40) {
+      } else if (that.data.selectedIndex >= 35 && that.data.selectedIndex <= 64) {
         newCount = 3
-      } else if (that.data.selectedIndex >= 41 && that.data.selectedIndex <= 70) {
+      } else if (that.data.selectedIndex >= 65) {
         newCount = 2
-      } else if (that.data.selectedIndex >= 71) {
-        newCount = 1
       } 
     }
 
@@ -551,6 +520,7 @@ Page({
     })  
   },
 
+
   /**
    * 判断是否是最后一题
    */
@@ -570,6 +540,7 @@ Page({
               if (result.user) { 
                 if (result.user.state == 1) { // 已注册
                   var params = {
+                    type: 3,
                     userid: result.user.id,
                     score: that.data.rightCount,
                     times: that.data.globalCount,
@@ -587,7 +558,7 @@ Page({
                         that.showResultTap()
                       } else { // 直接生成报告
                         wx.navigateTo({
-                          url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=0",
+                          url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=0" + "&type=3",
                         })
                       }
                     },
@@ -648,27 +619,7 @@ Page({
     })
   },
   
-  /**
-   * 显示简介
-   */
-  showIntroduceTap: function () {
-    var that = this
-    that.setData({
-      showIntroduce: true,
-    })
-    that.stopTimer()
-  },
 
-  /**
-   * 关闭简介
-   */
-  closeIntroduceTap: function () {
-    var that = this
-    that.setData({
-      showIntroduce: false,
-    })
-    that.startTimer()
-  }, 
 
   /**
   * 计时器

@@ -9,11 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(10), // 题目总数
+    answerList: Array(90), // 题目总数
     selectedIndex: -1,
 
 
-    count: 4, // 倒计时
+    count: 5, // 倒计时
     timer: '',// 出题定时器名字
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图

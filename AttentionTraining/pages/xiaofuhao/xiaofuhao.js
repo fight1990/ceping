@@ -1,8 +1,6 @@
 // pages/xiaofuhao/xiaofuhao.js
 
 var api = require("../../Api/api.js")
-const ctx2 = wx.createCanvasContext('runCanvas')
-
 var util = require("../../utils/util")
 
 Page({
@@ -11,24 +9,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(5), // 题目总数
-    selectedIndex: -1,
+    answerList: Array(20), // 题目总数
+    selectedIndex: 0,
     isRead:false, // 判断是否现实游戏页面
     result: -2, // 结果对错 0-错 1-对
     showIntroduce: false, // 显示简介
     count: 4, // 倒计时
     timer: '',// 出题定时器名字
-    hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
 
-    showColor: "", // 显示当前颜色
-    showPositionArr: Array(2), // 记录当前亮灯位置
+    // showColor: "", // 显示当前颜色
+    // showPositionArr: Array(2), // 记录当前亮灯位置
 
-    previousColor: "", // 记录前一个颜色
-    previousPositionArr: Array(2), // 记录前一个亮灯位置
+    // previousColor: "", // 记录前一个颜色
+    // previousPositionArr: Array(2), // 记录前一个亮灯位置
 
 
-    lights: Array(3),
 
     globalCount: 0, // 游戏计时器
     globalTimer: '',// 游戏计时器名字
@@ -46,8 +42,20 @@ Page({
 
     
     symbolArr: ["@","#","%","《","*","(","{","}","》","】"],
-    orignalArr: ["0","1","2","3","4","5","6","7","8","9"],
-    numberArr: []
+    numberArr: ["0","1","2","3","4","5","6","7","8","9"],
+    orignalData: [],
+    orignalArr: [],
+    showArr: Array(5),
+
+    inputvalue: "",
+    inputIdIndex: 0,
+
+    inputOneValue: "",
+    inputTwoValue:"",
+    inputThreeValue:"",
+    inputFourValue:"",
+    inputFiveValue:""
+
   },
 
 
@@ -91,7 +99,6 @@ Page({
    */
   startTimer: function () {
     var that = this
-    // that.globalCountDown()
     var param = { isAnswer: that.data.isAnswer }
     that.data.suspend = true
     clearInterval(that.data.timer)
@@ -170,26 +177,11 @@ Page({
     that.startTimer()
   },
 
-  /**
-   * 显示提示弹框
-   */
-  showTipTap: function () {
-    var that = this
-    that.setData({
-      hideTipShadow: false,
-      suspend: true
-    })
-    that.stopTimer()
-  },
 
   /**
    * 放弃
    */
   giveUpTap: function () {
-    // wx.navigateTo({
-    //   url: '/pages/home/home',
-    // })
-
     wx.redirectTo({
       url: '/pages/home/home',
     })
@@ -204,22 +196,77 @@ Page({
   },
 
   /**
+   * 输入框
+   */
+  numbindinput: function (e) {
+    var that = this
+    var value = e.detail.value
+    console.log(e)
+    var inputid = e.target.id
+    var inputIdIndex = 0
+
+    
+    switch (inputid) {
+      case "input_0":
+        inputIdIndex = 0
+        that.data.inputOneValue = value
+        break
+      case "input_1":
+        inputIdIndex = 1
+        that.data.inputTwoValue = value
+        break
+      case "input_2":
+        inputIdIndex = 2
+        that.data.inputThreeValue = value
+
+        break
+      case "input_3":
+
+        inputIdIndex = 3
+        that.data.inputFourValue = value
+        break
+
+      case "input_4":
+        inputIdIndex = 4
+        that.data.inputFiveValue = value
+        break
+      default:
+        inputIdIndex = 5
+        that.data.inputOneValue = ""
+        that.data.inputTwoValue = ""
+        that.data.inputThreeValue = ""
+        that.data.inputFourValue = ""
+        that.data.inputFiveValue = ""
+    }
+    this.setData({
+      inputvalue: value,
+      inputIdIndex: inputIdIndex
+    })
+
+    if(that.data.inputOneValue.length>0 && that.data.inputTwoValue.length>0 && that.data.inputThreeValue.length>0 && that.data.inputFiveValue > 0 && that.data.inputFourValue > 0) {
+
+      that.data.inputvalue = ""
+      that.data.inputIdIndex = 0
+
+      that.data.inputOneValue = ""
+      that.data.inputTwoValue = ""
+      that.data.inputThreeValue = ""
+      that.data.inputFourValue = ""
+      that.data.inputFiveValue = ""
+
+      that.doNext()
+    }
+
+
+
+  },
+
+  /**
    * 未选择 直接下一题
    */
   noSelectTap: function () {
     var that = this
-    if (that.data.selectedIndex == 0) {
-      that.setData({
-        hideResult: true,
-        result: 0,
-      })
-    } else {
-      that.setData({
-        hideResult: false,
-        result: 0,
-      })
-    }
-    
+
     if (that.data.selectedIndex == that.data.answerList.length-1) {
       if (that.data.selectedIndex>0) {
         clearInterval(that.data.globalTimer)
@@ -229,13 +276,13 @@ Page({
       }
       
     } else {
-      // // 下一题
-      // if (that.data.selectedIndex >= 1) {
-      //   clearInterval(that.data.timer)
-      //   clearInterval(that.data.globalTimer)
-      //   that.lastQuestion()
-      //   return
-      // }
+      // 下一题
+      if (that.data.selectedIndex >= 1) {
+        clearInterval(that.data.timer)
+        clearInterval(that.data.globalTimer)
+        that.lastQuestion()
+        return
+      }
       setTimeout(function () {
         that.data.noSelect = false
         clearInterval(that.data.timer)
@@ -346,121 +393,58 @@ Page({
       selectedIndex: nextIndex,
     })
 
-    that.scrollTap()
-    
-    if (that.data.selectedIndex == 0) {
-      that.setData({
-        hideBottom: true,
-      })
-    } else {
-      that.globalCountDown()
-      that.setData({
-        hideBottom: false,
-      })
+    that.scrollTap()   
+    that.globalCountDown()
+
+    // 随机排布 数组的元素
+    var array1 = util.sortArray(that.data.symbolArr)
+    var array2 = util.sortArray(that.data.numberArr)
+    var orignalArr = []
+    var orignalData = []
+
+    var showArr = []
+    for (const key in array1) {
+      var element1 = array1[key]
+      var element2 = array2[key]
+      var obj = {
+        symbol: element1,
+        num: element2,
+      }
+      orignalData.push(obj) 
     }
+    that.data.orignalData = orignalData
+    
+    if (that.data.selectedIndex <= 2) {
+      orignalArr = util.getArrayItems(orignalData,5)
+    } else if (that.data.selectedIndex >= 3 && that.data.selectedIndex <= 6) {
+      orignalArr = util.getArrayItems(orignalData,7)
+      // orignalArr = orignalData.sort(()=>0.7-Math.random()).slice(0,7)
+    } else {
+      orignalArr = orignalData
+    }
+    showArr = util.getArrayItems(orignalArr,5)
 
-    var position = 0
-    var colorNum = 0
-    var color = "#fff"
-    var positionArray = Array()
-
-    // 
-    positionArray = that.randomTwo()
-
-
-    // if (that.data.selectedIndex > 0) {
-      that.data.previousColor = that.data.showColor
-      that.data.previousPositionArr = that.data.showPositionArr
-    // }
+    
 
     that.setData({
+      showArr : showArr,
+      orignalArr: orignalArr,
       count: that.data.count,
-      showPositionArr: positionArray,
-      showColor: color,
       hideResult: true,
     })
+    
+    // if (that.data.selectedIndex <= 2) {
+    //   that.noSelectTap()
+    // } else {
+    //   var param = { isAnswer: that.data.isAnswer }
+    //   that.countDown(param)
+    // }
 
-
-    var position1 = 0 // 绿灯位置
-    var current1 = 0 // 绿灯位置
-    for (var i = 0; i < positionArray.length; i++) {
-      var obj = positionArray[i]
-      if (obj == "#058005") {
-        position1 = i
-        console.log('position1==' + position1)
-        break
-      }
-    }
-    for (var j = 0; j < that.data.previousPositionArr.length; j++) {
-      var obj = that.data.previousPositionArr[j]
-      if (obj == "#058005") {
-        current1 = j
-        console.log('current1==' + current1)
-        break
-      }
-    }
-    if (position1 == current1) {
-      that.data.isSame = true
-    } else {
-      that.data.isSame = false
-    }
     var param = { isAnswer: that.data.isAnswer }
     that.countDown(param)
+    
+    
   },
-
-  /**
-   *  随机三个不同的数
-   */
-  randomTwo: function () {
-    var that = this
-    var arr = [];
-    while (arr.length < 3) {
-      var num = Math.floor(Math.random() * 3) 
-      if (arr.length === 0) { 
-        arr.push(num)
-      } else {
-        for (var i = 0; i < arr.length; i++) { 
-          if (arr.join(',').indexOf(num) < 0) {
-          　arr.push(num)
-          }
-        }
-      }
-    }
-
-    console.log('function=' + arr)
-    var colorArr = []
-
-    if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 50) {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#fff")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('绿灯colorArr=' + colorArr)
-
-    } else {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#FF3838")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('红绿灯colorArr=' + colorArr)
-    }
-
-    return colorArr
-  },
-
-
 
   /**
    * 出题计时器
@@ -472,16 +456,17 @@ Page({
     if (that.data.suspend == true) { // 暂停状态
       that.data.suspend = false
     } else {
-      if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 20) {
-        newCount = 4
-      } else if (that.data.selectedIndex >= 21 && that.data.selectedIndex <= 40) {
-        newCount = 3
-      } else if (that.data.selectedIndex >= 41 && that.data.selectedIndex <= 70) {
-        newCount = 2
-      } else if (that.data.selectedIndex >= 71) {
-        newCount = 1
+      if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 2) {
+        newCount = 90
+      } else if (that.data.selectedIndex >= 3 && that.data.selectedIndex <= 6) {
+        newCount = 45
+      } else if (that.data.selectedIndex >= 7 && that.data.selectedIndex <= 12) {
+        newCount = 25
+      } else {
+        newCount = 15
       } 
     }
+
 
     var step = 1,//计数动画次数
       num = 0,//计数倒计时秒数（n - num）
@@ -715,12 +700,6 @@ Page({
     } else {
       that.moreTap()
     }
-
-    var array = util.sortArray(that.data.orignalArr)
-    that.setData({
-      numberArr : array
-    })
-    console.log(array)
   },
 
   /** 
@@ -728,9 +707,6 @@ Page({
    */
   onHide: function () {
     var that = this
-    // that.setData({
-    //   hideTipShadow: false
-    // })
     clearInterval(that.data.timer);
     clearInterval(that.data.globalTimer)
   },
@@ -740,10 +716,6 @@ Page({
    */
   onUnload: function () {
     var that = this
-    // that.setData({
-    //   hideShadow: false,
-    //   hideTipShadow: false
-    // })
     clearInterval(that.data.timer);
     clearInterval(that.data.globalTimer)
   },

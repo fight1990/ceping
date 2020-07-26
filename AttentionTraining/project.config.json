@@ -49,13 +49,50 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/siterupuGuide/siterupuGuide",
+					"pathName": "pages/siterupuGuide/siterupuGuide",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/siterupu/siterupu",
+					"pathName": "pages/siterupu/siterupu",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xiaofuhao/xiaofuhao",
+					"pathName": "pages/xiaofuhao/xiaofuhao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xiaofuhaoGuide/xiaofuhaoGuide",
+					"pathName": "pages/xiaofuhaoGuide/xiaofuhaoGuide",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }
