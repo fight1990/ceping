@@ -9,38 +9,31 @@
       </view>
     </view>
 
-   <view class="scroll_box">
-     <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="item" wx:for-index="answerIndex">
-      <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
-        <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">
-          <block wx:if="{{answerIndex>=0}}">
-            <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
-              <view class="waterview">
-                  <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
-                  <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
-              </view>
-            </view>        
-          </block>
-          <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
-            <view class="waterview">
-              <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
-              <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
-            </view>
-            <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
-            <view hidden="{{!hideResult}}" class="result-tip">
-              <text wx:if="{{answerIndex == 0}}">请记住图案的颜色</text>
-              <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text>
-            </view>
+  <view class="scroll_box">
+    <block>
+      <view class="item_list">
+        <view class="lights-view">
+          <view class="waterview">
+            <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
+            <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
           </view>
-        </view>    
-      </scroll-view> 
-      <view wx:if="{{answerIndex == selectedIndex}}" hidden="{{hideBottom}}" class="bottom-view">
+        </view>
+      </view>
+      <view class="result-tip">
+        <text wx:if="{{selectedIndex == 0}}">请记住图案的颜色</text>
+        <text wx:if="{{selectedIndex != 0}}">是否和上图相同呢？</text>
+      </view>
+      <view class="result-view">
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+      </view>
+      <view hidden="{{hideBottom}}" class="bottom-view">
         <button class="different-button" bindtap="differentTap">不同</button>
         <view class="line-view"></view>
         <button class="identical-button" bindtap="identicalTap">相同</button>
       </view>
     </block>
-   </view>
+  </view>
+
   </view>
 </view>
 

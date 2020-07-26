@@ -64,7 +64,7 @@ Page({
     answerList: Array(65), // 题目总数
     selectedIndex: 0,
     isRead:false, // 判断是否现实游戏页面
-    result: -2, // 结果对错 0-错 1-对
+    result: 0, // 结果对错 0-错 1-对
     showIntroduce: false, // 显示简介
     count: 4, // 倒计时
     timer: '',// 出题定时器名字
@@ -72,16 +72,10 @@ Page({
     hideResult: true, // 隐藏结果视图
 
     globalCount: 0, // 游戏计时器
-    globalTimer: '',// 游戏计时器名字
-    isSame: false, // 是否相同
     rightCount: 0, // 对的题目数量
 
     hideTipShadow: true, // 是否隐藏继续作答
     hideResultShadow: true, // 是否隐藏结果
-    scrId: 0,
-    suspend: false, //是否暂停
-    noSelect: false, // 未选择
-    gameid: 0,
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
     animationData: {}
@@ -246,39 +240,30 @@ Page({
    */
   differentTap: function () {
     var that = this
-    if (that.data.noSelect == true) {
-      return
-    }
+    that.abortAnimationFrame(tid);
 
     that.setData({
       hideResult: false,
-      result: that.data.isSame == false ? 1 : 0,
     })
-
-    if(that.data.result == 1) {
+    var currentData = gameDatas[that.data.selectedIndex];
+    var beforeData = gameDatas[that.data.selectedIndex-1];
+    if(currentData.color != beforeData.color || currentData.shape == beforeData.shape) {
       var count = that.data.rightCount + 1
       that.setData({
-        rightCount: count
+        rightCount: count,
+        result: 1
       })
     } else {
-      clearInterval(that.data.globalTimer)
-      clearInterval(that.data.timer)
+      that.setData({
+        result: 0
+      })
+    }
+    if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
       return
-    }
-
-    if (that.data.selectedIndex == that.data.answerList.length - 1) {
-      if (that.data.selectedIndex > 0) {
-        clearInterval(that.data.globalTimer)
-        clearInterval(that.data.timer)
-        that.lastQuestion()
-        return
-      }
     } else {
       // 下一题
-      clearInterval(that.data.timer)
       setTimeout(function () {
-        clearInterval(that.data.globalTimer)
         that.doNext();
       }, 1000);
     }
@@ -289,42 +274,35 @@ Page({
    */
   identicalTap: function () {
     var that = this
-    if (that.data.noSelect == true) {
-      return
-    }
+    that.abortAnimationFrame(tid);
 
     that.setData({
       hideResult: false,
-      result: that.data.isSame == true ? 1 : 0,
     })
 
-    if (that.data.result == 1) {
+    var currentData = gameDatas[that.data.selectedIndex];
+    var beforeData = gameDatas[that.data.selectedIndex-1];
+    if(currentData.color == beforeData.color && currentData.shape == beforeData.shape) {
       var count = that.data.rightCount + 1
       that.setData({
-        rightCount: count
-      }) 
-    } else {
-      clearInterval(that.data.globalTimer)
-      clearInterval(that.data.timer)
+        rightCount: count,
+        result: 1
+      })
+    }  else {
+      that.setData({
+        result: 0
+      })
+    }
+    if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
       return
-    }
-
-    if (that.data.selectedIndex == that.data.answerList.length - 1) {
-      if (that.data.selectedIndex > 0) {
-        clearInterval(that.data.globalTimer)
-        clearInterval(that.data.timer)
-        that.lastQuestion()
-        return
-      }
     } else {
       // 下一题
-      clearInterval(that.data.timer)
       setTimeout(function () {
-        clearInterval(that.data.globalTimer)
         that.doNext();
       }, 1000);
     }
+    
   },
   /**
    * 下一题
@@ -334,7 +312,6 @@ Page({
 
     clearInterval(that.data.timer)
     that.data.isAnswer = false
-
 
     var nextIndex = that.data.selectedIndex + 1
     that.setData({
@@ -490,7 +467,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
+    this.makeGameDatas();
     // that.moreTap()
   },
 
@@ -498,7 +475,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.makeGameDatas();
+
   },
 
   /**
@@ -693,6 +670,7 @@ Page({
   },
   //渲染canvas
   render: function() {
+    console.log("XXXXX: "+ this.data.selectedIndex);
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
     this.clearData();
@@ -716,13 +694,14 @@ Page({
     lastFrameTime = 0;
     rotateNumber = 0;
     if(gameDatas.length > this.data.selectedIndex) {
-      waveupsp = 30.0 / gameDatas[this.data.selectedIndex].time * 1.5;
+      waveupsp = 30.0 / gameDatas[this.data.selectedIndex].time * 0.95;
     } else {
-      waveupsp = 30.0 / 4000 * 1.5;
+      waveupsp = 30.0 / 4000 * 0.9;
     }
   },
   drawWaveFlow: function() {
-    console.log("XXX");
+    this.abortAnimationFrame(tid);
+
     if (data >= 0.85) {
       if (nowrange > range / 4) {
         var t = range * 0.01;
@@ -755,15 +734,16 @@ Page({
     // 写字
     this.drawText();
     ctxWave.draw();
-    if(lastFrameTime == 0) {
-      tid = this.doAnimationFrame(this.drawWaveFlow);
-    } else if(lastFrameTime > gameDatas[that.data.selectedIndex]['time'] - 30) {
-      lastFrameTime += 30;
-      this.abortAnimationFrame(tid);
+    
+    console.log("HHH: "+lastFrameTime+";gameTime: "+gameDatas[this.data.selectedIndex].time);
 
+    tid = this.doAnimationFrame(this.drawWaveFlow);
+
+    if((lastFrameTime > 0) && (lastFrameTime > gameDatas[this.data.selectedIndex].time - 30)) {
       this.doNext();
       return;
     }
+    lastFrameTime += 30;
   },
   
   doAnimationFrame: function(callback) {
