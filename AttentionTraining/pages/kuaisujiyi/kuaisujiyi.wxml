@@ -22,6 +22,10 @@
             </view>        
           </block>
           <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
+            <view class="waterview">
+              <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
+              <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
+            </view>
             <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
             <view hidden="{{!hideResult}}" class="result-tip">
               <text wx:if="{{answerIndex == 0}}">请记住图案的颜色</text>
@@ -37,24 +41,6 @@
       </view>
     </block>
    </view>
-  </view>
-</view>
-
-<!-- 简介 -->
-<view wx:if="{{showIntroduce}}" class="shadow" bindtap="closeIntroduceTap">
-  <view class="introduce">
-    <view class="introduce-head">
-      <view class="introduce-title">
-        <text>快速记忆</text>
-      </view>
-      <image class="introduce-close" src="../../style/images/guanbi.png" bindtap="closeIntroduceTap"></image>
-    </view>
-    <image class="introduce-backgroud" src="../../style/images/beiijingkuang.png"></image>
-    <view class="introduce-medium">
-      <view class="introduce-content">
-        <text decode="{{true}}">&emsp;&emsp;专注力交通灯是一款专注力测试和练习游戏。前期使用可以有效检测孩子大脑的选择性注意力，注意力持久度，注意力转移能力，复杂注意力，和冲动控制能力。长期练习可以提高孩子在学习生活中的注意力，观察力，短期记忆力，反应力，和思维能力。</text>
-      </view>
-    </view>
   </view>
 </view>
 

@@ -41,6 +41,19 @@ var soffset = -(PI / 2); // 圆动画起始位置
 var circleLock = true; // 起始动画锁
 var lastFrameTime = 0;
 var rotateNumber = 0;//旋转度数
+var kMaxTime = 5000; //倒计时时间
+
+var constColors = ["Blue","Purple","Yellow","Green","Red"];
+/**
+ * 0 -- 圆形
+ * 1 -- 三角形
+ * 2 -- 正方形
+ * 3 -- 五角星
+ * 4 -- 六边形
+ * 5 -- 八边形
+ */
+var constShapes = ['0','1','2','3','4','5'];
+var gameDatas = [];
 
 Page({
 
@@ -48,8 +61,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(100), // 题目总数
-    selectedIndex: -1,
+    answerList: Array(65), // 题目总数
+    selectedIndex: 0,
     isRead:false, // 判断是否现实游戏页面
     result: -2, // 结果对错 0-错 1-对
     showIntroduce: false, // 显示简介
@@ -57,14 +70,6 @@ Page({
     timer: '',// 出题定时器名字
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
-
-    showColor: "", // 显示当前颜色
-    showPositionArr: Array(2), // 记录当前亮灯位置
-
-    previousColor: "", // 记录前一个颜色
-    previousPositionArr: Array(2), // 记录前一个亮灯位置
-
-    lights: Array(3),
 
     globalCount: 0, // 游戏计时器
     globalTimer: '',// 游戏计时器名字
@@ -92,26 +97,7 @@ Page({
     })
     that.data.share = false
   },
-  /**
-   * 暂停倒计时
-   */
-  stopTimer: function (){
-    var that = this
-    clearInterval(that.data.globalTimer)
-    clearInterval(that.data.timer)
-  },
-
-  /**
-   * 开始倒计时
-   */
-  startTimer: function () {
-    var that = this
-    var param = { isAnswer: that.data.isAnswer }
-    that.data.suspend = true
-    clearInterval(that.data.timer)
-    that.countDown(param)
-  },
-
+  
   /**
    * 关闭结果弹框
    */
@@ -120,7 +106,7 @@ Page({
     that.setData({
       hideResultShadow: true,
     })
-    // that.startTimer()
+
   },
 
   /**
@@ -131,7 +117,7 @@ Page({
     that.setData({
       hideResultShadow: false,
     })
-    that.stopTimer()
+
   },
 
   /**
@@ -169,7 +155,7 @@ Page({
     that.setData({
       hideThreeShadow: true,
     })
-    that.startTimer()
+
   },
 
   /**
@@ -181,7 +167,7 @@ Page({
       hideTipShadow: true,
       hideThreeShadow: true,
     })
-    that.startTimer()
+
   },
 
   /**
@@ -193,17 +179,13 @@ Page({
       hideTipShadow: false,
       suspend: true
     })
-    that.stopTimer()
+
   },
 
   /**
    * 放弃
    */
   giveUpTap: function () {
-    // wx.navigateTo({
-    //   url: '/pages/home/home',
-    // })
-
     wx.redirectTo({
       url: '/pages/home/home',
     })
@@ -214,7 +196,7 @@ Page({
    */
   goOnTap: function () {
     var that = this
-    that.startTimer()
+
   },
 
   /**
@@ -366,201 +348,18 @@ Page({
         hideBottom: true,
       })
     } else {
-      that.globalCountDown()
       that.setData({
         hideBottom: false,
       })
     }
-    var position = 0
-    var colorNum = 0
-    var color = "#fff"
-    var positionArray = Array()
-
-    positionArray = that.randomTwo()
-    that.data.previousColor = that.data.showColor
-    that.data.previousPositionArr = that.data.showPositionArr
-
+    
     that.setData({
       count: that.data.count,
-      showPositionArr: positionArray,
-      showColor: color,
       hideResult: true,
     })
-
-    //算法处理
-    var position1 = 0 // 绿灯位置
-    var current1 = 0 // 绿灯位置
-    for (var i = 0; i < positionArray.length; i++) {
-      var obj = positionArray[i]
-      if (obj == "#058005") {
-        position1 = i
-        console.log('position1==' + position1)
-        break
-      }
-    }
-    for (var j = 0; j < that.data.previousPositionArr.length; j++) {
-      var obj = that.data.previousPositionArr[j]
-      if (obj == "#058005") {
-        current1 = j
-        console.log('current1==' + current1)
-        break
-      }
-    }
-    
-    if (position1 == current1) {
-      that.data.isSame = true
-    } else {
-      that.data.isSame = false
-    }
-    var param = { isAnswer: that.data.isAnswer }
-    // that.countDown(param)
+    that.waveCreater();
   },
 
-  /**
-   *  随机三个不同的数
-   */
-  randomTwo: function () {
-    var that = this
-    var arr = [];
-    while (arr.length < 3) {
-      var num = Math.floor(Math.random() * 3) 
-      if (arr.length === 0) { 
-        arr.push(num)
-      } else {
-        for (var i = 0; i < arr.length; i++) { 
-          if (arr.join(',').indexOf(num) < 0) {
-          　arr.push(num)
-          }
-        }
-      }
-    }
-
-    console.log('function=' + arr)
-    var colorArr = []
-
-    if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 50) {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#fff")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('绿灯colorArr=' + colorArr)
-
-    } else {
-      for (var i = 0; i < arr.length; i++) {
-        var obj = arr[i]
-        if (obj == 0) {
-          colorArr.push("#fff")
-        } else if (obj == 1) {
-          colorArr.push("#FF3838")
-        } else {
-          colorArr.push("#058005")
-        }
-      }
-      console.log('红绿灯colorArr=' + colorArr)
-    }
-
-    return colorArr
-  },
-/**
-   * 出题计时器
-   */
-  countDown: function (param) {
-    
-    let that = this;
-    let newCount = that.data.count;//获取倒计时初始值
-    if (that.data.suspend == true) { // 暂停状态
-      that.data.suspend = false
-    } else {
-      if (that.data.selectedIndex >= 0 && that.data.selectedIndex <= 20) {
-        newCount = 4
-      } else if (that.data.selectedIndex >= 21 && that.data.selectedIndex <= 40) {
-        newCount = 3
-      } else if (that.data.selectedIndex >= 41 && that.data.selectedIndex <= 70) {
-        newCount = 2
-      } else if (that.data.selectedIndex >= 71) {
-        newCount = 1
-      } 
-    }
-
-    var step = 1,//计数动画次数
-      num = 0,//计数倒计时秒数（n - num）
-      start = 1.5 * Math.PI,// 开始的弧度
-      end = -0.5 * Math.PI,// 结束的弧度
-      time = null;// 计时器容器
-
-    var animation_interval = 1000,// 每1秒运行一次计时器
-      n = newCount; // 当前倒计时为10秒
-    // 动画函数
-    function animation() {
-      if (step <= n) {
-        end = end + 2 * Math.PI / n;
-        ringMove(start, end);
-        step++;
-      } else {
-        clearInterval(time);
-      }
-    };
-    // 画布绘画函数
-    function ringMove(s, e) {
-      var context = wx.createCanvasContext('secondCanvas')
-
-      var gradient = context.createLinearGradient(200, 100, 100, 200);
-      gradient.addColorStop("0", "#2661DD");
-      gradient.addColorStop("0.5", "#40ED94");
-      gradient.addColorStop("1.0", "#5956CC");
-
-      // 绘制圆环
-      context.setStrokeStyle('#00B461')
-      context.beginPath()
-      context.setLineWidth(5)
-      context.arc(65, 65, 35, s, e, true)
-      context.stroke()
-      context.closePath()
-
-      // 绘制倒计时文本
-      context.beginPath()
-      context.setLineWidth(1)
-      context.setFontSize(40)
-      context.setFillStyle('#333333')
-      context.setTextAlign('center')
-      context.setTextBaseline('middle')
-      context.fillText(n - num + '', 65, 65, 35)
-      context.fill()
-      context.closePath()
-
-      context.draw()
-
-      // 每完成一次全程绘制就+1
-      num++;
-    }
-    // 倒计时前先绘制整圆的圆环
-    ringMove(start, end);
-    // 创建倒计时
-    // time = setInterval(animation, animation_interval);
-
-    that.setData({
-      count: newCount
-    })
-    that.setData({
-      timer: setInterval(function () {
-        animation()
-        that.setData({
-          count: that.data.count-1
-        })
-        if (that.data.count <= 0) {
-          clearInterval(that.data.timer)
-          that.data.noSelect = true
-          that.noSelectTap()
-        }
-      }, 1000)
-    })  
-  },
   /**
    * 判断是否是最后一题
    */
@@ -666,7 +465,7 @@ Page({
     that.setData({
       showIntroduce: true,
     })
-    that.stopTimer()
+
   },
 
   /**
@@ -684,21 +483,7 @@ Page({
     that.setData({
       showIntroduce: false,
     })
-    that.startTimer()
-  }, 
 
-  /**
-  * 计时器
-  */
-  globalCountDown: function (count) {
-    var that = this
-    clearInterval(that.data.globalTimer)
-    var globalTimer = setInterval(function () {
-      that.data.globalCount = that.data.globalCount + 1
-    }, 1000);
-    that.setData({
-      globalTimer: globalTimer
-    })
   }, 
   
   /**
@@ -713,7 +498,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.makeGameDatas();
   },
 
   /**
@@ -789,7 +574,6 @@ Page({
   onShareAppMessage: function (res) {
     var that = this
     that.data.share = true
-    that.stopTimer()
     that.cancelResultTap()
     if (res.from == "button") {
       var title = "我的孩子已闯过" + this.data.rightCount + "题，让你的孩子也试试吧！"
@@ -818,7 +602,7 @@ Page({
     }
     // 圆起始点
     var cStartPoint = arcStack.shift();
-    ctxWave.strokeStyle = "#1c86d1";
+    ctxWave.strokeStyle = "black";
     ctxWave.moveTo(cStartPoint[0], cStartPoint[1]);
     // 开始渲染
     this.render();
@@ -836,13 +620,14 @@ Page({
       ctxWave.lineTo(dx, dy);
       Stack.push([dx, dy])
     }
+
     // 获取初始点和结束点
     var startP = Stack[0]
     var endP = Stack[Stack.length - 1]
     ctxWave.lineTo(xoffset + axisLength, oW);
     ctxWave.lineTo(xoffset, oW);
     ctxWave.lineTo(startP[0], startP[1])
-    ctxWave.fillStyle = "#4BEF8B";
+    ctxWave.fillStyle = "#f6b37f";
 
     ctxWave.fill();
     ctxWave.restore();
@@ -893,8 +678,8 @@ Page({
   //灰色圆圈
   grayCircle: function() {
     ctxWave.beginPath();
-    ctxWave.lineWidth = 2;
-    ctxWave.strokeStyle = '#7ce99e';
+    ctxWave.lineWidth = 50;
+    ctxWave.strokeStyle = '#DADCFD';
     ctxWave.arc(r, r, cR-8, 0, 2 * Math.PI);
     ctxWave.stroke();
     ctxWave.restore();
@@ -930,9 +715,14 @@ Page({
     nowdata = 0;
     lastFrameTime = 0;
     rotateNumber = 0;
+    if(gameDatas.length > this.data.selectedIndex) {
+      waveupsp = 30.0 / gameDatas[this.data.selectedIndex].time * 1.5;
+    } else {
+      waveupsp = 30.0 / 4000 * 1.5;
+    }
   },
   drawWaveFlow: function() {
-    this.abortAnimationFrame(tid);
+    console.log("XXX");
     if (data >= 0.85) {
       if (nowrange > range / 4) {
         var t = range * 0.01;
@@ -960,24 +750,98 @@ Page({
       nowdata -= waveupsp
     }
     sp += 0.07;
-    // sp = self.data.countDown / self.data.count
     // 开始水波动画
     this.drawSine();
     // 写字
     this.drawText();
     ctxWave.draw();
+    if(lastFrameTime == 0) {
+      tid = this.doAnimationFrame(this.drawWaveFlow);
+    } else if(lastFrameTime > gameDatas[that.data.selectedIndex]['time'] - 30) {
+      lastFrameTime += 30;
+      this.abortAnimationFrame(tid);
 
-    tid = this.doAnimationFrame(this.drawWaveFlow);
+      this.doNext();
+      return;
+    }
   },
+  
   doAnimationFrame: function(callback) {
-    var currTime = new Date().getTime();
-    var timeToCall = Math.max(0, 16 - (currTime - lastFrameTime));
-    var id = setTimeout(function () { callback(currTime + timeToCall); }, timeToCall);
-    lastFrameTime = currTime + timeToCall;
+    var id = setTimeout(function () { callback(); }, 30);
     return id;
   },
   // 模拟 cancelAnimationFrame
   abortAnimationFrame: function(id) {
     clearTimeout(id)
+  },
+  countWithLevel: function(level) {
+    var gameCount = [];
+    /**
+     第一位：题目数量；
+     第二位: 时间要求(毫秒)；
+     第三位：颜色数量；
+     第四位：图形数量;
+     */
+    switch (level) {
+      case 1:
+        gameCount = [15,4000,1,6];
+        break;
+      case 2:
+        gameCount = [20,3000,1,6];
+        break;
+      case 3:
+        gameCount = [35,2000,5,6];
+          break;
+      default:
+        break;
+    }
+    return gameCount;
+  },
+  getMemoryDataWithLevel: function (level) {
+    var gameLevelData = [];
+    var datas = this.countWithLevel(level);
+    var maxCount = datas[0];
+    var enumTime = datas[1];
+    var colorCount = datas[2];
+    var enumCount = datas[3];
+    var enumColors = this.randlist(constColors, colorCount);
+    var enumsShape = this.randlist(constShapes, enumCount);
+    for (let index = 0; index < maxCount+1; index++) {
+      gameLevelData.push(this.getQuickMemoryLevelModel(level,enumsShape,enumColors,enumTime));      
+    }
+    return gameLevelData;
+  },
+  getQuickMemoryLevelModel: function(level, shapes,colors,time) {
+    var i = Math.floor(Math.random()*(colors.length));
+    var j = Math.floor(Math.random()*(shapes.length));
+    var tmpColor = colors[i];
+    var tmpShape = shapes[j];
+
+    return {'color': tmpColor,
+            'shape': tmpShape,
+            'level': level,
+            'time': time
+          };
+  },
+  randlist: function (lists, count) {
+    var tempArray = [].concat(lists);
+    var results = [];
+    for (let index = 0; index < count; index++) {
+      var i = Math.floor(Math.random()*(tempArray.length));
+      var element = tempArray[i];
+      results.push(element);
+      tempArray.splice(i,1);
+    }
+    return results;
+  },
+  makeGameDatas: function() {
+    var level_1 = this.getMemoryDataWithLevel(1);
+    var level_2 = this.getMemoryDataWithLevel(2);
+    var level_3 = this.getMemoryDataWithLevel(3);
+
+    gameDatas = level_1.concat(level_2, level_3);
+    this.setData({
+      answerList: gameDatas
+    });
   }
 })
