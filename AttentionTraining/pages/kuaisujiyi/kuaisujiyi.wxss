@@ -59,10 +59,17 @@
   position: fixed;
   width: 650rpx;
   height: 650rpx;
-  opacity: 0.85;
+  opacity: 0.8;
   align-items: center;
 }
 .canvasArcCir_bg {
+  position: fixed;
+  opacity: 0.85;
+  width: 650rpx;
+  height: 650rpx;
+  align-items: center;
+}
+.canvasflow_bg {
   position: fixed;
   width: 650rpx;
   height: 650rpx;

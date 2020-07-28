@@ -14,6 +14,7 @@
       <view class="item_list">
         <view class="lights-view">
           <view class="waterview">
+            <canvas class="canvasflow_bg"  canvas-id='canvasflow'></canvas>
             <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
             <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
           </view>

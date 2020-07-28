@@ -3,6 +3,7 @@ var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 const ctxWave = wx.createCanvasContext('canvasArcCir')
 const ctxGraph = wx.createCanvasContext('canvasgraph')
+const ctxFlow = wx.createCanvasContext('canvasflow')
 
 var tid;
 var M = Math;
@@ -41,6 +42,7 @@ var circleLock = true; // 起始动画锁
 var lastFrameTime = 0;
 var rotateNumber = 0;//旋转度数
 var kMaxTime = 5000; //倒计时时间
+var timestamp = Date.parse(new Date());  
 
 var constColors = ["Blue","Purple","Yellow","Green","Red"];
 /**
@@ -66,12 +68,11 @@ Page({
     result: 0, // 结果对错 0-错 1-对
     showIntroduce: false, // 显示简介
     count: 4, // 倒计时
-    timer: '',// 出题定时器名字
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
 
-    globalCount: 0, // 游戏计时器
     rightCount: 0, // 对的题目数量
+    globalTimer: 0, //游戏计时器
 
     hideTipShadow: true, // 是否隐藏继续作答
     hideResultShadow: true, // 是否隐藏结果
@@ -123,12 +124,13 @@ Page({
       selectedIndex: -1,
       result: 0, 
       count: 4,
-      globalCount: 0,
+      globalTimer: 0,
       rightCount: 0,
       scrId: 0,
       hideThreeShadow: true,
       hideResultShadow: true
     })
+    timestamp = Date.parse(new Date());
     that.doNext()
   },
 
@@ -211,8 +213,7 @@ Page({
     
     if (that.data.selectedIndex == that.data.answerList.length-1) {
       if (that.data.selectedIndex>0) {
-        clearInterval(that.data.globalTimer)
-        clearInterval(that.data.timer)
+
         that.lastQuestion()
         return
       }
@@ -220,15 +221,13 @@ Page({
     } else {
       // 下一题
       if (that.data.selectedIndex >= 1) {
-        clearInterval(that.data.timer)
-        clearInterval(that.data.globalTimer)
+
         that.lastQuestion()
         return
       }
       setTimeout(function () {
         that.data.noSelect = false
-        clearInterval(that.data.timer)
-        clearInterval(that.data.globalTimer)
+
         that.doNext();
       }, 1000);
     }
@@ -309,7 +308,6 @@ Page({
   doNext: function () {
     var that = this
 
-    clearInterval(that.data.timer)
     that.data.isAnswer = false
 
     var nextIndex = that.data.selectedIndex + 1
@@ -341,8 +339,11 @@ Page({
    */
   lastQuestion: function () {
     var that = this
+    var timesend = Date.parse(new Date());  
+    var spandTimer = Math.floor((timesend - timestamp) / 1000);
+
     that.setData({
-      globalCount: that.data.globalCount
+      globalTimer: spandTimer
     })
     // 判断是否已经注册信息
     wx.getStorage({
@@ -357,7 +358,7 @@ Page({
                   var params = {
                     userid: result.user.id,
                     score: that.data.rightCount,
-                    times: that.data.globalCount,
+                    times: that.data.globalTimer,
                     nickname: res.data.nickName,
                     headUrl: res.data.avatarUrl,
                     city: res.data.city,
@@ -386,12 +387,8 @@ Page({
                       hideThreeShadow: false
                     })
                   } else {
-                    // wx.navigateTo({
-                    //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
-                    // })
-
                     wx.navigateTo({
-                      url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+                      url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
                     })
                   }
                   
@@ -402,12 +399,8 @@ Page({
                     hideThreeShadow: false
                   })
                 } else {
-                  // wx.navigateTo({
-                  //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
-                  // })
-
                   wx.navigateTo({
-                    url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+                    url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
                   })
                 }
               }
@@ -426,7 +419,7 @@ Page({
         } else {
 
           wx.navigateTo({
-            url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+            url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
           })
         }
       }
@@ -467,7 +460,6 @@ Page({
    */
   onLoad: function (options) {
     this.makeGameDatas();
-    // that.moreTap()
   },
 
   /**
@@ -482,7 +474,6 @@ Page({
    */
   onShow: function () {
     var that = this
-    // that.drawProgressbg()
     that.waveCreater();
     if (that.data.share == true) {
       that.shareTap()
@@ -490,7 +481,7 @@ Page({
       that.moreTap()
     }
 
-    /*
+    
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'linear',
@@ -511,7 +502,7 @@ Page({
         animationData: animation.export()
       })
     }.bind(this), 500)
-    */
+    
   },
 
   /**
@@ -527,8 +518,6 @@ Page({
    */
   onUnload: function () {
     var that = this
-    clearInterval(that.data.timer);
-    clearInterval(that.data.globalTimer)
   },
 
   /**
@@ -586,8 +575,8 @@ Page({
   },
 
   drawSine: function() {
-    ctxWave.save();
-    ctxWave.beginPath();
+    // ctxFlow.save();
+    ctxFlow.beginPath();
 
     var Stack = []; // 记录起始点和终点坐标
     for (var i = xoffset; i <= xoffset + axisLength; i += 20 / axisLength) {
@@ -595,26 +584,26 @@ Page({
       var y = Sin(x) * nowrange;
       var dx = i;
       var dy = 2 * cR * (1 - nowdata) + (r - cR) - (unit * y);
-      ctxWave.lineTo(dx, dy);
+      ctxFlow.lineTo(dx, dy);
       Stack.push([dx, dy])
     }
 
     // 获取初始点和结束点
     var startP = Stack[0]
     var endP = Stack[Stack.length - 1]
-    ctxWave.lineTo(xoffset + axisLength, oW);
-    ctxWave.lineTo(xoffset, oW);
-    ctxWave.lineTo(startP[0], startP[1])
-    // ctxWave.fillStyle = "#f6b37f";
+    ctxFlow.lineTo(xoffset + axisLength, oW);
+    ctxFlow.lineTo(xoffset, oW);
+    ctxFlow.lineTo(startP[0], startP[1])
+    ctxFlow.fillStyle = "#f6b37f";
 
-    // ctxWave.fill();
-    ctxWave.restore();
+    ctxFlow.fill();
+    ctxFlow.restore();
   },
   drawText: function() {
     ctxGraph.beginPath()
     ctxGraph.globalCompositeOperation = 'source-over';
-    var size = 15;
-    ctxGraph.font = 'bold ' + size + 'px Microsoft Yahei';
+    var size = 16;
+    ctxGraph.font = 'bold ' + size + 'rpx Microsoft Yahei';
     var number = (nowdata.toFixed(2) * 100).toFixed(0);
     var txt = "颜色是否与前面相同";
     //number+ '%';
@@ -643,14 +632,16 @@ Page({
   },
   //裁剪中间水圈
   clipCircle: function() {
-    ctxWave.beginPath();
-    ctxWave.arc(r, r, cR - 25, 0, 2 * Math.PI, false);
-    ctxWave.clip();
+    ctxFlow.beginPath();
+    ctxFlow.arc(r, r, cR - 25, 0, 2 * Math.PI, false);
+    ctxFlow.clip();
   },
   //渲染canvas
   render: function() {
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
+    ctxFlow.clearRect(0, 0, oW, oH);
+
     this.clearData();
 
     // 写字
@@ -661,12 +652,15 @@ Page({
 
     //灰色圆圈  
     this.grayCircle();
+    ctxWave.draw();
+
     //裁剪中间水圈  
     this.clipCircle();
-    ctxWave.save()
+    ctxFlow.save()
     //水纹路
     this.drawWaveFlow();
-    ctxWave.draw();
+    ctxFlow.draw()
+
   },
 
   clearData: function() {
@@ -713,7 +707,7 @@ Page({
     sp += 0.07;
     // 开始水波动画
     this.drawSine();
-    // ctxWave.draw();
+    ctxFlow.draw();
     
     tid = this.doAnimationFrame(this.drawWaveFlow);
 
