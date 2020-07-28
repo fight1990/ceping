@@ -52,23 +52,22 @@
 
 .waterview {
   /* background-color: #923179; */
-  width: 600rpx;
-  height: 600rpx;
+  width: 650rpx;
+  height: 650rpx;
 }
 .canvasgraph_bg {
   position: fixed;
-  width: 600rpx;
-  height: 600rpx;
-  opacity: 0.8;
+  width: 650rpx;
+  height: 650rpx;
+  opacity: 0.85;
   align-items: center;
 }
 .canvasArcCir_bg {
   position: fixed;
-  width: 600rpx;
-  height: 600rpx;
+  width: 650rpx;
+  height: 650rpx;
   align-items: center;
 }
-
 
 .item_list{
   display: flex;

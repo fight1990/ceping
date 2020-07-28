@@ -12,8 +12,8 @@ var Sqrt = M.sqrt;
 var Pow = M.pow;
 var PI = M.PI;
 var Round = M.round;
-var oW =  600.0 / util.getRpx() * 1.0;
-var oH =  600.0 / util.getRpx() * 1.0;
+var oW =  650.0 / util.getRpx() * 1.0;
+var oH =  650.0 / util.getRpx() * 1.0;
 // 线宽
 var lineWidth = 2;
 // 大半径
@@ -45,13 +45,13 @@ var kMaxTime = 5000; //倒计时时间
 var constColors = ["Blue","Purple","Yellow","Green","Red"];
 /**
  * 0 -- 圆形
- * 1 -- 三角形
- * 2 -- 正方形
- * 3 -- 五角星
- * 4 -- 六边形
- * 5 -- 八边形
+ * 3 -- 三角形
+ * 4 -- 正方形
+ * 5 -- 五角星
+ * 6 -- 六边形
+ * 8 -- 八边形
  */
-var constShapes = ['0','1','2','3','4','5'];
+var constShapes = [0,3,4,5,6,8];
 var gameDatas = [];
 
 Page({
@@ -246,7 +246,7 @@ Page({
     })
     var currentData = gameDatas[that.data.selectedIndex];
     var beforeData = gameDatas[that.data.selectedIndex-1];
-    if(currentData.color != beforeData.color || currentData.shape == beforeData.shape) {
+    if(currentData.color != beforeData.color || currentData.shape != beforeData.shape) {
       var count = that.data.rightCount + 1
       that.setData({
         rightCount: count,
@@ -490,6 +490,7 @@ Page({
       that.moreTap()
     }
 
+    /*
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'linear',
@@ -510,6 +511,7 @@ Page({
         animationData: animation.export()
       })
     }.bind(this), 500)
+    */
   },
 
   /**
@@ -584,8 +586,9 @@ Page({
   },
 
   drawSine: function() {
-    ctxWave.beginPath();
     ctxWave.save();
+    ctxWave.beginPath();
+
     var Stack = []; // 记录起始点和终点坐标
     for (var i = xoffset; i <= xoffset + axisLength; i += 20 / axisLength) {
       var x = sp + (xoffset + i) / unit;
@@ -602,88 +605,68 @@ Page({
     ctxWave.lineTo(xoffset + axisLength, oW);
     ctxWave.lineTo(xoffset, oW);
     ctxWave.lineTo(startP[0], startP[1])
-    ctxWave.fillStyle = "#f6b37f";
+    // ctxWave.fillStyle = "#f6b37f";
 
-    ctxWave.fill();
+    // ctxWave.fill();
     ctxWave.restore();
   },
   drawText: function() {
-    ctxWave.globalCompositeOperation = 'source-over';
-    var size = 18;
-    ctxWave.font = 'bold ' + size + 'px Microsoft Yahei';
+    ctxGraph.beginPath()
+    ctxGraph.globalCompositeOperation = 'source-over';
+    var size = 15;
+    ctxGraph.font = 'bold ' + size + 'px Microsoft Yahei';
     var number = (nowdata.toFixed(2) * 100).toFixed(0);
     var txt = "颜色是否与前面相同";
     //number+ '%';
     var fonty = r + size / 2;
     var fontx = r - size * 0.8;
   
-    ctxWave.textAlign = 'center';
-    ctxWave.textBaseline = 'middle'
-    ctxWave.fillText(txt, r , r )
+    ctxGraph.textAlign = 'center';
+    ctxGraph.textBaseline = 'middle'
+    ctxGraph.fillText(txt, r , r )
   },
   drawTriangle: function() {
-    ctxGraph.beginPath();
-    ctxGraph.lineWidth = 15;
-    ctxGraph.moveTo(r, (r-cR)/2.0)
-    ctxGraph.lineTo(cR,(r-cR)*2.0)
-    ctxGraph.lineTo(r+(r-cR), (r-cR)*2.0)
-    ctxGraph.fillStyle = '#6495ED';
-    ctxGraph.closePath()
-    ctxGraph.fill()
-    ctxGraph.restore();
-
-    ctxGraph.beginPath();
-    ctxGraph.moveTo((r-cR)/2.0, r)
-    ctxGraph.lineTo((r-cR)*2.0, r-(r-cR))
-    ctxGraph.lineTo((r-cR)*2.0, r+(r-cR))
-    ctxGraph.fillStyle = '#6495ED';
-    ctxGraph.closePath()
-    ctxGraph.fill()
-    ctxGraph.restore();
-
-    ctxGraph.beginPath();
-    ctxGraph.moveTo((r+cR+(r-cR)/2.0), r)
-    ctxGraph.lineTo((r+cR-(r-cR)), r-(r-cR))
-    ctxGraph.lineTo((r+cR-(r-cR)), r+(r-cR))
-    ctxGraph.fillStyle = '#6495ED';
-    ctxGraph.closePath()
-    ctxGraph.fill()
-    ctxGraph.restore();
+    this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+    this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+    this.drawFillPolygon(r+cR-(r-cR)*1.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
   },
   //灰色圆圈
   grayCircle: function() {
     ctxWave.beginPath();
-    ctxWave.lineWidth = 50;
+    ctxWave.lineWidth = 25;
     ctxWave.strokeStyle = '#DADCFD';
-    ctxWave.arc(r, r, cR-8, 0, 2 * Math.PI);
+    ctxWave.arc(r, r, cR-10, 0, 2 * Math.PI);
     ctxWave.stroke();
     ctxWave.restore();
+    ctxWave.save();
     ctxWave.beginPath();
   },
   //裁剪中间水圈
   clipCircle: function() {
     ctxWave.beginPath();
-    ctxWave.arc(r, r, cR - 10, 0, 2 * Math.PI, false);
+    ctxWave.arc(r, r, cR - 25, 0, 2 * Math.PI, false);
     ctxWave.clip();
   },
   //渲染canvas
   render: function() {
-    console.log("XXXXX: "+ this.data.selectedIndex);
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
     this.clearData();
-    //绘制形状图
+
+    // 写字
+    this.drawText();
+     //绘制形状图
     this.drawTriangle();
-    ctxGraph.draw();
+    ctxGraph.draw()
 
     //灰色圆圈  
     this.grayCircle();
     //裁剪中间水圈  
     this.clipCircle();
-    ctxWave.save();
+    ctxWave.save()
+    //水纹路
     this.drawWaveFlow();
     ctxWave.draw();
-
   },
 
   clearData: function() {
@@ -691,6 +674,7 @@ Page({
     nowdata = 0;
     lastFrameTime = 0;
     rotateNumber = 0;
+    sp = 0;
     if(gameDatas.length > this.data.selectedIndex) {
       waveupsp = 30.0 / gameDatas[this.data.selectedIndex].time * 0.95;
     } else {
@@ -729,12 +713,8 @@ Page({
     sp += 0.07;
     // 开始水波动画
     this.drawSine();
-    // 写字
-    this.drawText();
-    ctxWave.draw();
+    // ctxWave.draw();
     
-    console.log("HHH: "+lastFrameTime+";gameTime: "+gameDatas[this.data.selectedIndex].time);
-
     tid = this.doAnimationFrame(this.drawWaveFlow);
 
     if((lastFrameTime > 0) && (lastFrameTime > gameDatas[this.data.selectedIndex].time - 30)) {
@@ -821,5 +801,39 @@ Page({
     this.setData({
       answerList: gameDatas
     });
-  }
+  },
+  /**
+   * @param {Canvas} ctx
+   * @param {Number} xCenter 中心坐标x点
+   * @param {Number} yCenter 中心坐标y点
+   * @param {Number} radius  外圆半径
+   * @param {Number} sides   多边形边数
+   * @param {Number} alpha   旋转角度 默认270度
+   * @param {Boolean} arc    是否显示外圈
+   */
+  //绘制充填的多边形
+  drawFillPolygon: function(xCenter, yCenter,radius,sides,alpha) {
+    ctxGraph.beginPath();
+    ctxGraph.fillStyle = gameDatas[this.data.selectedIndex].color;
+    if(sides == 0) {
+      ctxGraph.beginPath();
+      ctxGraph.arc(xCenter, yCenter, radius, 0, 2 * Math.PI, true);
+    } else {
+      var radAngle = Math.PI * 2 / sides;
+      var radAlpha = alpha ? alpha * Math.PI / 180 : -Math.PI / 2;
+      var xPos = xCenter + Math.cos(radAlpha) * radius;
+      var yPos = yCenter + Math.sin(radAlpha) * radius;
+      ctxGraph.moveTo(xPos, yPos);
+      console.log('XXX - '+xPos + ", " + yPos);
+      for (var i = 1; i < sides; i++) {
+        var rad_tmp = radAngle * i + radAlpha;
+        var xPos_tmp = xCenter + Math.cos(rad_tmp) * radius;
+        var yPos_tmp = yCenter + Math.sin(rad_tmp) * radius;
+        ctxGraph.lineTo(xPos_tmp, yPos_tmp);
+      }
+      ctxGraph.closePath();
+    }
+    ctxGraph.fill();
+    ctxGraph.restore();
+  },
 })
