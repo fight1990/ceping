@@ -12,13 +12,71 @@
   overflow: hidden;
 }
 
-.head-view {
-  margin-top: 40rpx;
-  height: 120rpx;
+.middle-view {
+  margin-top: 43rpx;
+  height: 55rpx;
   width: 100%;
   display: flex;
-  flex-direction: row; 
-  align-items: center
+  flex-direction: row;
+  background-color: white;
+}
+
+.middle-view .report {
+  margin-left: 125rpx;
+  text-align: center;
+  color: #303030;
+  line-height: 55rpx;
+  font-size: 36rpx;
+  height: 55rpx;
+  width: 150rpx;
+}
+
+.middle-view .space-img-one {
+  margin-left: 303rpx;
+}
+
+.middle-view .space-img-one image {
+  width: 4rpx;
+  height: 55rpx;
+}
+
+.middle-view .task {
+  margin-left: 30rpx;
+  text-align: center;
+  color: #303030;
+  line-height: 55rpx;
+  font-size: 36rpx;
+  height: 55rpx;
+  width: 150rpx;
+
+}
+
+.middle-view .space-img-two {
+  margin-left: 30rpx;
+}
+
+.middle-view .space-img-two image {
+    width: 4rpx;
+  height: 55rpx;
+}
+
+
+.middle-view .score {
+  margin-left: 30rpx;
+  margin-right: 125rpx;
+  text-align: center;
+  color: #303030;
+  line-height: 55rpx;
+  font-size: 36rpx;
+  height: 55rpx;
+}
+
+.head-view {
+  margin-top: 55rpx;
+  height: 160rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column; 
 }
 
 .user-box {
@@ -29,21 +87,22 @@
 
 .avatar {
   margin-left: 30rpx;
-  width: 120rpx;
-  height: 120rpx;
-  border-radius: 60rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
   background-color: white;
 }
 
 .nickname {
-  height: 120rpx;
-  /* margin-left: 20rpx; */
+  margin-top: 92rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
   font-size:32rpx;
   font-weight:bold;
   color:#333333;
-  line-height:120rpx;
-  text-align: center;
-  background-color: white;
+  line-height:60rpx;
+  text-align: left;
+  background-color: rgba(135, 57, 118, 1);
 }
 
 .report{
@@ -117,7 +176,7 @@
 }
 
 .list-page {
-  margin-top: 30rpx;
+  margin-top: 110rpx;
   width: 100%;
   display: flex;
   flex-direction: row; 

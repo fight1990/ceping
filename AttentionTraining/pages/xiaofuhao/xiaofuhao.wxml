@@ -19,7 +19,7 @@
 
          <!-- <text>{{selectedIndex}}</text> -->
 
-         <text>{{answerIndex}}</text>
+         <!-- <text>{{answerIndex}}</text> -->
         
           <view class="root">
             <view class='table'>

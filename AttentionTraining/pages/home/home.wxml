@@ -3,13 +3,24 @@
   <view class="head-view">
     <view class="user-box">
       <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
-      <button open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="nickname">{{userInfo==false?'登录/注册':nickName}}
+      <button open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="nickname">{{userInfo==false?'登录':nickName}}
       </button>
-      <!-- <text class="nickname" bindtap="{{userInfo==false?'':''}}">{{userInfo==false?'登录/注册':nickName}}</text> -->
     </view>
-    <view class="report" bindtap="reportTap">
+    <!-- <view class="report" bindtap="reportTap">
       <image class="report-image" src="{{hasReports==true?'../../style/images/baogao1.png':'../../style/images/baogao2.png'}}"></image>
+    </view> -->
+    <view class="middle-view">
+      <view class="report" bindtap="reportTap">报告查看</view>
+      <view class="space-img-one">
+        <image src="../../style/images/space_img.png"></image>
+      </view>
+      <view class="task">每日任务</view>
+      <view class="space-img-two">
+        <image  src="../../style/images/space_img.png"></image>
+      </view>
+      <view class="score">积分</view>
     </view>
+
   </view>
 
   <view class="list-page">
