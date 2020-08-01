@@ -5,6 +5,9 @@ const ctxWave = wx.createCanvasContext('canvasArcCir')
 const ctxGraph = wx.createCanvasContext('canvasgraph')
 const ctxFlow = wx.createCanvasContext('canvasflow')
 
+var valHandle;  //定时器
+const ctxTimer = wx.createCanvasContext("bgCanvas")
+
 var tid;
 var M = Math;
 var Sin = M.sin;
@@ -56,6 +59,14 @@ var constColors = ["Blue","Purple","Yellow","Green","Red"];
 var constShapes = [0,3,4,5,6,8];
 var gameDatas = [];
 
+var _animation; // 动画实体
+var _animationIndex = 0; // 动画执行次数index（当前执行了多少次）
+var _animationIntervalId = -1; // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
+const _ANIMATION_TIME = 5000; // 动画播放一次的时长ms
+
+const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
+const _tipContent2 = "&nbsp;&nbsp;&nbsp;形状和颜色\n是否与前面相同"
+
 Page({
 
   /**
@@ -74,11 +85,16 @@ Page({
     rightCount: 0, // 对的题目数量
     globalTimer: 0, //游戏计时器
 
+    canvasContent: _tipContent1,
+
     hideTipShadow: true, // 是否隐藏继续作答
     hideResultShadow: true, // 是否隐藏结果
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
-    animationData: {}
+    animationData: {},
+    animationRotate: '',
+
+    stepText: 5  //设置倒计时初始值
   },
 
   /**
@@ -199,6 +215,8 @@ Page({
    */
   noSelectTap: function () {
     var that = this
+    clearInterval(valHandle)  //销毁定时器
+
     if (that.data.selectedIndex == 0) {
       that.setData({
         hideResult: true,
@@ -210,24 +228,14 @@ Page({
         result: 0,
       })
     }
-    
-    if (that.data.selectedIndex == that.data.answerList.length-1) {
-      if (that.data.selectedIndex>0) {
+    console.log("XXXXXX-index= "+this.data.selectedIndex+";count="+gameDatas.length);
 
-        that.lastQuestion()
-        return
-      }
-      
+    if (that.data.selectedIndex == gameDatas.length-1) {
+      that.lastQuestion()
+      return      
     } else {
-      // 下一题
-      if (that.data.selectedIndex >= 1) {
-
-        that.lastQuestion()
-        return
-      }
       setTimeout(function () {
         that.data.noSelect = false
-
         that.doNext();
       }, 1000);
     }
@@ -239,6 +247,7 @@ Page({
   differentTap: function () {
     var that = this
     that.abortAnimationFrame(tid);
+    clearInterval(valHandle)  //销毁定时器
 
     that.setData({
       hideResult: false,
@@ -273,6 +282,7 @@ Page({
   identicalTap: function () {
     var that = this
     that.abortAnimationFrame(tid);
+    clearInterval(valHandle)  //销毁定时器
 
     that.setData({
       hideResult: false,
@@ -308,11 +318,23 @@ Page({
   doNext: function () {
     var that = this
 
+    console.log("XXXXXX --- index : " + that.data.selectedIndex + "; gameCount: " + gameDatas.length)
+
+    if(that.data.selectedIndex == gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    }
+
     that.data.isAnswer = false
 
     var nextIndex = that.data.selectedIndex + 1
+    var time = 0;
+    if (gameDatas[nextIndex]) {
+      time = gameDatas[nextIndex].time;
+    }
     that.setData({
       selectedIndex: nextIndex,
+      stepText: time
     })
 
     that.scrollTap()
@@ -340,7 +362,7 @@ Page({
   lastQuestion: function () {
     var that = this
     var timesend = Date.parse(new Date());  
-    var spandTimer = Math.floor((timesend - timestamp) / 1000);
+    var spandTimer = Math.floor((timesend - timestamp) / 1000) - gameDatas.length - gameDatas[0].time;
 
     that.setData({
       globalTimer: spandTimer
@@ -364,45 +386,48 @@ Page({
                     city: res.data.city,
                     openid: res.data.openid
                   }
-                  api.saveWechatGames({
+                  api.saveGamesData({
                     data: params,
                     success: function (response) {
                       console.log(response)
-                      that.data.gameid = response.gameid
-                      if (result.games.length >= 2) { // 大于两次 - 分享
-                        that.showResultTap()
-                      } else { // 直接生成报告
-                        wx.navigateTo({
-                          url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=0",
-                        })
-                      }
+                      that.showResultTap()
+                      // that.data.gameid = response.gameid
+                      // if (result.games.length >= 2) { // 大于两次 - 分享
+                      //   that.showResultTap()
+                      // } else { // 直接生成报告
+                      //   wx.navigateTo({
+                      //     url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=0",
+                      //   })
+                      // }
                     },
                     fail: function (res) {
                       
                     }
                   })
                 } else {
-                  if (that.data.rightCount <= 3) {
-                    that.setData({
-                      hideThreeShadow: false
-                    })
-                  } else {
-                    wx.navigateTo({
-                      url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-                    })
-                  }
+                  that.showResultTap()
+                  // if (that.data.rightCount <= 3) {
+                  //   that.setData({
+                  //     hideThreeShadow: false
+                  //   })
+                  // } else {
+                  //   wx.navigateTo({
+                  //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
+                  //   })
+                  // }
                   
                 }    
               } else {
-                if (that.data.rightCount <= 3) {
-                  that.setData({
-                    hideThreeShadow: false
-                  })
-                } else {
-                  wx.navigateTo({
-                    url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-                  })
-                }
+                that.showResultTap()
+                // if (that.data.rightCount <= 3) {
+                //   that.setData({
+                //     hideThreeShadow: false
+                //   })
+                // } else {
+                //   wx.navigateTo({
+                //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
+                //   })
+                // }
               }
             },
             fail: function (res) {
@@ -412,16 +437,16 @@ Page({
         }
       },
       fail: function (res) {
-        if (that.data.rightCount <= 3) {
-          that.setData({
-            hideThreeShadow: false
-          })
-        } else {
+        // if (that.data.rightCount <= 3) {
+        //   that.setData({
+        //     hideThreeShadow: false
+        //   })
+        // } else {
 
-          wx.navigateTo({
-            url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-          })
-        }
+        //   wx.navigateTo({
+        //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
+        //   })
+        // }
       }
     })
   },
@@ -466,7 +491,9 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    _animationIndex = 0;
+    _animationIntervalId = -1;
+    this.data.animationRotate = ''; 
   },
 
   /**
@@ -474,6 +501,14 @@ Page({
    */
   onShow: function () {
     var that = this
+
+    _animation = wx.createAnimation({
+      duration: _ANIMATION_TIME,
+      timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
+      delay: 0,
+      transformOrigin: '50% 50% 0'
+    })
+
     that.waveCreater();
     if (that.data.share == true) {
       that.shareTap()
@@ -481,7 +516,8 @@ Page({
       that.moreTap()
     }
 
-    
+    /*
+    //缩放动画
     var animation = wx.createAnimation({
       duration: 500,
       timingFunction: 'linear',
@@ -502,7 +538,16 @@ Page({
         animationData: animation.export()
       })
     }.bind(this), 500)
-    
+    */
+  },
+   /**
+   * 实现image旋转动画，每次旋转 120*n度
+   */
+  rotateAni: function (n) {
+    _animation.rotate(120 * (n)).step();
+    this.setData({
+      animationRotate: _animation.export()
+    })
   },
 
   /**
@@ -556,7 +601,61 @@ Page({
       }
     }
   },
-  
+  timerCircleReady: function() {
+    ctxTimer.setLineWidth(15)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+    ctxTimer.setStrokeStyle('white')
+    ctxTimer.stroke()
+
+    ctxTimer.beginPath()
+    ctxTimer.setLineCap('round')
+    ctxTimer.setLineWidth(8)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
+    ctxTimer.setStrokeStyle('green')
+    ctxTimer.stroke()
+    ctxTimer.draw()
+  },
+  startCircleTime: function() {    
+    console.log("倒计时动画开始")
+    var that = this
+    that.data.stepText = gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+    var step = that.data.stepText ;  //定义倒计时
+    var num = -0.5;
+    var decNum = 2/step/10
+    clearInterval(valHandle)
+
+    function drawArc(endAngle) {
+      ctxTimer.setLineWidth(15)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+      ctxTimer.setStrokeStyle('lightgray')
+      ctxTimer.stroke()
+
+      ctxTimer.beginPath()
+      ctxTimer.setLineCap('round')
+      ctxTimer.setLineWidth(8)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
+      ctxTimer.setStrokeStyle('green')
+      ctxTimer.stroke()
+      ctxTimer.draw()
+    }
+
+    valHandle = setInterval(function(){
+      // that.rotateAni(++_animationIndex);
+
+      that.setData({
+        stepText: parseInt(step)
+      })
+      step = (step - 0.1).toFixed(1)
+
+      num += decNum
+      drawArc(num*Math.PI)
+      if(step<=0){
+        clearInterval(valHandle)  //销毁定时器
+        that.doNext();
+      }
+    },100)
+  },
+
   //绘制圆圈进度
   waveCreater: function() {
     // 获取圆动画轨迹点集
@@ -591,30 +690,47 @@ Page({
     // 获取初始点和结束点
     var startP = Stack[0]
     var endP = Stack[Stack.length - 1]
+    ctxFlow.fillStyle = "#f6b37f";
+
     ctxFlow.lineTo(xoffset + axisLength, oW);
     ctxFlow.lineTo(xoffset, oW);
     ctxFlow.lineTo(startP[0], startP[1])
-    ctxFlow.fillStyle = "#f6b37f";
-
     ctxFlow.fill();
+
     ctxFlow.restore();
   },
   drawText: function() {
-    ctxGraph.beginPath()
-    ctxGraph.globalCompositeOperation = 'source-over';
+
+    var txt = _tipContent1;
+    if (this.data.selectedIndex > 35) {
+      txt = _tipContent2;
+    }
+    this.setData({
+      canvasContent:txt
+    })
+    /*
+    ctxWave.beginPath()
+    ctxWave.globalCompositeOperation = 'source-over';
     var size = 16;
-    ctxGraph.font = 'bold ' + size + 'rpx Microsoft Yahei';
+    ctxWave.font = 'bold ' + size + 'rpx Microsoft Yahei';
     var number = (nowdata.toFixed(2) * 100).toFixed(0);
-    var txt = "颜色是否与前面相同";
+    var txt = _tipContent1;
+    if (this.data.selectedIndex > 5) {
+      txt = _tipContent2;
+    }
     //number+ '%';
     var fonty = r + size / 2;
     var fontx = r - size * 0.8;
   
-    ctxGraph.textAlign = 'center';
-    ctxGraph.textBaseline = 'middle'
-    ctxGraph.fillText(txt, r , r )
+    ctxWave.textAlign = 'center';
+    ctxWave.textBaseline = 'middle'
+    ctxWave.fillText(txt, r , r )
+    */
   },
   drawTriangle: function() {
+    if (gameDatas[this.data.selectedIndex] == undefined) {
+      return;
+    }
     this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
     this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
     this.drawFillPolygon(r+cR-(r-cR)*1.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
@@ -641,6 +757,7 @@ Page({
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
     ctxFlow.clearRect(0, 0, oW, oH);
+    this.rotateAni(0);
 
     this.clearData();
 
@@ -649,18 +766,20 @@ Page({
      //绘制形状图
     this.drawTriangle();
     ctxGraph.draw()
-
+    
     //灰色圆圈  
     this.grayCircle();
     ctxWave.draw();
 
     //裁剪中间水圈  
     this.clipCircle();
-    ctxFlow.save()
+    // ctxFlow.save()
     //水纹路
-    this.drawWaveFlow();
-    ctxFlow.draw()
+    // this.drawWaveFlow();
+    // ctxFlow.draw();
 
+    this.timerCircleReady();
+    this.startCircleTime();
   },
 
   clearData: function() {
@@ -674,10 +793,15 @@ Page({
     } else {
       waveupsp = 30.0 / 4000 * 0.9;
     }
+
+    _animationIndex = 0;
+    _animationIntervalId = -1;
+    this.data.animationRotate = ''; 
   },
   drawWaveFlow: function() {
     this.abortAnimationFrame(tid);
-
+    this.rotateAni(++_animationIndex);
+    /*
     if (data >= 0.85) {
       if (nowrange > range / 4) {
         var t = range * 0.01;
@@ -707,24 +831,51 @@ Page({
     sp += 0.07;
     // 开始水波动画
     this.drawSine();
+    // this.clearArcFun(r,r,cR,ctxFlow);
     ctxFlow.draw();
-    
+    */
     tid = this.doAnimationFrame(this.drawWaveFlow);
-
+    /*
     if((lastFrameTime > 0) && (lastFrameTime > gameDatas[this.data.selectedIndex].time - 30)) {
       this.doNext();
       return;
     }
     lastFrameTime += 30;
+    */
   },
   
   doAnimationFrame: function(callback) {
-    var id = setTimeout(function () { callback(); }, 30);
+    var id = setTimeout(function () { callback(); }, _ANIMATION_TIME);
     return id;
   },
   // 模拟 cancelAnimationFrame
   abortAnimationFrame: function(id) {
     clearTimeout(id)
+  },
+  /**
+ * canvas绘图相关
+ * (x,y)为要清除的圆的圆心，r为外径，cR为内径，cxt为context
+ *  用clearRect方法清除canvas上不能用clip剪切的圆形
+ */
+  clearArcFun: function(x, y, r, cxt) {
+    var stepClear = 0.1;//这是定义精度 
+    clearArc(x, y, r);
+    function clearArc(x, y, radius) {
+      var calcWidth = radius - stepClear;
+      var calcHeight = Math.sqrt(radius * radius - calcWidth * calcWidth);
+
+      var posX = x - calcWidth;
+      var posY = y - calcHeight;
+
+      var widthX = 2 * calcWidth;
+      var heightY = 2 * calcHeight;
+
+      if (stepClear <= radius) {
+        cxt.clearRect(posX, posY, widthX, heightY);
+        stepClear += 0.1;
+        clearArc(x, y, radius);
+      }
+    }
   },
   countWithLevel: function(level) {
     var gameCount = [];
@@ -736,13 +887,13 @@ Page({
      */
     switch (level) {
       case 1:
-        gameCount = [15,4000,1,6];
+        gameCount = [15,4,1,6];
         break;
       case 2:
-        gameCount = [20,3000,1,6];
+        gameCount = [20,3,1,6];
         break;
       case 3:
-        gameCount = [35,2000,5,6];
+        gameCount = [35,2,5,6];
           break;
       default:
         break;
@@ -758,7 +909,7 @@ Page({
     var enumCount = datas[3];
     var enumColors = this.randlist(constColors, colorCount);
     var enumsShape = this.randlist(constShapes, enumCount);
-    for (let index = 0; index < maxCount+1; index++) {
+    for (let index = 0; index < maxCount; index++) {
       gameLevelData.push(this.getQuickMemoryLevelModel(level,enumsShape,enumColors,enumTime));      
     }
     return gameLevelData;
@@ -818,7 +969,6 @@ Page({
       var xPos = xCenter + Math.cos(radAlpha) * radius;
       var yPos = yCenter + Math.sin(radAlpha) * radius;
       ctxGraph.moveTo(xPos, yPos);
-      console.log('XXX - '+xPos + ", " + yPos);
       for (var i = 1; i < sides; i++) {
         var rad_tmp = radAngle * i + radAlpha;
         var xPos_tmp = xCenter + Math.cos(rad_tmp) * radius;

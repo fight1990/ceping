@@ -54,12 +54,17 @@ function getArrayItems(arr, num) {
 //获取px与rpx之间的比列 
 function getRpx() { 
   var winWidth = wx.getSystemInfoSync().windowWidth;
-   return 750/winWidth;
+  return 750/winWidth;
+}
+
+function getScrienWidth() {
+  return wx.getSystemInfoSync().windowWidth;
 }
 
 module.exports = {
   formatTime: formatTime,
   sortArray: sortArray,
   getArrayItems: getArrayItems,
-  getRpx: getRpx
+  getRpx: getRpx,
+  getScrienWidth: getScrienWidth
 }

@@ -21,5 +21,9 @@ module.exports = {
   //小程序直接登录第二次
   goToWeChat: common.goToWeChat,
   // 小程序分享获取游戏信息
-  shareGetGames: common.shareGetGames
+  shareGetGames: common.shareGetGames,
+  //保存游戏数据
+  saveGamesData: common.saveGamesData,
+  //验证码兑换
+  validationCode: common.validationCode
 }

@@ -10,20 +10,28 @@
     </view>
 
   <view class="scroll_box">
+    <view class="timeCircle">
+      <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>
     <block>
       <view class="item_list">
         <view class="lights-view">
           <view class="waterview">
-            <canvas class="canvasflow_bg"  canvas-id='canvasflow'></canvas>
+            <!-- <canvas class="canvasflow_bg"  canvas-id='canvasflow'></canvas> -->
             <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
-            <canvas class="canvasgraph_bg"  canvas-id='canvasgraph' animation="{{animationData}}"></canvas>
+            <!-- animation="{{animationData}}" -->
+            <text class="canvas_text" decode="{{true}}">{{canvasContent}}</text>
+            <view class="canvasgraph_bg_view" animation="{{animationRotate}}">
+              <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
+            </view>
           </view>
         </view>
       </view>
-      <view class="result-tip">
+      <!-- <view class="result-tip">
         <text wx:if="{{selectedIndex == 0}}">请记住图案的颜色</text>
         <text wx:if="{{selectedIndex != 0}}">是否和上图相同呢？</text>
-      </view>
+      </view> -->
       <view class="result-view">
         <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
       </view>
@@ -34,7 +42,6 @@
       </view>
     </block>
   </view>
-
   </view>
 </view>
 
@@ -61,7 +68,6 @@
       <image src="../../style/images/tankuang4.png"></image>
     </view>
     <view class="cancel">
-      <!-- <image src="../../style/images/guanbi2.png" bindtap=""></image> -->
     </view>
     <view class="title">
       <text>请认真答题</text>
@@ -79,9 +85,7 @@
     <view class="cancel" bindtap="cancelResultTap">
       <!-- <image src="../../style/images/guanbi2.png"></image> -->
     </view>
-    <view class="success">
-      <text wx:if="{{rightCount == 100}}">通关成功</text>
-    </view>
+
     <view class="title">
       <view class="right">
         <text>答对</text>
@@ -90,13 +94,13 @@
       </view>
       <view class="time" >
         <text>用时</text>
-        <text style="color:#FB7000">{{globalCount}}</text>
+        <text style="color:#FB7000">{{globalTimer}}</text>
         <text>秒</text>
       </view>
     </view>
     <view class="bottom">
       <button class="once-more" bindtap="moreTap">再来一次</button>
-      <button open-type="share" class="share-report">分享查看测试报告</button>
+      <!-- <button open-type="share" class="share-report">分享查看测试报告</button> -->
     </view>
   </view>
 </view>

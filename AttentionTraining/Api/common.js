@@ -192,6 +192,34 @@ function shareGetGames(params) {
   })
 }
 
+function saveGamesData(params) {
+  wx.request({
+    url: config.saveGamesData,
+    data: params.data,
+    method: 'GET',
+    success: function (res) {
+      params.success(res.data)
+    },
+    fail: function (res) {
+      params.fail(res.data)
+    }
+  })
+}
+
+function validationCode(params) {
+  wx.request({
+    url: config.validationCode,
+    data: params.data,
+    method: 'GET',
+    success: function (res) {
+      params.success(res.data)
+    },
+    fail: function (res) {
+      params.fail(res.data)
+    }
+  })
+}
+
 module.exports = {
   saveWechatGames: saveWechatGames,
   wechatLogin: wechatLogin,
@@ -201,5 +229,7 @@ module.exports = {
   zhanShiBaogao: zhanShiBaogao,
   weChatAdvice: weChatAdvice,
   goToWeChat: goToWeChat,
-  shareGetGames: shareGetGames
+  shareGetGames: shareGetGames,
+  saveGamesData: saveGamesData,
+  validationCode: validationCode
 }

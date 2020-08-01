@@ -27,8 +27,12 @@ var config = {
   // 小程序直接登录第二次
   goToWeChat: "https://a.jingsiedu.com/app/goToWeChat.json",
   // 小程序分享获取游戏信息
-  shareGetGames: "https://a.jingsiedu.com/app/shareGetGames.json"
-
+  shareGetGames: "https://a.jingsiedu.com/app/shareGetGames.json",
+  //保存游戏数据
+  saveGamesData: "https://a.jingsiedu.com/app/saveCombinationEvaluation.json",
+  //验证码兑换
+  validationCode: "https://a.jingsiedu.com/app/validationCode.json"
+  
 }
 
 module.exports = config

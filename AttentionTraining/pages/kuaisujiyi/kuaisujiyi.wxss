@@ -44,12 +44,6 @@
   /* white-space: normal; */
 }
 
-.scroll_box scroll-view{
-  /* height: 100%;
-  width: 100%; */
-}
-
-
 .waterview {
   /* background-color: #923179; */
   width: 650rpx;
@@ -58,6 +52,13 @@
 .canvasgraph_bg {
   position: fixed;
   width: 650rpx;
+  height: 650rpx;
+  opacity: 0.8;
+  align-items: center;
+}
+.canvasgraph_bg_view {
+  width: 650rpx;
+  /* background-color: greenyellow; */
   height: 650rpx;
   opacity: 0.8;
   align-items: center;
@@ -76,6 +77,43 @@
   align-items: center;
 }
 
+.canvas_text {
+  position: fixed;
+  display: flex;
+  width: 650rpx;
+  height: 650rpx;
+  font: bold 45rpx Microsoft Yahei;
+  align-items: center;
+  justify-content:center;
+  margin: auto; 
+}
+
+.timeCircle{
+  background-color: white;
+  width:100%;
+  margin-top: 10rpx;
+  height:80px;
+  justify-content:center;
+  position: relative;
+}
+.bgCanvas{
+  display: flex;
+  width:100%;
+  height:80px;
+  margin: 0 auto;
+  position: absolute;
+}
+.stepText{
+  display: flex;
+  font-weight: bold;
+  font-size: 45px;
+  width:100%;
+  height: 80px;
+  color: green;
+  align-items: center;
+  justify-content:center;
+}
+
 .item_list{
   display: flex;
   flex-direction: column;
@@ -88,28 +126,26 @@
 }
 
 .lights-view {
-  margin-top: 62rpx;
   margin-left: 75prx;
-  width: 600rpx;
-  height: 600rpx;
+  width: 100%;
+  height: 650rpx;
   background-color: #fff;
-  border-radius: 10rpx; 
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .result-view {
-  margin-top: 60rpx;
-  height: 90rpx;
-  width: 750rpx;
+  /* margin-top: 60rpx; */
+  height: 80rpx;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .result-tip {
-  margin-top: 40rpx;
+  margin-top: 20rpx;
   height: 52rpx;
   font-size:40rpx;
   font-weight:normal;
@@ -183,88 +219,6 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
-.introduce {
-  margin-top: 150rpx;
-  margin-left: 75rpx;
-  background-color: white;
-  height: 780rpx;
-  width: 600rpx;
-  border-radius: 10rpx;
-}
-
-.introduce-head {
-  background-color: #00B461;
-  height: 80rpx;
-  display: flex;
-  flex-direction: row; 
-  align-items: center;
-  border-radius: 10rpx  10rpx   0rpx  0rpx;
-}
-
-.introduce-title {
-  margin-left: 160rpx;
-  width: 280rpx;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.introduce-title text{
-  height:72rpx;
-  font-size:36rpx;
-  font-weight:bold;
-  color:white;
-  line-height:72rpx; 
-}
-
-.introduce-close {
-  margin-left: 96rpx;
-  height: 36rpx;
-  width: 36rpx;
-}
-
-.introduce-backgroud {
-  position:absolute;
-  height: 700rpx;
-  width: 600rpx;
-}
-
-.introduce-medium {
-  position:relative;
-  height: 700rpx;
-  width: 600rpx;
-}
-.introduce-time {
-  margin-top: 40rpx;
-  margin-left: 20rpx;
-  margin-right: 34rpx;
-  border-left: 4rpx solid #00B461;
-}
-
-.introduce-time text {
-  padding-left: 10rpx;
-  height: 34rpx;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333333;
-  line-height: 34rpx;
-}
-
-.introduce-content {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  margin-right: 34rpx;
-}
-
-.introduce-content text{
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #666666;
-  line-height:32rpx;
-}
-
-
-
 .start-view {
   margin-top: 312rpx;
   width: 600rpx;
@@ -309,7 +263,7 @@
 }
 
 .start-view .title {
-  margin-top: 180rpx;
+  margin-top: 240rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -415,91 +369,7 @@
   border-radius: 0 10rpx 10rpx 0;
 }
 
-.introduce {
-  margin-top: 150rpx;
-  margin-left: 75rpx;
-  background-color: white;
-  height: 780rpx;
-  width: 600rpx;
-  border-radius: 10rpx;
-}
-
-.introduce-head {
-  background-color: #00B461;
-  height: 80rpx;
-  width: 600rpx;
-  border-radius: 10rpx  10rpx   0rpx  0rpx;
-}
-
-.introduce-title {
-  width: 600rpx;
-  display: flex;
-  flex-direction: row; 
-  align-items: center;
-}
-
-.introduce-title text{
-  height:72rpx;
-  font-size:36rpx;
-  font-weight:bold;
-  color:white;
-  line-height:72rpx; 
-  text-align: center;
-}
-
-.introduce-close {
-  position: absolute;
-  margin-left: 534rpx;
-  height: 36rpx;
-  width: 36rpx;
-}
-
-.introduce-backgroud {
-  position:absolute;
-  height: 700rpx;
-  width: 600rpx;
-}
-
-.introduce-content {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  margin-right: 34rpx;
-}
-
-.introduce-content text{
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #666666;
-  line-height:32rpx;
-}
-
-
 button::after {
   border: none;
   border-radius: 0;
-}
-
-.progress_box{
-  position: relative;
-  width:130rpx;
-  height:130rpx;  
-  display: flex;  
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  border-radius: 65rpx;
-}
-.progress_bg{
-  position: absolute;
-  margin-left: 0rpx;
-  margin-top: 0rpx;
-  width:260rpx;
-  height: 260rpx; 
-}
-.progress_canvas{
-  position: absolute;
-  margin-left: 0rpx;
-  margin-top: 0rpx;
-  width:260rpx;
-  height: 260rpx; 
 }
