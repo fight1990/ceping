@@ -3,8 +3,13 @@
   <view class="head-view">
     <view class="user-box">
       <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
-      <button open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="nickname">{{userInfo==false?'登录':nickName}}
-      </button>
+      <button wx:if="{{!userInfo}}" open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="login">{{userInfo==false?'登录':nickName}}</button>
+
+      <view wx:if="{{userInfo}}" class="userInfo">
+        <view class="nickname">{{nickName}}</view>
+        <view class="name">{{nickName}}</view>
+      </view>
+         
     </view>
     <!-- <view class="report" bindtap="reportTap">
       <image class="report-image" src="{{hasReports==true?'../../style/images/baogao1.png':'../../style/images/baogao2.png'}}"></image>
@@ -18,7 +23,7 @@
       <view class="space-img-two">
         <image  src="../../style/images/space_img.png"></image>
       </view>
-      <view class="score">积分</view>
+      <view class="score">1234积分</view>
     </view>
 
   </view>
@@ -30,7 +35,7 @@
           <view wx:if="{{item.imgUrl}}">
             <image src='../../style/images/{{item.imgUrl}}.png'></image>
           </view>
-          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" >
+          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" bindtap="showVip">
             <view class="item-tip">
               <text>暂未开通</text>
             </view> 
@@ -49,7 +54,7 @@
           <view wx:if="{{item.imgUrl}}">
             <image src='../../style/images/{{item.imgUrl}}.png'></image>
           </view> 
-          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}" >
+          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}"  bindtap="showVip">
             <view class="item-tip">
               <text>暂未开通</text>
             </view> 
@@ -64,7 +69,10 @@
     </view>
   </view>
 </view>
-<image class="feedback" src="../../style/images/yijianfankui.png" bindtap="feedbackTap"></image>
+
+<view class="feedback-view" bindtap="feedbackTap">
+    <text>  意见反馈</text>
+</view>
 
 <view hidden="{{hideShadow}}" class="shadow" bindtap="hideShadowTap">
   <view class="tankuang">
@@ -73,5 +81,26 @@
       <text>还没有报告</text>
     </view>
   </view>
-
 </view>
+
+<view hidden="{{hideVip}}" class="shadow" style="background: rgba(0, 0, 0, 0);">
+  <view class="vip-view">
+  <view class="guanbi" bindtap="hideShadowTap">
+    <image src="../../style/images/guanbi2.png"></image>
+  </view>
+  <view class="tip-view">
+    <text>
+    先输入VIP特权码 
+    前往淘宝店或联系我们
+    </text>
+  </view>
+  <view class="input-view">
+    <input type="" ></input>
+  </view>
+  <view class="commit-view" bindtap="">
+    <button>提交</button>
+  </view>
+</view>
+  
+</view>
+

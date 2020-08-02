@@ -46,11 +46,11 @@ Page({
     hasReports: false, // 是否有报告
     record:{},
     userInfo: false, // 是否有用户信息
+    hideVip: true, // 显示vip
   },
 
   //事件处理函数
   getUserInfoClick: function (e) {
-
     var that = this
     wx.getStorage({
       key: 'userInfo',
@@ -169,6 +169,7 @@ Page({
     var that = this
     that.setData({
       hideShadow: true,
+      hideVip: true
     })
   },
 
@@ -196,6 +197,16 @@ Page({
   feedbackTap: function () {
     wx.navigateTo({
       url: '/pages/feedback/feedback',
+    })
+  },
+
+  /**
+   * 显示vip
+   */
+  showVip: function() {
+    var that = this
+    that.setData({
+      hideVip: false
     })
   },
 

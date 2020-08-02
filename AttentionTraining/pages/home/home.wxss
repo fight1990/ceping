@@ -12,6 +12,57 @@
   overflow: hidden;
 }
 
+.user-box {
+  display: flex;
+  flex-direction: row; 
+  align-items: center
+}
+
+.avatar {
+  margin-left: 30rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  background-color: white;
+}
+
+.login {
+  margin-top: 92rpx;
+  height: 60rpx;
+  margin-left: 20rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:white;
+  line-height:60rpx;
+  text-align: left;
+  background-color: rgba(135, 57, 118, 1);
+}
+
+.userInfo {
+  margin-left: 32rpx;
+  margin-top: 80rpx;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 90rpx;
+  font-size:36rpx;
+  font-weight:bold;
+  color:rgba(48,48,48,1);
+  line-height:36rpx;
+}
+
+.userInfo .nickname {
+  height: 36rpx;
+}
+
+.userInfo .name {
+  height: 36rpx;
+  margin-top: 18rpx;
+}
+
+
+
 .middle-view {
   margin-top: 43rpx;
   height: 55rpx;
@@ -22,7 +73,7 @@
 }
 
 .middle-view .report {
-  margin-left: 125rpx;
+  margin-left: 100rpx;
   text-align: center;
   color: #303030;
   line-height: 55rpx;
@@ -32,7 +83,7 @@
 }
 
 .middle-view .space-img-one {
-  margin-left: 303rpx;
+  margin-left: 270rpx;
 }
 
 .middle-view .space-img-one image {
@@ -57,13 +108,12 @@
 
 .middle-view .space-img-two image {
     width: 4rpx;
-  height: 55rpx;
+    height: 55rpx;
 }
 
 
 .middle-view .score {
   margin-left: 30rpx;
-  margin-right: 125rpx;
   text-align: center;
   color: #303030;
   line-height: 55rpx;
@@ -79,31 +129,7 @@
   flex-direction: column; 
 }
 
-.user-box {
-  display: flex;
-  flex-direction: row; 
-  align-items: center
-}
 
-.avatar {
-  margin-left: 30rpx;
-  width: 160rpx;
-  height: 160rpx;
-  border-radius: 80rpx;
-  background-color: white;
-}
-
-.nickname {
-  margin-top: 92rpx;
-  height: 60rpx;
-  margin-left: 20rpx;
-  font-size:32rpx;
-  font-weight:bold;
-  color:#333333;
-  line-height:60rpx;
-  text-align: left;
-  background-color: rgba(135, 57, 118, 1);
-}
 
 .report{
   position: absolute;
@@ -129,13 +155,28 @@
   z-index: 1000;
 }
 
-.feedback {
+.feedback-view {
   position: absolute;
-  margin-top: 30%;
-  width: 88rpx;
-  height: 88rpx;
-  margin-left: 634rpx;
+  right: 0rpx;
+  bottom: 5%;  
+  width: 213rpx;
+  height: 61rpx;
+  background-color: rgba(80, 176, 104, 1);
+  border-radius: 30rpx 0 0 30rpx;
+  /* text-align: center; */
+
 }
+
+.feedback-view text {
+  margin-left: 36rpx;
+  font-size:36rpx;
+  font-weight:bold;
+  color:rgba(255,255,255,1);
+  line-height:61rpx;
+}
+
+
+
 
 .shadow {
   position: fixed;
@@ -277,3 +318,76 @@
 button::after {
   border: none;
 }
+
+
+.vip-view {
+  margin-top: 420rpx;
+  width: 600rpx;
+  height: 448rpx;
+  display: flex;
+  flex-direction: column; 
+  background-color: white;
+  border-radius: 8rpx;
+
+}
+
+.vip-view .guanbi {
+  margin-left: 536rpx;
+  margin-top: 20rpx;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.vip-view .guanbi image {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.vip-view .tip-view {
+  margin-top: 0rpx;
+  text-align: center;  
+}
+
+.vip-view .tip-view text {
+  height:48rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:rgba(48,48,48,1);
+  line-height:48rpx;
+}
+
+.vip-view .input-view {
+  margin-top: 30rpx;
+  margin-left: 52rpx;
+  width: 496rpx;
+  height: 66rpx;
+  background-color: rgba(238, 238, 238, 1);
+  border: 2rpx solid rgba(80, 176, 104, 1);
+  border-radius: 8rpx;
+}
+
+.vip-view .input-view input {
+  margin-top: 0rpx;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  height: 66rpx;
+}
+
+.vip-view .commit-view {
+  margin-top: 52rpx;
+  margin-left: 191rpx;
+  width: 218rpx;
+  height: 70rpx;
+  text-align: center;
+}
+
+.vip-view .commit-view button {
+  width: 218rpx;
+  height: 70rpx;
+  background-color: rgba(80, 176, 104, 1);
+  font-size:48rpx;
+  font-weight:bold;
+  color:rgba(255,255,255,1);
+  line-height:70rpx;
+}
+
