@@ -1,0 +1,355 @@
+/* pages/cePingGame/cePingGame.wxss */
+.container {
+  padding: 0rpx;
+  margin: 0rpx;
+  width: 100%;
+  height: 100%;
+}
+
+
+.timeCircle{
+  background-color: white;
+  width:100%;
+  margin-top: 10rpx;
+  height:80px;
+  justify-content:center;
+  position: relative;
+}
+.bgCanvas{
+  display: flex;
+  width:100%;
+  height:80px;
+  margin: 0 auto;
+  position: absolute;
+}
+.stepText{
+  display: flex;
+  font-weight: bold;
+  font-size: 28px;
+  width:100%;
+  height: 80px;
+  color: green;
+  align-items: center;
+  justify-content:center;
+}
+
+.main-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-view {
+  margin-top: 26rpx;
+  width: 750rpx;
+  height: 54rpx;
+  margin-left: 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.title-text {
+  margin-left: 28rpx;
+}
+
+.scroll_box{
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  white-space: nowrap;
+  /* white-space: normal; */
+}
+.gameView {
+  width: 100%;
+  height: 650rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 交通灯游戏 */
+.trafficlight {
+  position: fixed;
+  width: 650rpx;
+  height: 650rpx;
+  background-color: lightgray;
+}
+
+.trafficlight_canvasgraph {
+  position: fixed;
+  width: 650rpx;
+  height: 650rpx;
+  align-items: center;
+}
+
+/* 小符号游戏 */
+.xiaoguhao {
+  position: fixed;
+  width: 100%;
+  height: 650rpx;
+  background-color: lightgray;
+}
+
+.table{
+  position: flex;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  margin-top: 100rpx;
+  width: 80%;
+  margin-left: 10%;
+  height: 200rpx;
+}
+
+.tr{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.th,.td{
+  height: 100rpx;
+  line-height: 100rpx;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+  width: 100%;
+  font-weight: 800;
+  font-size: 30rpx;
+  color: black;
+}
+
+/* 快速记忆游戏 */
+.waterview {
+  position: fixed;
+  width: 650rpx;
+  height: 650rpx;
+}
+
+.ksjy_canvasgraph_bg {
+  position: fixed;
+  width: 650rpx;
+  height: 650rpx;
+  opacity: 0.8;
+  align-items: center;
+}
+.ksjy_canvasgraph_bg_view {
+  position: fixed;
+  display: flex;
+  width: 650rpx;
+  height: 650rpx;
+  opacity: 0.8;
+  align-items: center;
+}
+
+.ksjy_canvasArcCir_bg {
+  position: fixed;
+  opacity: 0.85;
+  width: 650rpx;
+  height: 650rpx;
+  align-items: center;
+}
+
+.ksjy_canvas_text {
+  position: fixed;
+  display: flex;
+  width: 650rpx;
+  height: 650rpx;
+  font: bold 45rpx Microsoft Yahei;
+  align-items: center;
+  justify-content:center;
+  margin: auto; 
+}
+
+/* 斯特如普 */
+.siterupu {
+  position: fixed;
+  width: 650rpx;
+  height: 650rpx;
+  background-color: lightgray;
+}
+
+.siterupu_title {
+  position: fixed;
+  font: bold 36rpx Microsoft Yahei;
+  align-items: center;
+  margin-top: 100rpx;
+  margin-left: 7%;
+  align-items: center;
+  justify-content: center;
+}
+
+.siterupu_canvas_text {
+  position: fixed;
+  margin-top: 200rpx;
+  width: 650rpx;
+  height: 250rpx;
+  align-items: center;
+}
+
+/* 结束图 */
+.shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.start-view {
+  margin-top: 312rpx;
+  width: 600rpx;
+  margin-left: 75rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tankuang2 {
+  position: absolute;
+}
+
+.start-view .cancel {
+  margin-left: 500rpx;
+  margin-top: 30rpx;
+  z-index: 100;
+}
+
+.start-view .cancel {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.start-view .cancel image {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.start-view .title {
+  margin-top: 240rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 72rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:#333333;
+  line-height:72rpx;
+  z-index: 100;
+}
+
+.start-view .title .right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 72rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:#333333;
+  line-height:72rpx;
+  z-index: 100;
+}
+
+.start-view .title .time {
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 72rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:#333333;
+  line-height:72rpx;
+  z-index: 100;
+}
+
+.start-view .bottom {
+  margin-top: 30rpx;
+  width: 530rpx;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 10rpx; 
+}
+
+.once-more {
+  width: 240rpx;
+  font-size: 36rpx;
+  line-height: 80rpx;
+  color: #333333;
+  background-color: #D4D3D3;
+  padding: 0rpx;
+  font-weight: bold;
+  border-radius: 10rpx 0 0 10rpx;
+}
+
+button::after {
+  border: none;
+  border-radius: 0;
+}
+
+.result-view {
+  /* margin-top: 60rpx; */
+  height: 80rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tick-image {
+  height: 90rpx;
+  width: 90rpx;
+}
+
+.cross-image {
+  height: 52rpx;
+  width: 52rpx;
+}
+
+.bottom-view {
+  position: fixed;
+  width: 100%;
+  height: 140rpx;
+  bottom: 0rpx;
+  background-color: #923179;
+  display: flex;
+  flex-direction: row;
+  z-index: 103;
+}
+
+.different-button {
+  margin-top: 0rpx;
+  height: 100%;
+  width: 373rpx;
+  margin-left: 0rpx;
+  background-color: #923179;
+  padding: 0rpx;
+  font-size:60rpx;
+  font-weight:bold;
+  color:white;
+  line-height:140rpx;
+}
+
+.line-view {
+  height: 70rpx;
+  width: 4rpx;
+  margin-top: 35rpx;
+  background-color: #fff;
+}
+
+.identical-button {
+  margin-top: 0rpx;
+  height: 100%;
+  width: 373rpx;
+  margin-right: 0rpx;
+  background-color: #923179;
+  padding: 0rpx;
+  font-size:60rpx;
+  font-weight:bold;
+  color:white;
+  line-height:140rpx;
+}

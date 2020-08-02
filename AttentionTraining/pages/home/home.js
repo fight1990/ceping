@@ -15,7 +15,7 @@ Page({
       imgUrl : "zhcp",
       gId: "zhpc",
       title : "综合测评",
-      url : "/pages/zongheceping/zongheceping"
+      url : "/pages/cePingGame/cePingGame"
     },{
       imgUrl : "zzljtd",
       gId : "jtd",
