@@ -1,20 +1,23 @@
 <!--pages/report/report.wxml-->
 <view class="container">
   <block wx:for="{{1}}" wx:key="index">
-    <view class="head-view">
+    <!-- <view class="head-view">
       <text class="nickname">{{user.name}}</text>
       <text class="age">{{user.newAge}} {{user.birth}}</text>
-    </view>
+    </view> -->
     <block wx:for="{{gameList}}" wx:key="item-id"> 
       <view class="item-view" bindtap="showDetailTap" data-gameid="{{item.id}}">
         <view class="point"></view>
         <!-- 专注力交通灯分析报告 -->
         <view class="title">
-          <text >专注力交通灯分析报告{{item.id}}</text>
+          <text >练习时长10分钟（10积分）{{item.id}}</text>
         </view>
         <view class="item-time">
           <text>{{item.time}}</text>
         </view>
+        <!-- <view class="item-image">
+          <image src="../../style/images/report_rignt.png"></image>
+        </view> -->
         <view class="line"></view>
       </view>
     </block>

@@ -40,6 +40,7 @@ page {
 
 .item-view {
   width: 670rpx;
+  height: 90rpx;
   border-bottom: 2rpx solid #DCDCDC;
   height: 100rpx;
   display: flex;
@@ -69,6 +70,18 @@ page {
   font-weight:bold;
   color:#666666;
   line-height:72rpx;
+}
+
+.item-view .item-image {
+  top: 38rpx;
+  right: 36rpx;
+  width: 14rpx;
+  height: 14rpx;
+}
+
+.item-view .item-image  image{
+  width: 14rpx;
+  height: 14rpx;
 }
 
 
