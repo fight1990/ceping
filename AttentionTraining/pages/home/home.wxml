@@ -4,16 +4,11 @@
     <view class="user-box">
       <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
       <button wx:if="{{!userInfo}}" open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="login">{{userInfo==false?'登录':nickName}}</button>
-
       <view wx:if="{{userInfo}}" class="userInfo">
         <view class="nickname">{{nickName}}</view>
         <view class="name">{{nickName}}</view>
-      </view>
-         
+      </view>     
     </view>
-    <!-- <view class="report" bindtap="reportTap">
-      <image class="report-image" src="{{hasReports==true?'../../style/images/baogao1.png':'../../style/images/baogao2.png'}}"></image>
-    </view> -->
     <view class="middle-view">
       <view class="report" bindtap="reportTap">报告查看</view>
       <view class="space-img-one">
@@ -85,22 +80,21 @@
 
 <view hidden="{{hideVip}}" class="shadow" style="background: rgba(0, 0, 0, 0);">
   <view class="vip-view">
-  <view class="guanbi" bindtap="hideShadowTap">
-    <image src="../../style/images/guanbi2.png"></image>
-  </view>
-  <view class="tip-view">
-    <text>
-    先输入VIP特权码 
-    前往淘宝店或联系我们
-    </text>
-  </view>
+    <view class="guanbi" bindtap="hideShadowTap">
+      <image src="../../style/images/guanbi2.png"></image>
+    </view>
+    <view class="tip-view">
+       <text>
+         先输入VIP特权码 
+          前往淘宝店或联系我们
+       </text>
+    </view>
   <view class="input-view">
     <input type="text" name="vipCode" bindinput='vipCodeInput' ></input>
   </view>
   <view class="commit-view" bindtap="submitVipCodeAction">
     <button>提交</button>
   </view>
-</view>
-  
+  </view>  
 </view>
 
