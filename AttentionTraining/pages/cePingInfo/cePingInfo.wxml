@@ -1,0 +1,35 @@
+<!--pages/cePingInfo/cePingInfo.wxml-->
+<view class="mainContainer">
+  <view class="isInfomation" wx:if="{{isInfomation}}">
+    <view class="title">注意力测评</view>
+    <view class="sub-title">测评介绍</view>
+    <view class="content">该测评分5大模块组成</view>
+    <view class="bottom_view">
+      <button class="readButton" bindtap="readButtonAction">已阅读</button>
+      <text class="bottom_title">请将手机交于您的孩子，进入游戏测试</text>
+    </view>
+  </view>
+
+  <view class="ageSelected" wx:if="{{isAgeSelected}}">
+    <view class="title">请选择正确的年龄进入测试</view>
+    <view class="page-body">
+    <view class="selected-date">{{year}}年{{month}}月{{day}}日</view>
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}" bindchange="bindChange">
+      <picker-view-column>
+        <view wx:for="{{years}}" wx:key="{{years}}" style="line-height: 50px; text-align: center;">{{item}}年</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{months}}" wx:key="{{months}}" style="line-height: 50px; text-align: center;">{{item}}月</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{days}}" wx:key="{{days}}" style="line-height: 50px; text-align: center;">{{item}}日</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+    <view class="bottom_view">
+      <!-- <button class="ageButton" disabled="{{ageButton_disabled}}" bindtap="ageSelectedSubmit">开始</button> -->
+      <button class="ageButton" bindtap="ageSelectedSubmit">开始</button>
+
+    </view>
+  </view>
+</view>

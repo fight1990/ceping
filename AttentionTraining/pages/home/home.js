@@ -47,6 +47,7 @@ Page({
     record:{},
     userInfo: false, // 是否有用户信息
     hideVip: true, // 显示vip
+    vipCodeString: '' //VIP码
   },
 
   //事件处理函数
@@ -215,9 +216,16 @@ Page({
    */
   gotoStart:function (event) {
     let gotoUrl = event.currentTarget.dataset['url'];
-    wx.navigateTo({
-      url: gotoUrl,
-    })
+    let age =  wx.getStorageSync('age_player')
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age.length <= 0)) {
+      wx.navigateTo({
+        url: '/pages/cePingInfo/cePingInfo',
+      })
+    } else {
+      wx.navigateTo({
+        url: gotoUrl,
+      })
+    }
   },
 
   /**
@@ -272,6 +280,54 @@ Page({
           })
         }
       }
+    })
+  },
+
+  /**
+   * 提交验证码
+   */
+  submitVipCodeAction: function() {
+    var that = this
+    if (that.data.vipCodeString.length == 0) {
+      wx.showToast({
+        title: '请输入VIP特权码！',
+        icon: 'none',
+      })
+      return
+    }
+
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        if (res.data) {
+          api.validationCode({
+            data: { 
+              openid: res.data.openid,
+              code: that.data.vipCodeString
+            },
+            success: function (result) {
+              wx.showToast({
+                title: 'VIP特权码提交成功！',
+              })
+              that.setData({
+                hideVip: true
+              })
+            },
+            fail: function (res) {
+      
+            }
+          })
+        }
+      },
+      fail: function (res) {
+
+      }
+    })
+  },
+
+  vipCodeInput: function(e) {
+    this.setData({
+      vipCodeString: e.detail.value
     })
   },
 

@@ -19,7 +19,8 @@
     "pages/zongheceping/zongheceping",
     "pages/xiaofuhaoGuide/xiaofuhaoGuide",
     "pages/siterupuGuide/siterupuGuide",
-    "pages/cePingGame/cePingGame"
+    "pages/cePingGame/cePingGame",
+    "pages/cePingInfo/cePingInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

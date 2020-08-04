@@ -70,6 +70,11 @@ const siterupu_colors = ['red','yellow','green','blue','purple']
 const siterupu_words = ['纡','红','璜','黄','录','绿','监','蓝','橴','紫']
 const siterupu_wordForColor = {'red':'红','yellow':'黄','green':'绿','blue':'蓝','purple':'紫'}
 
+ var jtd_list = []
+ var xfh_list = []
+ var ksjy_list = []
+ var strp_list = []
+
 Page({
 
   /**
@@ -93,8 +98,16 @@ Page({
 
     isShowTimer: true,
     xiaofuhao_currentData : {},
-    xiaofuhao_currentData_test : {}
+    xiaofuhao_currentData_test : {},
 
+    jtd_time: 0,
+    jtd_correct: 0,
+    xfh_time: 0,
+    xfh_correct: 0,
+    ksjy_time: 0,
+    ksjy_correct: 0,
+    strp_time: 0,
+    strp_correct: 0,
   },
 
   /**
@@ -196,10 +209,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        jtd_list.push(1)
       } else {
         that.setData({
           result: 0
         })
+        jtd_list.push[0]
       }
       if(that.data.selectedIndex == trafficlight_gameDatas.length-1) {
         that.lastQuestion()
@@ -223,10 +238,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        ksjy_list.push[1]
       } else {
         that.setData({
           result: 0
         })
+        ksjy_list.push[0]
       }
       if(that.data.selectedIndex == ksjy_gameDatas.length-1) {
         that.lastQuestion()
@@ -247,10 +264,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        strp_list.push[1]
       } else {
         that.setData({
           result: 0
         })
+        strp_list.push(0)
       }
       if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
         that.lastQuestion()
@@ -285,10 +304,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        jtd_list.push(1)
       }  else {
         that.setData({
           result: 0
         })
+        jtd_list.push(0)
       }
       if(that.data.selectedIndex == trafficlight_gameDatas.length-1) {
         that.lastQuestion()
@@ -312,10 +333,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        ksjy_list.push(1)
       }  else {
         that.setData({
           result: 0
         })
+        ksjy_list.push(0)
       }
       if(that.data.selectedIndex == ksjy_gameDatas.length-1) {
         that.lastQuestion()
@@ -336,10 +359,12 @@ Page({
           rightCount: count,
           result: 1
         })
+        strp_list.push(1)
       }  else {
         that.setData({
           result: 0
         })
+        strp_list.push(0)
       }
       if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
         that.lastQuestion()
@@ -368,8 +393,23 @@ Page({
       hideThreeShadow: true,
       hideResultShadow: true,
 
-      currentGameType: 0
+      currentGameType: 0,
+
+      jtd_time: 0,
+      jtd_correct: 0,
+      xfh_time: 0,
+      xfh_correct: 0,
+      ksjy_time: 0,
+      ksjy_correct: 0,
+      strp_time: 0,
+      strp_correct: 0
     })
+
+    jtd_list = [],
+    xfh_list = [],
+    ksjy_list = [],
+    strp_list = []
+
     timestamp = Date.parse(new Date());
     that.doNext()
   },
@@ -548,24 +588,57 @@ Page({
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - trafficlight_gameDatas.length - trafficlight_gameDatas[0].time;
 
+      var rightCount = that.data.rightCount
       that.setData({
-        globalTimer: spandTimer
+        globalTimer: spandTimer,
+        jtd_time: spandTimer,
+        jtd_correct: rightCount
       })
+      that.showResultTap()
+
     } else if (this.data.currentGameType == 1) {
       //小符号
+      var timesend = Date.parse(new Date());  
+      var spandTimer = Math.floor((timesend - timestamp) / 1000);
+
+      var rightCount = that.data.rightCount
+      that.setData({
+        globalTimer: spandTimer,
+        xfh_time: spandTimer,
+        xfh_correct: rightCount
+      })
+      that.showResultTap()
 
     } else if (this.data.currentGameType == 2) {
       //快速记忆
+      var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - ksjy_gameDatas.length - ksjy_gameDatas[0].time;
 
+      var rightCount = that.data.rightCount
       that.setData({
-        globalTimer: spandTimer
+        globalTimer: spandTimer,
+        ksjy_time: spandTimer,
+        ksjy_correct: rightCount
       })
+      that.showResultTap()
+
     }  else if (this.data.currentGameType == 3) {
       //斯特如普
+      var timesend = Date.parse(new Date());  
+      var spandTimer = Math.floor((timesend - timestamp) / 1000);
 
+      var rightCount = that.data.rightCount
+      that.setData({
+        globalTimer: spandTimer,
+        strp_time: spandTimer,
+        strp_correct: rightCount
+      })
+      that.showResultTap()
     } 
+  },
 
+  sendGameDatasToSever:function () {
+    var that = this
     // 判断是否已经注册信息
     wx.getStorage({
       key: 'userInfo',
@@ -577,31 +650,56 @@ Page({
               if (result.user) { 
                 if (result.user.state == 1) { // 已注册
                   var params = {
+                    openid: res.data.openid,
                     userid: result.user.id,
-                    score: that.data.rightCount,
-                    times: that.data.globalTimer,
                     nickname: res.data.nickName,
                     headUrl: res.data.avatarUrl,
-                    city: res.data.city,
-                    openid: res.data.openid
+                    data: [{
+                      type: 0,
+                      time: that.data.jtd_time,
+                      correctNumber: that.data.jtd_correct,
+                      accuracy: trafficlight_gameDatas.length,
+                      score: that.data.jtd_correct/trafficlight_gameDatas.length*1.0,
+                      list: jtd_list
+                    },{
+                      type: 1,
+                      time:that.data.xfh_time,
+                      correctNumber: that.data.xfh_correct,
+                      accuracy: xiaofuhao_gameDatas.length,
+                      score: that.data.xfh_correct/xiaofuhao_gameDatas.length*1.0,
+                      list: xfh_list
+                    },{
+                      type: 2,
+                      time:that.data.ksjy_time,
+                      correctNumber: that.data.ksjy_correct,
+                      accuracy: ksjy_gameDatas.length,
+                      score: that.data.ksjy_correct/ksjy_gameDatas.length*1.0,
+                      list: ksjy_list
+                    },{
+                      type: 3,
+                      time:that.data.strp_time,
+                      correctNumber: that.data.strp_correct,
+                      accuracy: siterupu_gameDatas.length,
+                      score: that.data.strp_correct/siterupu_gameDatas.length*1.0,
+                      list: strp_list
+                    }],
                   }
                   api.saveGamesData({
                     data: params,
                     success: function (response) {
                       console.log(response)
-                      that.showResultTap()
-   
+                      wx.redirectTo({
+                        url: '/pages/zongheceping/zongheceping',
+                      })
                     },
                     fail: function (res) {
                       
                     }
                   })
                 } else {
-                  that.showResultTap()
                   
                 }    
               } else {
-                that.showResultTap()
 
               }
             },
@@ -618,6 +716,8 @@ Page({
   },
 
   moreNextTap: function() {
+    timestamp = Date.parse(new Date());  
+
     var currentType = this.data.currentGameType + 1;
     this.setData({
       currentGameType: currentType
@@ -629,7 +729,7 @@ Page({
       })
     } else {
       this.setData({
-        isShowTimer: false
+        isShowTimer: true
       })
     }
     this.clearData()
@@ -744,10 +844,12 @@ Page({
         rightCount: count,
         result: 1,
       })
+      ksjy_list.push(1)
     } else {
       that.setData({
         result: 0
       })
+      ksjy_list.push(0)
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
@@ -1133,7 +1235,6 @@ Page({
     var siterupu_gameDatas3 = this.getSTRPDataWithLevel(3);
     siterupu_gameDatas = siterupu_gameDatas1.concat(siterupu_gameDatas2, siterupu_gameDatas3);
 
-    
   },
   /**
    * @param {Canvas} ctx

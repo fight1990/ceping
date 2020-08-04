@@ -19,7 +19,7 @@
       <view class="space-img-one">
         <image src="../../style/images/space_img.png"></image>
       </view>
-      <view class="task">每日任务</view>
+      <view class="task" bindtap="">每日任务</view>
       <view class="space-img-two">
         <image  src="../../style/images/space_img.png"></image>
       </view>
@@ -95,9 +95,9 @@
     </text>
   </view>
   <view class="input-view">
-    <input type="" ></input>
+    <input type="text" name="vipCode" bindinput='vipCodeInput' ></input>
   </view>
-  <view class="commit-view" bindtap="">
+  <view class="commit-view" bindtap="submitVipCodeAction">
     <button>提交</button>
   </view>
 </view>

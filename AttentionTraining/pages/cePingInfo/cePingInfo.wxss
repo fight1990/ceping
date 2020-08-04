@@ -1,0 +1,64 @@
+/* pages/cePingInfo/cePingInfo.wxss */
+.mainContainer {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  margin-top: 45rpx;
+  width: 100%;
+  height: 80rpx;
+  font: bold 45rpx Microsoft Yahei;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.sub-title {
+  margin-left: 10%;
+  width: 80%;
+  height: 100rpx;
+  font-size: 40rpx;
+}
+.content {
+  margin-left: 10%;
+  width: 80%;
+  height: 100rpx;
+  font-size: 40rpx;
+}
+.bottom_view {
+  width: 100%;
+  height: 200rpx;
+  position:fixed; 
+  bottom:50rpx; 
+}
+.readButton {
+  margin-left: 5%;
+  width: 90%;
+  font-size: 40rpx;
+  color: white;
+  background-color: steelblue;
+  align-items: center;
+}
+.bottom_title {
+  margin-top: 20rpx;
+  height: 40rpx;
+  width: 100%;
+  font-size: 35rpx;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.ageButton {
+  margin-top: 50rpx;
+  margin-left: 5%;
+  width: 90%;
+  font-size: 40rpx;
+  color: white;
+  background-color: steelblue;
+  align-items: center;
+}
+
+.selected-date {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
