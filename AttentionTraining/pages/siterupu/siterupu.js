@@ -273,13 +273,13 @@ Page({
     } else {
       // 下一题
       clearInterval(that.data.timer)
-      // setTimeout(function () {
-      //   clearInterval(that.data.globalTimer)
-      //   that.doNext();
-      // }, 1000);
+      setTimeout(function () {
+        clearInterval(that.data.globalTimer)
+        that.doNext();
+      }, 1000);
 
-      clearInterval(that.data.globalTimer)
-      that.doNext();
+      // clearInterval(that.data.globalTimer)
+      // that.doNext();
     }
   },
 
@@ -319,12 +319,12 @@ Page({
     } else {
       // 下一题
       clearInterval(that.data.timer)
-      // setTimeout(function () {
-      //   clearInterval(that.data.globalTimer)
-      //   that.doNext();
-      // }, 1000);
-      clearInterval(that.data.globalTimer)
-      that.doNext();
+      setTimeout(function () {
+        clearInterval(that.data.globalTimer)
+        that.doNext();
+      }, 1000);
+      // clearInterval(that.data.globalTimer)
+      // that.doNext();
     }
   },
 

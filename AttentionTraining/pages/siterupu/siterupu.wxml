@@ -37,13 +37,14 @@
 
 
 
-          <!-- <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
+          <view class="result-view">
             <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+
             <view hidden="{{!hideResult}}" class="result-tip">
-              <text wx:if="{{answerIndex == 0}}">请记住交通灯的位置</text>
-              <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text>
+              <!-- <text wx:if="{{answerIndex == 0}}">请记住交通灯的位置</text>
+              <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text> -->
             </view>
-          </view> -->
+          </view>
 
         </view>    
       </scroll-view> 
