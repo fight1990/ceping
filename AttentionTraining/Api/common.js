@@ -220,6 +220,20 @@ function validationCode(params) {
   })
 }
 
+function getCombinationEvaluationByOpenid(params) {
+  wx.request({
+    url: config.getCombinationEvaluationByOpenid,
+    data: params.data,
+    method: 'GET',
+    success: function (res) {
+      params.success(res.data)
+    },
+    fail: function (res) {
+      params.fail(res.data)
+    }
+  })
+}
+
 module.exports = {
   saveWechatGames: saveWechatGames,
   wechatLogin: wechatLogin,
@@ -231,5 +245,6 @@ module.exports = {
   goToWeChat: goToWeChat,
   shareGetGames: shareGetGames,
   saveGamesData: saveGamesData,
-  validationCode: validationCode
+  validationCode: validationCode,
+  getCombinationEvaluationByOpenid: getCombinationEvaluationByOpenid
 }
