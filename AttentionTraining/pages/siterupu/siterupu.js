@@ -277,9 +277,6 @@ Page({
         clearInterval(that.data.globalTimer)
         that.doNext();
       }, 1000);
-
-      // clearInterval(that.data.globalTimer)
-      // that.doNext();
     }
   },
 
@@ -323,8 +320,6 @@ Page({
         clearInterval(that.data.globalTimer)
         that.doNext();
       }, 1000);
-      // clearInterval(that.data.globalTimer)
-      // that.doNext();
     }
   },
 
