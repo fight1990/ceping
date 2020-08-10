@@ -38,7 +38,6 @@ Page({
     num: 0,
     hasDot: false, // 防止用户多次输入小数点
 
-
     hideShadowOne: false, // 隐藏透明视图一
     hideShadowTwo: true, //  隐藏透明视图二
     hideShadowThree: true, //  隐藏透明视图三

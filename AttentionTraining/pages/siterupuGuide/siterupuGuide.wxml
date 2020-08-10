@@ -1,76 +1,65 @@
 <!--pages/siterupuGuide/siterupuGuide.wxml-->
-<view hidden="{{showGuoduye}}"  class="container">
-
-  <view class="main-view">
-    <view class="time-view">
-      <view class='progress_box'>
-        <canvas class="progress_bg"   canvas-id="canvasProgressbg">  </canvas> 
-        <canvas class="progress_canvas" canvas-id="secondCanvas"></canvas>
-      </view>      
+<view hidden="{{hideShadowOne}}" class="container">
+  <view class="title-view">
+    <view class="title-text">
+      <text>答对：</text>
+      <text style="color:#1ED545">{{rightCount}}</text>
+      <text> 题</text>
     </view>
   </view>
 
   <view class="scroll_box">
-     <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="item" wx:for-index="answerIndex">
-      <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
-        <view id="pic_{{answerIndex}}" class="item_list" wx:if="{{answerIndex == selectedIndex}}">          
-          <block wx:if="{{answerIndex>=0}}">
-            <view wx:if="{{answerIndex == selectedIndex}}" class="lights-view" id="pic_{{answerIndex}}" data-index='{{answerIndex}}'>
-              <view class="tip">文字颜色与其表达的意思是否相同?</view>
-              <view class="color">红</view>
-            </view>        
-          </block>
-
-          <view wx:if="{{answerIndex == selectedIndex}}" class="result-view">
-            <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
-            <view hidden="{{!hideResult}}" class="result-tip">
-              <!-- <text wx:if="{{answerIndex == 0}}">请记住交通灯的位置</text>
-              <text wx:if="{{answerIndex != 0}}">是否和上图相同呢？</text> -->
-            </view>
-          </view>
-
-        </view>    
-      </scroll-view> 
-      <view wx:if="{{answerIndex == selectedIndex}}" class="bottom-view" style="{{hideShadowOne == true ? '':'border:2px dashed white;'}}">
+    <view wx:if="{{isShowTimer}}" class="timeCircle">
+      <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>
+    <block>
+      <view class="gameView">
+        <view class="siterupu">
+          <text class="siterupu_title">文字颜色与其表达的意思是否相同？</text>
+          <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
+        </view>
+      </view>
+      <view class="result-view">
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+      </view>
+      <view hidden="{{hideBottom}}" class="bottom-view">
         <button class="different-button" bindtap="differentTap">不同</button>
         <view class="line-view"></view>
         <button class="identical-button" bindtap="identicalTap">相同</button>
       </view>
     </block>
-  </view>  
-
-
+  </view>
 </view>
 
-
-
-
-
-<view hidden="{{!showGuoduye}}" class="containerTwo">
-  <view class="guodu" >
-    <view class="tip">
-      <text>
-        交通灯答题结束 
-      进入特斯鲁普测验
-      </text>
-      
+<view hidden="{{hideResultShadow}}" class="shadow">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
     </view>
-    <view class="time">
-      <view class='progress_boxTwo'>
-        <canvas class="progress_bgTwo"   canvas-id="canvasProgressbgTwo">  </canvas> 
-        <canvas class="progress_canvasTwo" canvas-id="secondCanvasTwo"></canvas>
-      </view>      
+    <view class="cancel" bindtap="cancelResultTap">
+    </view>
+
+    <view class="title">
+      <view class="right">
+        <text>答对</text>
+        <text style="color:#E40303">{{rightCount}}</text>
+        <text>题</text>
+      </view>
+      <view class="time" >
+        <text>用时</text>
+        <text style="color:#FB7000">{{globalTimer}}</text>
+        <text>秒</text>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="once-more" bindtap="moreTap">再来一次</button>
     </view>
   </view>
 </view>
 
-
-<view hidden="{{hideShadowOne || showGuoduye}}" class="shadow">
-  <view class="lights-view">
-    <view class="segment"></view>
-  </view> 
-  <view class="color">红</view>
-
+<view hidden="{{hideShadowOne}}" class="shadow">
+  <view class="color"></view>
   <view class="tip-one">
       <text>选择答题</text>
   </view>
@@ -86,10 +75,26 @@
   </view>
   
   <view class="tip-three">
-    <text>文字和色块表达的意思是相同的吗?</text>
+    <text>文字颜色与其表达的意思是否相同?</text>
   </view>
 
   <view class="tip-four" bindtap="hideShadowView">
     <text>下一步</text>
+  </view>
+</view>
+
+<view hidden="{{hideGuoduye}}" class="containerTwo">
+  <view class="guodu" >
+    <view class="tip">
+      <text>
+        进入斯特如普测验
+      </text>
+    </view>
+    <view class="time">
+      <view wx:if="{{isShowTimer}}" class="timeCircle_two">
+      <canvas class='bgCanvas_two' canvas-id='bgCanvas_two'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>    
+    </view>
   </view>
 </view>

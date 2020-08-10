@@ -150,7 +150,6 @@
   <view class="tip-three-next" bindtap="hideShadowThreeView">开始</view>
 </view>
 
-
 <view hidden="{{hideGuoduye}}" class="containerTwo">
   <view class="guodu" >
     <view class="tip">

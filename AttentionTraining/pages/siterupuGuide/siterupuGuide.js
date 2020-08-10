@@ -1,7 +1,29 @@
 // pages/siterupuGuide/siterupuGuide.js
-
 var api = require("../../Api/api.js")
-const ctx2 = wx.createCanvasContext('runCanvas')
+const util = require("../../utils/util.js");
+
+//斯特如普
+const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
+
+var valHandle;  //定时器
+const ctxTimer = wx.createCanvasContext("bgCanvas")
+const ctxTimer_two = wx.createCanvasContext("bgCanvas_two")
+
+var timestamp = Date.parse(new Date());  
+
+var siterupu_gameDatas = [];
+
+const siterupu_colors = ['red','yellow','green','blue','purple']
+const siterupu_words = ['纡','红','璜','黄','录','绿','监','蓝','橴','紫']
+const siterupu_wordForColor = {'red':'红','yellow':'黄','green':'绿','blue':'蓝','purple':'紫'}
+
+var oW =  650.0 / util.getRpx() * 1.0;
+var oH =  650.0 / util.getRpx() * 1.0;
+// 线宽
+var lineWidth = 2;
+// 大半径
+var r = (oW / 2);
+var cR = r - 10 * lineWidth;
 
 Page({
 
@@ -9,337 +31,59 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(90), // 题目总数
-    selectedIndex: -1,
-
-
-    count: 5, // 倒计时
-    timer: '',// 出题定时器名字
+    selectedIndex: 0,
+    result: 0, // 结果对错 0-错 1-对
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
-
-    hideTipShadow: true, // 是否隐藏继续作答
+    rightCount: 0, // 对的题目数量
+    globalTimer: 0, //游戏计时器
+    stepText: '',  //设置倒计时初始值
     hideResultShadow: true, // 是否隐藏结果
-    scrId: 0,
- 
-    hideShadowOne: false, // 显示透明视图
-    showGuoduye: true, // 显示过渡页面
 
-    timerTwo: '', // 过渡页面倒计时
-    countTwo: 4, // 倒计时
-  },
+    isShowTimer: true,
+    xiaofuhao_currentData : {},
+    xiaofuhao_currentData_test : {},
 
-    /**
-   * 我知道了 - 按钮
-   */
-  hideShadowView: function () {
-    var that = this
-    that.stopTimer() 
+    strp_time: 0,
+    strp_correct: 0,
 
-    wx.navigateTo({
-      url: '/pages/siterupu/siterupu',
-    })
-  },
-
-  /**
-   * 分享
-   */
-  shareTap: function () {
-    var that = this
-    wx.navigateTo({
-      url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1",
-    })
-    that.data.share = false
-  },
-
-  /**
-   * 绘制canvas
-   */
-  drawProgressbg: function (paramId) {
-    // 使用 wx.createContext 获取绘图上下文 context
-    var ctx = wx.createCanvasContext(paramId)
-    ctx.setLineWidth(8);// 设置圆环的宽度
-    ctx.setStrokeStyle('#D9D9D9'); // 设置圆环的颜色
-    ctx.setLineCap('round') // 设置圆环端点的形状
-    ctx.beginPath();//开始一个新的路径
-    ctx.arc(65, 65, 35, 0, 2 * Math.PI, false);
-    //设置一个原点(100,100)，半径为90的圆的路径到当前路径
-    ctx.stroke();//对当前路径进行描边
-    ctx.draw();
-  },
-
-
-  /**
-   * 暂停倒计时
-   */
-  stopTimer: function (){
-    var that = this
-    clearInterval(that.data.timer)
-    clearInterval(that.data.timerTwo)
-  },
-
-  /**
-   * 开始倒计时
-   */
-  startTimer: function () {
-    var that = this
-    var param = { isAnswer: that.data.isAnswer }
-    that.data.suspend = true
-    clearInterval(that.data.timer)
-    that.countDown(param)
-  },
-
-  /**
-   * 滑动
-   */
-  scrollTap: function (e) {
-    var that = this
-    that.data.scrId = that.data.scrId + 1
-    that.setData({
-      scrId: that.data.scrId,
-    })
-  },
-
-  /**
-   * 下一题
-   */
-  doNext: function () {
-    var that = this
-
-    clearInterval(that.data.timer)
-    that.data.isAnswer = false
-
-    var nextIndex = that.data.selectedIndex + 1
-    that.setData({
-      selectedIndex: nextIndex,
-    })
-
-    that.scrollTap()
-    
-    if (that.data.selectedIndex == 0) {
-      that.setData({
-        hideBottom: true,
-      })
-    } else {
-      that.setData({
-        hideBottom: false,
-      })
-    }
-
-    that.setData({
-      count: that.data.count,
-    })
-
-    var param = { isAnswer: that.data.isAnswer }
-    that.countDown(param)
-  },
-
-
-
-
-  /**
-   * 出题计时器
-   */
-  countDown: function (param) {  
-    let that = this;
-    let newCount = that.data.count;//获取倒计时初始值
-    var step = 1,//计数动画次数
-      num = 0,//计数倒计时秒数（n - num）
-      start = 1.5 * Math.PI,// 开始的弧度
-      end = -0.5 * Math.PI,// 结束的弧度
-      time = null;// 计时器容器
-
-    var  n = newCount; // 当前倒计时为多少秒
-    // 动画函数
-    function animation() {
-      if (step <= n) {
-        end = end + 2 * Math.PI / n;
-        ringMove(start, end);
-        step++;
-      } else {
-        clearInterval(time);
-      }
-    };
-    // 画布绘画函数
-    function ringMove(s, e) {
-      var context = wx.createCanvasContext('secondCanvas')
-
-      var gradient = context.createLinearGradient(200, 100, 100, 200);
-      gradient.addColorStop("0", "#2661DD");
-      gradient.addColorStop("0.5", "#40ED94");
-      gradient.addColorStop("1.0", "#5956CC");
-
-      // 绘制圆环
-      context.setStrokeStyle('#21AEFF')
-      context.beginPath()
-      context.setLineWidth(5)
-      context.arc(65, 65, 35, s, e, true)
-      context.stroke()
-      context.closePath()
-
-      // 绘制倒计时文本
-      context.beginPath()
-      context.setLineWidth(1)
-      context.setFontSize(40)
-      context.setFillStyle('#333333')
-      context.setTextAlign('center')
-      context.setTextBaseline('middle')
-      context.fillText(n - num + '', 65, 65, 35)
-      context.fill()
-      context.closePath()
-
-      context.draw()
-
-      // 每完成一次全程绘制就+1
-      num++;
-    }
-    // 倒计时前先绘制整圆的圆环
-    ringMove(start, end);
-    // 创建倒计时
-    that.setData({
-      count: newCount
-    })
-
-    that.setData({
-      timer: setInterval(function () {
-        animation()
-        that.setData({
-          count: that.data.count-1
-        })
-        if (that.data.count <= 0) {
-          clearInterval(that.data.timer)
-        }
-      }, 1000)
-    })  
-  },
-
-    /**
-   * 出题计时器
-   */
-  countDownTwo: function () {  
-    let that = this;
-    let newCount = that.data.countTwo;//获取倒计时初始值
-    var step = 1,//计数动画次数
-      num = 0,//计数倒计时秒数（n - num）
-      start = 1.5 * Math.PI,// 开始的弧度
-      end = -0.5 * Math.PI,// 结束的弧度
-      time = null;// 计时器容器
-
-     var n = newCount; // 当前倒计时为多少秒
-    // 动画函数
-    function animation() {
-      if (step <= n) {
-        end = end + 2 * Math.PI / n;
-        ringMove(start, end);
-        step++;
-      } else {
-        clearInterval(time);
-      }
-    };
-    // 画布绘画函数
-    function ringMove(s, e) {
-      var context = wx.createCanvasContext('secondCanvasTwo')
-
-      var gradient = context.createLinearGradient(200, 100, 100, 200);
-      gradient.addColorStop("0", "#2661DD");
-      gradient.addColorStop("0.5", "#40ED94");
-      gradient.addColorStop("1.0", "#5956CC");
-
-      // 绘制圆环
-      context.setStrokeStyle('#21AEFF')
-      context.beginPath()
-      context.setLineWidth(5)
-      context.arc(65, 65, 35, s, e, true)
-      context.stroke()
-      context.closePath()
-
-      // 绘制倒计时文本
-      context.beginPath()
-      context.setLineWidth(1)
-      context.setFontSize(40)
-      context.setFillStyle('#333333')
-      context.setTextAlign('center')
-      context.setTextBaseline('middle')
-      context.fillText(n - num + '', 65, 65, 35)
-      context.fill()
-      context.closePath()
-
-      context.draw()
-
-      // 每完成一次全程绘制就+1
-      num++;
-    }
-    // 倒计时前先绘制整圆的圆环
-    ringMove(start, end);
-    // 创建倒计时
-    that.setData({
-      countTwo: newCount
-    })
-    
-    that.setData({
-      timerTwo: setInterval(function () {
-        animation()
-        that.setData({
-          countTwo: that.data.countTwo-1
-        })
-        if (that.data.countTwo <= 0) {
-          clearInterval(that.data.timerTwo)
-          that.setData({
-            showGuoduye: false,
-          })
-        }
-      }, 1000)
-    })  
+    hideGuoduye: true,
+    hideShadowOne: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: '特斯鲁普测验',    //页面标题
-    })
-    var that = this
-    that.doNext()
-    that.stopTimer()
-    that.countDownTwo()
-
+    this.makeGameDatas();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    var that = this
-    that.drawProgressbg('canvasProgressbg')
-    that.drawProgressbg('canvasProgressbgTwo')
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that = this
+    that.moreTap()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    var that = this
-    clearInterval(that.data.timer);
-    clearInterval(that.data.timerTwo);
-
+    clearInterval(valHandle)  //销毁定时器
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    var that = this
- 
-    clearInterval(that.data.timer);
-    clearInterval(that.data.timerTwo);
 
   },
 
@@ -360,25 +104,372 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function () {
+
+  },
+
+  /**
+   * 关闭结果弹框
+   */
+  cancelResultTap: function () {
     var that = this
-    that.data.share = true
-    that.stopTimer()
-    that.cancelResultTap()
-    if (res.from == "button") {
-      var title = "我的孩子已闯过" + this.data.rightCount + "题，让你的孩子也试试吧！"
-      return {
-        title: title,
-        // path: "/pages/start/start" + "?gameid=" + that.data.gameid + "&isShare=1",
-        path: "/pages/home/home",
-        imageUrl: "../../style/images/tupian.png",
-        success: (res) => {
-          console.log("转发成功", res);
-        },
-        fail: (res) => {
-          console.log("转发失败", res);
-        }
-      }
+    that.setData({
+      hideResultShadow: true,
+    })
+
+  },
+
+  /**
+  * 显示结果弹框
+  */
+  showResultTap: function () {
+    var that = this
+    that.setData({
+      hideResultShadow: false,
+    })
+  },
+
+  /**
+   * 不相同
+   */
+  differentTap: function () {
+    var that = this
+    clearInterval(valHandle)  //销毁定时器
+
+    that.setData({
+      hideResult: false,
+    })
+    
+    //斯特如普
+    var currentData = siterupu_gameDatas[that.data.selectedIndex];
+    var color = currentData.color;
+    if(siterupu_wordForColor[color] != currentData.text) {
+      var count = that.data.rightCount + 1
+      that.setData({
+        rightCount: count,
+        result: 1
+      })
+    } else {
+      that.setData({
+        result: 0
+      })
     }
+    if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    } else {
+      // 下一题
+      setTimeout(function () {
+        that.doNext();
+      }, 1000);
+    }
+  },
+
+  /**
+   * 相同
+   */
+  identicalTap: function () {
+    var that = this
+    clearInterval(valHandle)  //销毁定时器
+
+    that.setData({
+      hideResult: false,
+    })
+
+   //斯特如普
+    var currentData = siterupu_gameDatas[that.data.selectedIndex];
+    var color = currentData.color;
+    if(siterupu_wordForColor[color] == currentData.text) {
+      var count = that.data.rightCount + 1
+      that.setData({
+        rightCount: count,
+        result: 1
+      })
+    }  else {
+      that.setData({
+        result: 0
+      })
+    }
+    if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    } else {
+      // 下一题
+      setTimeout(function () {
+        that.doNext();
+      }, 1000);
+    }
+  },
+  /**
+   * 再来一次
+   */
+  moreTap: function () {
+    var that = this
+
+    that.setData({
+      selectedIndex: -1,
+      result: 0, 
+      count: 4,
+      globalTimer: 0,
+      rightCount: 0,
+      scrId: 0,
+      hideThreeShadow: true,
+      hideResultShadow: true,
+
+      strp_time: 0,
+      strp_correct: 0
+    })
+
+    timestamp = Date.parse(new Date());
+    that.doNext()
+  },
+  /**
+   * 下一题
+   */
+  doNext: function () {
+    var that = this
+
+    //斯特如普
+    if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    }
+
+    that.data.isAnswer = false
+
+    var nextIndex = that.data.selectedIndex + 1
+    var time = '';
+    if (siterupu_gameDatas[nextIndex]) {
+      time = siterupu_gameDatas[nextIndex].time;
+    }
+    console.log('time = '+time)
+
+    that.setData({
+      selectedIndex: nextIndex,
+      stepText: time
+    })
+    
+    that.setData({
+      hideBottom: false,
+    })
+    
+    that.setData({
+      count: that.data.count,
+      hideResult: true,
+    })
+
+    that.siterupu_createGame()
+  },
+
+  /**
+   * 判断是否是最后一题
+   */
+  lastQuestion: function () {
+    var that = this
+
+    //斯特如普
+    var timesend = Date.parse(new Date());  
+    var spandTimer = Math.floor((timesend - timestamp) / 1000);
+
+    var rightCount = that.data.rightCount
+    that.setData({
+      globalTimer: spandTimer,
+      strp_time: spandTimer,
+      strp_correct: rightCount
+    })
+    that.showResultTap()
+  },
+
+  //倒计时圆环
+  timerCircleReady: function(ctx) {
+    ctx.setLineWidth(15)
+    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+    ctx.setStrokeStyle('white')
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.setLineCap('round')
+    ctx.setLineWidth(8)
+    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
+    ctx.setStrokeStyle('green')
+    ctx.stroke()
+    ctx.draw()
+  },
+  startCircleTime: function(ctx) {    
+    console.log("倒计时动画开始")
+    var that = this
+
+    var step = that.data.stepText ;  //定义倒计时
+    var num = -0.5;
+    var decNum = 2/step/10
+    clearInterval(valHandle)
+
+    function drawArc(endAngle) {
+      ctx.setLineWidth(15)
+      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+      ctx.setStrokeStyle('lightgray')
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.setLineCap('round')
+      ctx.setLineWidth(8)
+      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
+      ctx.setStrokeStyle('green')
+      ctx.stroke()
+      ctx.draw()
+    }
+
+    valHandle = setInterval(function(){
+      that.setData({
+        stepText: parseInt(step)
+      })
+      step = (step - 0.1).toFixed(1)
+
+      num += decNum
+      drawArc(num*Math.PI)
+      if(step<=0){
+        clearInterval(valHandle)  //销毁定时器
+        // that.doNext();
+        wx.redirectTo({
+          url: '/pages/siterupuGame/siterupuGame',
+        })
+      }
+    },100)
+  },
+
+  clearData: function() {
+    this.setData({
+      selectedIndex: -1,
+      result: 0, // 结果对错 0-错 1-对
+      hideBottom: true, // 隐藏底部判断视图
+      hideResult: true, // 隐藏结果视图
+      rightCount: 0, // 对的题目数量
+      globalTimer: 0, //游戏计时器
+      stepText: '',  //设置倒计时初始值
+      hideResultShadow: true, // 是否隐藏结果
+    })
+  },
+
+   /**
+   * 斯特如普游戏
+   */
+  siterupu_createGame: function() {
+    siterupu_ctxtext.clearRect(0, 0, oW, oH)
+
+    siterupu_ctxtext.globalCompositeOperation = 'source-over'
+    siterupu_ctxtext.font = 'bold 60rpx Microsoft Yahei'
+    var txt = siterupu_gameDatas[this.data.selectedIndex].text
+    var color = siterupu_gameDatas[this.data.selectedIndex].color
+
+    siterupu_ctxtext.fillStyle = color
+    siterupu_ctxtext.textAlign = 'center'
+    siterupu_ctxtext.fillText(txt, r, 75)
+
+    siterupu_ctxtext.draw()
+
+    this.timerCircleReady(ctxTimer);
+    // this.startCircleTime(ctxTimer);
+  },
+ 
+  /**
+   * 斯特如普游戏数据
+   */
+  countWithSTRPLevel: function(level) {
+    var gameCount = [];
+    /**
+     第一位：题目数量；
+     第二位: 时间要求(毫秒)；
+     第三位: 符号数
+     */
+    switch (level) {
+      case 1:
+        gameCount = [20,'4'];
+        break;
+      case 2:
+        gameCount = [30,'3'];
+        break;
+      case 3:
+        gameCount = [35,'2'];
+          break;
+      default:
+        break;
+    }
+    return gameCount;
+  },
+
+  getSTRPDataWithLevel: function (level) {
+    var gameLevelData = [];
+    var datas = this.countWithSTRPLevel(level);
+    var maxCount = datas[0];
+    var enumTime = datas[1];
+    for (let index = 0; index < maxCount; index++) {
+      gameLevelData.push(this.getSTRPModel(level,enumTime));      
+    }
+    return gameLevelData;
+  },
+
+  getSTRPModel: function(level, time) {
+    var i = Math.floor(Math.random()*(siterupu_words.length));
+    var j = Math.floor(Math.random()*(siterupu_colors.length));
+    var tmpWord = siterupu_words[i];
+    var tmpColor = siterupu_colors[j];
+    return {'color': tmpColor,
+            'text': tmpWord,
+            'level': level,
+            'time': time
+          };
+  },
+
+   /**
+   * 
+   * @param {*} datas 数据源-数组
+   * @param {*} count 随机获取子数目
+   */
+  randomSubDatas: function(datas, count) {
+    return util.getArrayItems(datas, count);
+  },
+
+  randlist: function (lists, count) {
+    var tempArray = [].concat(lists);
+    var results = [];
+    for (let index = 0; index < count; index++) {
+      var i = Math.floor(Math.random()*(tempArray.length));
+      var element = tempArray[i];
+      results.push(element);
+      tempArray.splice(i,1);
+    }
+    return results;
+  },
+  makeGameDatas: function() {
+  
+    var siterupu_gameDatas1 = this.getSTRPDataWithLevel(1);
+    var siterupu_gameDatas2 = this.getSTRPDataWithLevel(2);
+    var siterupu_gameDatas3 = this.getSTRPDataWithLevel(3);
+    siterupu_gameDatas = siterupu_gameDatas1.concat(siterupu_gameDatas2, siterupu_gameDatas3);
+
+  },
+  
+  /**
+   * 我知道了 - 按钮
+   */
+  hideShadowView: function () {
+    var that = this
+    that.setData({
+      hideGuoduye: false,
+      hideShadowOne: true
+    })
+    ctxTimer.clearRect(0,0,oW,oH)
+    that.countDownTwo()
+  },
+
+  countDownTwo: function() {
+    wx.setStorageSync('siterupu_guide', true)
+    this.setData({
+      stepText: 5,
+      isShowTimer: true
+    })
+    this.timerCircleReady(ctxTimer_two);
+    this.startCircleTime(ctxTimer_two);
   }
+
 })

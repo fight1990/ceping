@@ -238,7 +238,7 @@ Page({
         url: '/pages/cePingInfo/cePingInfo',
       })
     } else {
-      if ((guide_key.length > 0) && wx.getStorageSync(guide_key)) {
+      if (((guide_key.length > 0) && wx.getStorageSync(guide_key)) || (guide_key.length == 0)) {
         wx.navigateTo({
           url: gotoUrl,
         })
