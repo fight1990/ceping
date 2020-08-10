@@ -844,12 +844,12 @@ Page({
         rightCount: count,
         result: 1,
       })
-      ksjy_list.push(1)
+      xfh_list.push(1)
     } else {
       that.setData({
         result: 0
       })
-      ksjy_list.push(0)
+      xfh_list.push(0)
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {

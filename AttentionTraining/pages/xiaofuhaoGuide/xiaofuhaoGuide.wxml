@@ -10,7 +10,6 @@
     </view>
   </view>
 
-
     <view class="scroll_box">
      <block wx:for="{{answerList}}" wx:key="answerIndex" wx:for-item="" wx:for-index="answerIndex">
       <scroll-view scroll-x="true" scroll-into-view="pic_{{scrId}}" scroll-with-animation="true">
@@ -62,8 +61,6 @@
       </scroll-view> 
     </block>  
   </view>
-
-
 
   <!-- 底部键盘 -->
   <view class="footer">

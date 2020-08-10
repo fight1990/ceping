@@ -144,10 +144,6 @@
   margin-top: 52rpx;  
 }
 
-
-
-
-
 /*底部键盘样式*/
 .footer {
   position: fixed;

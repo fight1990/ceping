@@ -26,7 +26,8 @@ Page({
       imgUrl : "xfh",
       gId : "xfh",
       title : "小符号",
-      url : "/pages/xiaofuhao/xiaofuhao"
+      // url : "/pages/xiaofuhao/xiaofuhao"
+      url: "/pages/xiaofuhaoGame/xiaofuhaoGame"
     },{
       imgUrl : "ksjy",
       gId : "ksjy",
@@ -36,7 +37,8 @@ Page({
       imgUrl : "strpcs",
       gId : "strp",
       title : "斯特如普",
-      url : "/pages/siterupu/siterupu"
+      // url : "/pages/siterupu/siterupu"
+      url: "/pages/siterupuGame/siterupuGame"
     },{
       imgUrl : "",
       gId : "zwkf",

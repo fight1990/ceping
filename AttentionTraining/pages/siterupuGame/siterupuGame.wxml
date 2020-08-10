@@ -1,0 +1,59 @@
+<!--pages/siterupuGame/siterupuGame.wxml-->
+<view class="container">
+  <view class="title-view">
+    <view class="title-text">
+      <text>答对：</text>
+      <text style="color:#1ED545">{{rightCount}}</text>
+      <text> 题</text>
+    </view>
+  </view>
+
+  <view class="scroll_box">
+    <view wx:if="{{isShowTimer}}" class="timeCircle">
+      <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>
+    <block>
+      <view class="gameView">
+        <view class="siterupu">
+          <text class="siterupu_title">文字颜色与其表达的意思是否相同？</text>
+          <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
+        </view>
+      </view>
+      <view class="result-view">
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+      </view>
+      <view hidden="{{hideBottom}}" class="bottom-view">
+        <button class="different-button" bindtap="differentTap">不同</button>
+        <view class="line-view"></view>
+        <button class="identical-button" bindtap="identicalTap">相同</button>
+      </view>
+    </block>
+  </view>
+</view>
+
+<view hidden="{{hideResultShadow}}" class="shadow">
+  <view  class="start-view">
+    <view class="tankuang2">
+      <image src="../../style/images/tankuang4.png"></image>
+    </view>
+    <view class="cancel" bindtap="cancelResultTap">
+    </view>
+
+    <view class="title">
+      <view class="right">
+        <text>答对</text>
+        <text style="color:#E40303">{{rightCount}}</text>
+        <text>题</text>
+      </view>
+      <view class="time" >
+        <text>用时</text>
+        <text style="color:#FB7000">{{globalTimer}}</text>
+        <text>秒</text>
+      </view>
+    </view>
+    <view class="bottom">
+      <button class="once-more" bindtap="moreTap">再来一次</button>
+    </view>
+  </view>
+</view>
