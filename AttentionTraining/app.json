@@ -22,7 +22,8 @@
     "pages/cePingGame/cePingGame",
     "pages/cePingInfo/cePingInfo",
     "pages/xiaofuhaoGame/xiaofuhaoGame",
-    "pages/siterupuGame/siterupuGame"
+    "pages/siterupuGame/siterupuGame",
+    "pages/kuaisujiyiGuide/kuaisujiyiGuide"
   ],
   "window": {
     "backgroundTextStyle": "light",

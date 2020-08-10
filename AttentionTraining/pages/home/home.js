@@ -38,8 +38,8 @@ Page({
       gId : "ksjy",
       title : "快速记忆",
       url : "/pages/kuaisujiyi/kuaisujiyi",
-      url_guide: "",
-      guide_key: ""
+      url_guide: "/pages/kuaisujiyiGuide/kuaisujiyiGuide",
+      guide_key: "kuaisujiyi_guide"
     },{
       imgUrl : "strpcs",
       gId : "strp",
