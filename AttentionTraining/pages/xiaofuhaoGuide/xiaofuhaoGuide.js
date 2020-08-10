@@ -1,6 +1,16 @@
 // pages/xiaofuhaoGuide/xiaofuhaoGuide.js
-
 var api = require("../../Api/api.js")
+const util = require("../../utils/util.js");
+
+var valHandle;  //定时器
+const ctxTimer = wx.createCanvasContext("bgCanvas")
+
+var timestamp = Date.parse(new Date());  
+
+var xiaofuhao_gameDatas = [];
+
+const xiaofuhao_symbols = ["@","#","%","《","*","(","{","}","》","】"]
+const xiaofuhao_number = ["0","1","2","3","4","5","6","7","8","9"]
 
 Page({
 
@@ -8,33 +18,475 @@ Page({
    * 页面的初始数据
    */
   data: {
-    answerList: Array(1), // 题目总数
-    selectedIndex: -1,
-
-
-    count: 4, // 倒计时
-    timer: '',// 出题定时器名字
+    selectedIndex: 0,
+    result: 0, // 结果对错 0-错 1-对
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
-
-    hideTipShadow: true, // 是否隐藏继续作答
+    rightCount: 0, // 对的题目数量
+    globalTimer: 0, //游戏计时器
+    stepText: '5',  //设置倒计时初始值
     hideResultShadow: true, // 是否隐藏结果
-    scrId: 0,
- 
+
+    isShowTimer: true,
+    xiaofuhao_currentData : {},
+    xiaofuhao_currentData_test : {},
+
+    xfh_time: 0,
+    xfh_correct: 0,
+
+    //键盘事件
+    num: 0,
+    hasDot: false, // 防止用户多次输入小数点
+
+
     hideShadowOne: false, // 隐藏透明视图一
     hideShadowTwo: true, //  隐藏透明视图二
     hideShadowThree: true, //  隐藏透明视图三
     hideGuoduye: true, // 隐藏过渡页面
-
-    timerTwo: '', // 过渡页面倒计时
-    countTwo: 4, // 倒计时
-
-    symbolArr: ["@","#","%","《","*","(","{","}","》","】"],
-    orignalArr: ["0","1","2","3","4","5","6","7","8","9"],
-    numberArr: ["0","1","2","3","4"]
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.makeGameDatas();
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this
+    that.moreTap()
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+    clearInterval(valHandle)  //销毁定时器
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+
+  /**
+   * 关闭结果弹框
+   */
+  cancelResultTap: function () {
+    var that = this
+    that.setData({
+      hideResultShadow: true,
+    })
+
+  },
+
+  /**
+  * 显示结果弹框
+  */
+  showResultTap: function () {
+    var that = this
+    that.setData({
+      hideResultShadow: false,
+    })
+  },
+
+  /**
+   * 再来一次
+   */
+  moreTap: function () {
+    var that = this
+
+    that.setData({
+      selectedIndex: -1,
+      result: 0, 
+      count: 4,
+      globalTimer: 0,
+      rightCount: 0,
+      scrId: 0,
+      hideThreeShadow: true,
+      hideResultShadow: true,
+
+      xfh_time: 0,
+      xfh_correct: 0,
+    })
+
+    timestamp = Date.parse(new Date());
+    that.doNext()
+  },
+  /**
+   * 下一题
+   */
+  doNext: function () {
+    var that = this
+
+    if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    }
+
+    that.data.isAnswer = false
+
+    var nextIndex = that.data.selectedIndex + 1
+    var time = ''
+    var showTimer = false
+    if (nextIndex >= 15) {
+      showTimer = true
+    }
+    if (nextIndex == 15) {
+      time = 180
+    } else if(nextIndex == 35) {
+      time = 150
+    }
+    that.setData({
+      selectedIndex: nextIndex,
+      stepText: time,
+      isShowTimer: showTimer
+    })
+    
+    that.setData({
+      count: that.data.count,
+      hideResult: true,
+    })
+    var xfh_temp = xiaofuhao_gameDatas[that.data.selectedIndex]
+    var xiaofuhao = {}
+    var xiaofuhao_key = []
+    for (var key in xfh_temp) {
+      xiaofuhao_key.push(key)
+    }
+    xiaofuhao_key = util.sortArray(xiaofuhao_key)
+
+    xiaofuhao_key.forEach(element => {
+      xiaofuhao[element] = ''
+    });
+
+    //小符号
+    that.setData({
+      xiaofuhao_currentData: xiaofuhao_gameDatas[that.data.selectedIndex],
+      xiaofuhao_currentData_test: xiaofuhao
+    })
+
+    if (that.data.selectedIndex == 15) {
+      this.timerCircleReady();
+      this.startCircleTime();
+    }
+  },
+
+  /**
+   * 判断是否是最后一题
+   */
+  lastQuestion: function () {
+    var that = this
+
+    //小符号
+    var timesend = Date.parse(new Date());  
+    var spandTimer = Math.floor((timesend - timestamp) / 1000);
+
+    var rightCount = that.data.rightCount
+    that.setData({
+      globalTimer: spandTimer,
+      xfh_time: spandTimer,
+      xfh_correct: rightCount
+    })
+    that.showResultTap()
+  },
+
+  //倒计时圆环
+  timerCircleReady: function() {
+    ctxTimer.setLineWidth(15)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+    ctxTimer.setStrokeStyle('white')
+    ctxTimer.stroke()
+
+    ctxTimer.beginPath()
+    ctxTimer.setLineCap('round')
+    ctxTimer.setLineWidth(8)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
+    ctxTimer.setStrokeStyle('green')
+    ctxTimer.stroke()
+    ctxTimer.draw()
+  },
+  startCircleTime: function() {    
+    console.log("倒计时动画开始")
+    var that = this
+
+    var step = that.data.stepText ;  //定义倒计时
+    var num = -0.5;
+    var decNum = 2/step/10
+    clearInterval(valHandle)
+
+    function drawArc(endAngle) {
+      ctxTimer.setLineWidth(15)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+      ctxTimer.setStrokeStyle('lightgray')
+      ctxTimer.stroke()
+
+      ctxTimer.beginPath()
+      ctxTimer.setLineCap('round')
+      ctxTimer.setLineWidth(8)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
+      ctxTimer.setStrokeStyle('green')
+      ctxTimer.stroke()
+      ctxTimer.draw()
+    }
+
+    valHandle = setInterval(function(){
+      that.setData({
+        stepText: parseInt(step)
+      })
+      step = (step - 0.1).toFixed(1)
+
+      num += decNum
+      drawArc(num*Math.PI)
+      if(step<=0){
+        clearInterval(valHandle)  //销毁定时器
+        // that.doNext();
+        wx.redirectTo({
+          url: '/pages/xiaofuhaoGame/xiaofuhaoGame',
+        })
+      }
+    },100)
+  },
+
+  /**
+   * 小符号游戏
+   */
+  inputValueAction: function(event) {
+    var that = this
+    var value = event.detail.value
+    console.log(event)
+    var inputID= event.target.id
+
+    var xfh_temp = that.data.xiaofuhao_currentData_test
+    xfh_temp[inputID] = value
+
+    that.setData({
+      xiaofuhao_currentData_test: xfh_temp
+    })
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
+    }
+
+    var correntAll = true
+    for (var key in that.data.xiaofuhao_currentData) {
+      if(that.data.xiaofuhao_currentData[key] != that.data.xiaofuhao_currentData_test[key]) {
+        correntAll = false
+        break
+      }
+    }
+
+    that.setData({
+      hideResult: false,
+    })
+
+    if(correntAll) {
+      var count = that.data.rightCount + 1
+      that.setData({
+        rightCount: count,
+        result: 1,
+      })
+    } else {
+      that.setData({
+        result: 0
+      })
+    }
+
+    if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    } else {
+      // 下一题
+      setTimeout(function () {
+        that.doNext();
+      }, 1000);
+    }
+  },
+
+  clearData: function() {
+    this.setData({
+      selectedIndex: -1,
+      result: 0, // 结果对错 0-错 1-对
+      hideBottom: true, // 隐藏底部判断视图
+      hideResult: true, // 隐藏结果视图
+      rightCount: 0, // 对的题目数量
+      globalTimer: 0, //游戏计时器
+      stepText: '',  //设置倒计时初始值
+      hideResultShadow: true, // 是否隐藏结果
+    })
+  },
+
+  /**
+   * 小符号游戏数据
+   */
+  countWithXFHLevel: function(level) {
+    var gameCount = [];
+    /**
+     第一位：题目数量；
+     第二位: 时间要求(毫秒)；
+     第三位: 符号数
+     */
+    switch (level) {
+      case 1:
+        gameCount = [15,'0',5];
+        break;
+      case 2:
+        gameCount = [30,'180',7];
+        break;
+      case 3:
+        gameCount = [40,'150',12];
+          break;
+      default:
+        break;
+    }
+    return gameCount;
+  },
+  getXFHDataWithLevel: function (level) {
+    var gameLevelData = [];
+    var datas = this.countWithXFHLevel(level);
+    var maxCount = datas[0];
+    var enumTime = datas[1];
+    var symbolCount = datas[2];
+
+    for (let index = 0; index < maxCount; index++) {
+      gameLevelData.push(this.getXFHModel(level,enumTime,symbolCount));      
+    }
+    return gameLevelData;
+  },
+  getXFHModel: function(level, time, symbolCount) {
+    var symbolAll = util.sortArray(xiaofuhao_symbols)
+    var numberAll = util.sortArray(xiaofuhao_number)
+    var keys = this.randomSubDatas(symbolAll, symbolCount)
+    var valules = this.randomSubDatas(numberAll, symbolCount)
+
+    var resultData = {}
+    for (let index = 0; index < keys.length; index++) {
+      var key = keys[index];
+      var value = valules[index]
+      resultData[key] = value;
+    }
+    return resultData;
+  },
+ 
    /**
+   * 
+   * @param {*} datas 数据源-数组
+   * @param {*} count 随机获取子数目
+   */
+  randomSubDatas: function(datas, count) {
+    return util.getArrayItems(datas, count);
+  },
+
+  randlist: function (lists, count) {
+    var tempArray = [].concat(lists);
+    var results = [];
+    for (let index = 0; index < count; index++) {
+      var i = Math.floor(Math.random()*(tempArray.length));
+      var element = tempArray[i];
+      results.push(element);
+      tempArray.splice(i,1);
+    }
+    return results;
+  },
+  makeGameDatas: function() {
+  
+    var xiaofuhao_gameDatas1 = this.getXFHDataWithLevel(1);
+    var xiaofuhao_gameDatas2 = this.getXFHDataWithLevel(2);
+    var xiaofuhao_gameDatas3 = this.getXFHDataWithLevel(3);
+    xiaofuhao_gameDatas = xiaofuhao_gameDatas1.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
+  },
+  tapKey: function(e) {
+    var that = this
+
+    console.log(e)
+    var inputVal = e.currentTarget.dataset.key;
+
+    var xfh_temp = that.data.xiaofuhao_currentData_test
+    for (let key in xfh_temp) {
+      if (xfh_temp[key].length == 0) {
+        xfh_temp[key] = inputVal
+        break;
+      }
+    }
+
+    that.setData({
+      xiaofuhao_currentData_test: xfh_temp
+    })
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
+    }
+
+    var correntAll = true
+    for (var key in that.data.xiaofuhao_currentData) {
+      if(that.data.xiaofuhao_currentData[key] != that.data.xiaofuhao_currentData_test[key]) {
+        correntAll = false
+        break
+      }
+    }
+
+    that.setData({
+      hideResult: false,
+    })
+
+    if(correntAll) {
+      var count = that.data.rightCount + 1
+      that.setData({
+        rightCount: count,
+        result: 1,
+      })
+    } else {
+      that.setData({
+        result: 0
+      })
+    }
+
+    if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    } else {
+      // 下一题
+      setTimeout(function () {
+        that.doNext();
+      }, 1000);
+    }
+  },
+
+  /**
    * 开始 - 按钮
    */
   hideShadowOneView: function () {
@@ -74,345 +526,13 @@ Page({
     that.countDownTwo()
   },
 
-  /**
-   * 分享
-   */
-  shareTap: function () {
-    var that = this
-    wx.navigateTo({
-      url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1",
+  countDownTwo: function() {
+    wx.setStorageSync('xiaofuhao_guide', true)
+    this.setData({
+      stepText: 5,
+      isShowTimer: true
     })
-    that.data.share = false
-  },
-
-  /**
-   * 绘制canvas
-   */
-  drawProgressbg: function (paramId) {
-    // 使用 wx.createContext 获取绘图上下文 context
-    var ctx = wx.createCanvasContext(paramId)
-    ctx.setLineWidth(8);// 设置圆环的宽度
-    ctx.setStrokeStyle('#D9D9D9'); // 设置圆环的颜色
-    ctx.setLineCap('round') // 设置圆环端点的形状
-    ctx.beginPath();//开始一个新的路径
-    ctx.arc(65, 65, 35, 0, 2 * Math.PI, false);
-    //设置一个原点(100,100)，半径为90的圆的路径到当前路径
-    ctx.stroke();//对当前路径进行描边
-    ctx.draw();
-  },
-
-
-  /**
-   * 暂停倒计时
-   */
-  stopTimer: function (){
-    var that = this
-    clearInterval(that.data.timer)
-    clearInterval(that.data.timerTwo)
-  },
-
-  /**
-   * 开始倒计时
-   */
-  startTimer: function () {
-    var that = this
-    var param = { isAnswer: that.data.isAnswer }
-    that.data.suspend = true
-    clearInterval(that.data.timer)
-    that.countDown(param)
-  },
-
-  /**
-   * 滑动
-   */
-  scrollTap: function (e) {
-    var that = this
-    that.data.scrId = that.data.scrId + 1
-    that.setData({
-      scrId: that.data.scrId,
-    })
-  },
-
-  /**
-   * 下一题
-   */
-  doNext: function () {
-    var that = this
-
-    clearInterval(that.data.timer)
-    that.data.isAnswer = false
-
-    var nextIndex = that.data.selectedIndex + 1
-    that.setData({
-      selectedIndex: nextIndex,
-    })
-
-    that.scrollTap()
-    
-    if (that.data.selectedIndex == 0) {
-      that.setData({
-        hideBottom: true,
-      })
-    } else {
-      that.setData({
-        hideBottom: false,
-      })
-    }
-
-    that.setData({
-      count: that.data.count,
-    })
-
-    var param = { isAnswer: that.data.isAnswer }
-    that.countDown(param)
-  },
-
-
-
-
-  /**
-   * 出题计时器
-   */
-  countDown: function (param) {  
-    let that = this;
-    let newCount = that.data.count;//获取倒计时初始值
-    var step = 1,//计数动画次数
-      num = 0,//计数倒计时秒数（n - num）
-      start = 1.5 * Math.PI,// 开始的弧度
-      end = -0.5 * Math.PI,// 结束的弧度
-      time = null;// 计时器容器
-
-    var  n = newCount; // 当前倒计时为多少秒
-    // 动画函数
-    function animation() {
-      if (step <= n) {
-        end = end + 2 * Math.PI / n;
-        ringMove(start, end);
-        step++;
-      } else {
-        clearInterval(time);
-      }
-    };
-    // 画布绘画函数
-    function ringMove(s, e) {
-      var context = wx.createCanvasContext('secondCanvas')
-
-      var gradient = context.createLinearGradient(200, 100, 100, 200);
-      gradient.addColorStop("0", "#2661DD");
-      gradient.addColorStop("0.5", "#40ED94");
-      gradient.addColorStop("1.0", "#5956CC");
-
-      // 绘制圆环
-      context.setStrokeStyle('#21AEFF')
-      context.beginPath()
-      context.setLineWidth(5)
-      context.arc(65, 65, 35, s, e, true)
-      context.stroke()
-      context.closePath()
-
-      // 绘制倒计时文本
-      context.beginPath()
-      context.setLineWidth(1)
-      context.setFontSize(40)
-      context.setFillStyle('#333333')
-      context.setTextAlign('center')
-      context.setTextBaseline('middle')
-      context.fillText(n - num + '', 65, 65, 35)
-      context.fill()
-      context.closePath()
-
-      context.draw()
-
-      // 每完成一次全程绘制就+1
-      num++;
-    }
-    // 倒计时前先绘制整圆的圆环
-    ringMove(start, end);
-    // 创建倒计时
-    that.setData({
-      count: newCount
-    })
-
-    that.setData({
-      timer: setInterval(function () {
-        animation()
-        that.setData({
-          count: that.data.count-1
-        })
-        if (that.data.count <= 0) {
-          clearInterval(that.data.timer)
-        }
-      }, 1000)
-    })  
-  },
-
-    /**
-   * 出题计时器
-   */
-  countDownTwo: function () {  
-    let that = this;
-    let newCount = that.data.countTwo;//获取倒计时初始值
-    var step = 1,//计数动画次数
-      num = 0,//计数倒计时秒数（n - num）
-      start = 1.5 * Math.PI,// 开始的弧度
-      end = -0.5 * Math.PI,// 结束的弧度
-      time = null;// 计时器容器
-
-     var n = newCount; // 当前倒计时为多少秒
-    // 动画函数
-    function animation() {
-      if (step <= n) {
-        end = end + 2 * Math.PI / n;
-        ringMove(start, end);
-        step++;
-      } else {
-        clearInterval(time);
-      }
-    };
-    // 画布绘画函数
-    function ringMove(s, e) {
-      var context = wx.createCanvasContext('secondCanvasTwo')
-
-      var gradient = context.createLinearGradient(200, 100, 100, 200);
-      gradient.addColorStop("0", "#2661DD");
-      gradient.addColorStop("0.5", "#40ED94");
-      gradient.addColorStop("1.0", "#5956CC");
-
-      // 绘制圆环
-      context.setStrokeStyle('#21AEFF')
-      context.beginPath()
-      context.setLineWidth(5)
-      context.arc(65, 65, 35, s, e, true)
-      context.stroke()
-      context.closePath()
-
-      // 绘制倒计时文本
-      context.beginPath()
-      context.setLineWidth(1)
-      context.setFontSize(40)
-      context.setFillStyle('#333333')
-      context.setTextAlign('center')
-      context.setTextBaseline('middle')
-      context.fillText(n - num + '', 65, 65, 35)
-      context.fill()
-      context.closePath()
-
-      context.draw()
-
-      // 每完成一次全程绘制就+1
-      num++;
-    }
-    // 倒计时前先绘制整圆的圆环
-    ringMove(start, end);
-    // 创建倒计时
-    that.setData({
-      countTwo: newCount
-    })
-    
-    that.setData({
-      timerTwo: setInterval(function () {
-        animation()
-        that.setData({
-          countTwo: that.data.countTwo-1
-        })
-        if (that.data.countTwo <= 0) {
-          clearInterval(that.data.timerTwo)
-          wx.navigateTo({
-             url: '/pages/xiaofuhao/xiaofuhao',
-          })
-          that.setData({
-            showGuoduye: false,
-          })
-        }
-      }, 1000)
-    })  
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: '特斯鲁普测验',    //页面标题
-    })
-    var that = this
-    that.doNext()
-    that.stopTimer()
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    var that = this
-    that.drawProgressbg('canvasProgressbg')
-    that.drawProgressbg('canvasProgressbgTwo')
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-    var that = this
-    clearInterval(that.data.timer);
-    clearInterval(that.data.timerTwo);
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-    var that = this
- 
-    clearInterval(that.data.timer);
-    clearInterval(that.data.timerTwo);
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function (res) {
-    var that = this
-    that.data.share = true
-    that.stopTimer()
-    that.cancelResultTap()
-    if (res.from == "button") {
-      var title = "我的孩子已闯过" + this.data.rightCount + "题，让你的孩子也试试吧！"
-      return {
-        title: title,
-        // path: "/pages/start/start" + "?gameid=" + that.data.gameid + "&isShare=1",
-        path: "/pages/home/home",
-        imageUrl: "../../style/images/tupian.png",
-        success: (res) => {
-          console.log("转发成功", res);
-        },
-        fail: (res) => {
-          console.log("转发失败", res);
-        }
-      }
-    }
+    this.timerCircleReady();
+    this.startCircleTime();
   }
 })

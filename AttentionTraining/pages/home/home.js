@@ -16,34 +16,44 @@ Page({
       gId: "zhpc",
       title : "综合测评",
       // url: "/pages/zongheceping/zongheceping"
-      url : "/pages/cePingGame/cePingGame"
+      url : "/pages/cePingGame/cePingGame",
+      url_guide: "",
+      guide_key: ""
     },{
       imgUrl : "zzljtd",
       gId : "jtd",
       title : "专注力交通灯",
-      url : "/pages/start/start"
+      url : "/pages/start/start",
+      url_guide: "",
+      guide_key: ""
     },{
       imgUrl : "xfh",
       gId : "xfh",
       title : "小符号",
-      // url : "/pages/xiaofuhao/xiaofuhao"
-      url: "/pages/xiaofuhaoGame/xiaofuhaoGame"
+      url: "/pages/xiaofuhaoGame/xiaofuhaoGame",
+      url_guide: "/pages/xiaofuhaoGuide/xiaofuhaoGuide",
+      guide_key: "xiaofuhao_guide"
     },{
       imgUrl : "ksjy",
       gId : "ksjy",
       title : "快速记忆",
-      url : "/pages/kuaisujiyi/kuaisujiyi"
+      url : "/pages/kuaisujiyi/kuaisujiyi",
+      url_guide: "",
+      guide_key: ""
     },{
       imgUrl : "strpcs",
       gId : "strp",
       title : "斯特如普",
-      // url : "/pages/siterupu/siterupu"
-      url: "/pages/siterupuGame/siterupuGame"
+      url: "/pages/siterupuGame/siterupuGame",
+      url_guide: "/pages/siterupuGuide/siterupuGuide",
+      guide_key: "siterupu_guide"
     },{
       imgUrl : "",
       gId : "zwkf",
       title : "暂未开放",
-      url : ""
+      url : "",
+      url_guide: "",
+      guide_key: ""
     },], // 图片
     hideShadow: true, // 无报告显示
     hasReports: false, // 是否有报告
@@ -219,15 +229,24 @@ Page({
    */
   gotoStart:function (event) {
     let gotoUrl = event.currentTarget.dataset['url'];
+    let guide_key = event.currentTarget.dataset['guidekey'];
+    let guide_url = event.currentTarget.dataset['guideurl'];
+
     let age =  wx.getStorageSync('age_player')
-    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age.length <= 0)) {
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {
       wx.navigateTo({
         url: '/pages/cePingInfo/cePingInfo',
       })
     } else {
-      wx.navigateTo({
-        url: gotoUrl,
-      })
+      if ((guide_key.length > 0) && wx.getStorageSync(guide_key)) {
+        wx.navigateTo({
+          url: gotoUrl,
+        })
+      } else {
+        wx.navigateTo({
+          url: guide_url,
+        })
+      }
     }
   },
 
