@@ -20,7 +20,10 @@
     "pages/xiaofuhaoGuide/xiaofuhaoGuide",
     "pages/siterupuGuide/siterupuGuide",
     "pages/cePingGame/cePingGame",
-    "pages/cePingInfo/cePingInfo"
+    "pages/cePingInfo/cePingInfo",
+    "pages/xiaofuhaoGame/xiaofuhaoGame",
+    "pages/siterupuGame/siterupuGame",
+    "pages/kuaisujiyiGuide/kuaisujiyiGuide"
   ],
   "window": {
     "backgroundTextStyle": "light",

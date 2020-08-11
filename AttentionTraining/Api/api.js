@@ -25,5 +25,7 @@ module.exports = {
   //保存游戏数据
   saveGamesData: common.saveGamesData,
   //验证码兑换
-  validationCode: common.validationCode
+  validationCode: common.validationCode,
+  //获取最新一条组合评测数据
+  getCombinationEvaluationByOpenid: common.getCombinationEvaluationByOpenid
 }

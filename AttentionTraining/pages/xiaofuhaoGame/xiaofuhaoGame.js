@@ -1,4 +1,5 @@
-// pages/xiaofuhaoGuide/xiaofuhaoGuide.js
+// pages/xiaofuhaoGame/xiaofuhaoGame.js
+// pages/siterupuGame/siterupuGame.js
 var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 
@@ -24,7 +25,7 @@ Page({
     hideResult: true, // 隐藏结果视图
     rightCount: 0, // 对的题目数量
     globalTimer: 0, //游戏计时器
-    stepText: '5',  //设置倒计时初始值
+    stepText: '',  //设置倒计时初始值
     hideResultShadow: true, // 是否隐藏结果
 
     isShowTimer: true,
@@ -36,12 +37,7 @@ Page({
 
     //键盘事件
     num: 0,
-    hasDot: false, // 防止用户多次输入小数点
-
-    hideShadowOne: false, // 隐藏透明视图一
-    hideShadowTwo: true, //  隐藏透明视图二
-    hideShadowThree: true, //  隐藏透明视图三
-    hideGuoduye: true, // 隐藏过渡页面
+    hasDot: false // 防止用户多次输入小数点
   },
 
   /**
@@ -271,10 +267,7 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
-        // that.doNext();
-        wx.redirectTo({
-          url: '/pages/xiaofuhaoGame/xiaofuhaoGame',
-        })
+        that.doNext();
       }
     },100)
   },
@@ -483,55 +476,5 @@ Page({
         that.doNext();
       }, 1000);
     }
-  },
-
-  /**
-   * 开始 - 按钮
-   */
-  hideShadowOneView: function () {
-    var that = this
-    that.setData({
-      hideShadowOne: true,
-      hideShadowThree: true,
-      hideShadowTwo: false,
-    })
-  },
-
- /**
-   * 开始 - 按钮
-   */
-  hideShadowTwoView: function () {
-    var that = this
-    that.setData({
-      hideShadowOne: true,
-      hideShadowTwo: true,
-      hideShadowThree: false,
-    })
-    
-  },
-
-  /**
-   * 开始 - 按钮
-   */
-  hideShadowThreeView: function () {
-    var that = this
-    that.setData({
-      hideShadowOne: true,
-      hideShadowTwo: true,
-      hideShadowThree: true,
-      hideGuoduye: false,
-    })
-
-    that.countDownTwo()
-  },
-
-  countDownTwo: function() {
-    wx.setStorageSync('xiaofuhao_guide', true)
-    this.setData({
-      stepText: 5,
-      isShowTimer: true
-    })
-    this.timerCircleReady();
-    this.startCircleTime();
   }
 })

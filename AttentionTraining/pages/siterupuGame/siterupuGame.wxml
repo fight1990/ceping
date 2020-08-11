@@ -1,5 +1,5 @@
-<!--pages/siterupuGuide/siterupuGuide.wxml-->
-<view hidden="{{hideShadowOne}}" class="container">
+<!--pages/siterupuGame/siterupuGame.wxml-->
+<view class="container">
   <view class="title-view">
     <view class="title-text">
       <text>答对：</text>
@@ -54,47 +54,6 @@
     </view>
     <view class="bottom">
       <button class="once-more" bindtap="moreTap">再来一次</button>
-    </view>
-  </view>
-</view>
-
-<view hidden="{{hideShadowOne}}" class="shadow">
-  <view class="color"></view>
-  <view class="tip-one">
-      <text>选择答题</text>
-  </view>
-  <view class="tip-two" bindtap="hideShadowView">
-    <text>开始答题</text>
-  </view>
-  
-  <view class="tip-one-image">
-    <image src="../../style/images/siterupu_519.png"></image>
-  </view>
-  <view class="tip-two-image">
-    <image src="../../style/images/siterupu_518.png"></image>
-  </view>
-  
-  <view class="tip-three">
-    <text>文字颜色与其表达的意思是否相同?</text>
-  </view>
-
-  <view class="tip-four" bindtap="hideShadowView">
-    <text>下一步</text>
-  </view>
-</view>
-
-<view hidden="{{hideGuoduye}}" class="containerTwo">
-  <view class="guodu" >
-    <view class="tip">
-      <text>
-        进入斯特如普测验
-      </text>
-    </view>
-    <view class="time">
-      <view wx:if="{{isShowTimer}}" class="timeCircle_two">
-      <canvas class='bgCanvas_two' canvas-id='bgCanvas_two'></canvas>
-      <view class='stepText'>{{stepText}}</view>
-    </view>    
     </view>
   </view>
 </view>

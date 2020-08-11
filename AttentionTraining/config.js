@@ -31,7 +31,9 @@ var config = {
   //保存游戏数据
   saveGamesData: "https://a.jingsiedu.com/app/saveCombinationEvaluation.json",
   //验证码兑换
-  validationCode: "https://a.jingsiedu.com/app/validationCode.json"
+  validationCode: "https://a.jingsiedu.com/app/validationCode.json",
+  //获取最新一组综合测评信息
+  getCombinationEvaluationByOpenid: "https://a.jingsiedu.com/app/getCombinationEvaluationByOpenid.json"
   
 }
 

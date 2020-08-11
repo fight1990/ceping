@@ -1,4 +1,4 @@
-// pages/siterupuGuide/siterupuGuide.js
+// pages/siterupuGame/siterupuGame.js
 var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 
@@ -7,7 +7,6 @@ const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
 
 var valHandle;  //定时器
 const ctxTimer = wx.createCanvasContext("bgCanvas")
-const ctxTimer_two = wx.createCanvasContext("bgCanvas_two")
 
 var timestamp = Date.parse(new Date());  
 
@@ -46,9 +45,6 @@ Page({
 
     strp_time: 0,
     strp_correct: 0,
-
-    hideGuoduye: true,
-    hideShadowOne: false
   },
 
   /**
@@ -281,21 +277,21 @@ Page({
   },
 
   //倒计时圆环
-  timerCircleReady: function(ctx) {
-    ctx.setLineWidth(15)
-    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
-    ctx.setStrokeStyle('white')
-    ctx.stroke()
+  timerCircleReady: function() {
+    ctxTimer.setLineWidth(15)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+    ctxTimer.setStrokeStyle('white')
+    ctxTimer.stroke()
 
-    ctx.beginPath()
-    ctx.setLineCap('round')
-    ctx.setLineWidth(8)
-    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
-    ctx.setStrokeStyle('green')
-    ctx.stroke()
-    ctx.draw()
+    ctxTimer.beginPath()
+    ctxTimer.setLineCap('round')
+    ctxTimer.setLineWidth(8)
+    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
+    ctxTimer.setStrokeStyle('green')
+    ctxTimer.stroke()
+    ctxTimer.draw()
   },
-  startCircleTime: function(ctx) {    
+  startCircleTime: function() {    
     console.log("倒计时动画开始")
     var that = this
 
@@ -305,18 +301,18 @@ Page({
     clearInterval(valHandle)
 
     function drawArc(endAngle) {
-      ctx.setLineWidth(15)
-      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
-      ctx.setStrokeStyle('lightgray')
-      ctx.stroke()
+      ctxTimer.setLineWidth(15)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+      ctxTimer.setStrokeStyle('lightgray')
+      ctxTimer.stroke()
 
-      ctx.beginPath()
-      ctx.setLineCap('round')
-      ctx.setLineWidth(8)
-      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
-      ctx.setStrokeStyle('green')
-      ctx.stroke()
-      ctx.draw()
+      ctxTimer.beginPath()
+      ctxTimer.setLineCap('round')
+      ctxTimer.setLineWidth(8)
+      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
+      ctxTimer.setStrokeStyle('green')
+      ctxTimer.stroke()
+      ctxTimer.draw()
     }
 
     valHandle = setInterval(function(){
@@ -329,10 +325,7 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
-        // that.doNext();
-        wx.redirectTo({
-          url: '/pages/siterupuGame/siterupuGame',
-        })
+        that.doNext();
       }
     },100)
   },
@@ -367,8 +360,8 @@ Page({
 
     siterupu_ctxtext.draw()
 
-    this.timerCircleReady(ctxTimer);
-    // this.startCircleTime(ctxTimer);
+    this.timerCircleReady();
+    this.startCircleTime();
   },
  
   /**
@@ -449,27 +442,4 @@ Page({
 
   },
   
-  /**
-   * 我知道了 - 按钮
-   */
-  hideShadowView: function () {
-    var that = this
-    that.setData({
-      hideGuoduye: false,
-      hideShadowOne: true
-    })
-    ctxTimer.clearRect(0,0,oW,oH)
-    that.countDownTwo()
-  },
-
-  countDownTwo: function() {
-    wx.setStorageSync('siterupu_guide', true)
-    this.setData({
-      stepText: 5,
-      isShowTimer: true
-    })
-    this.timerCircleReady(ctxTimer_two);
-    this.startCircleTime(ctxTimer_two);
-  }
-
 })

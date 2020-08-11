@@ -1,3 +1,4 @@
+<!--pages/xiaofuhaoGame/xiaofuhaoGame.wxml-->
 <view class="container">
   <view class="title-view">
     <view class="title-text">
@@ -14,11 +15,7 @@
     </view>
     <block>
       <view class="gameView">
-        <view wx:if="{{currentGameType == 0}}" class="trafficlight">
-          <canvas class="trafficlight_canvasgraph"  canvas-id='trafficlight_canvasgraph'></canvas>
-        </view>
-
-        <view wx:elif="{{currentGameType == 1}}" class="xiaofuhao">
+        <view class="xiaofuhao">
           <view class="table">
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
@@ -40,35 +37,37 @@
             </view>
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData_test}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
-                <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="{{item.length != 0}}"></input>
+                <!-- <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="{{item.length != 0}}"></input> -->
+                <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="true"></input>
               </block>
             </view>
           </view>
-        </view>
-
-        <view wx:elif="{{currentGameType == 2}}" class="waterview">
-          <canvas class="ksjy_canvasArcCir_bg"  canvas-id='ksjy_canvasArcCir'></canvas>
-          <text class="ksjy_canvas_text" decode="{{true}}">{{ksjy_canvasContent}}</text>
-          <view class="ksjy_canvasgraph_bg_view" animation="{{ksjy_animationRotate}}">
-          <canvas class="ksjy_canvasgraph_bg"  canvas-id='ksjy_canvasgraph'></canvas>
-          </view>
-        </view>
-
-        <view wx:elif="{{currentGameType == 3}}" class="siterupu">
-          <text class="siterupu_title">文字颜色与其表达的意思是否相同？</text>
-          <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
-
         </view>
       </view>
       <view class="result-view">
         <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
       </view>
-      <view hidden="{{hideBottom}}" class="bottom-view">
-        <button class="different-button" bindtap="differentTap">不同</button>
-        <view class="line-view"></view>
-        <button class="identical-button" bindtap="identicalTap">相同</button>
-      </view>
     </block>
+  </view>
+
+  <!-- 自定义键盘  class为遮罩层-->
+  <view class="keyboard">
+    <view class='keyboard-row'>
+      <button class='one' data-key='1'  bindtap='tapKey'>1</button>
+      <button class='two' data-key='2' bindtap='tapKey'>2</button>
+      <button class='three' data-key='3' bindtap='tapKey'>3</button>
+      <button class='four' data-key='4' bindtap='tapKey'>4</button>
+    </view>
+    <view class='keyboard-row'>
+      <button class='five' data-key='5' bindtap='tapKey'>5</button>
+      <button class='six' data-key='6' bindtap='tapKey'>6</button>
+      <button class='seven' data-key='7' bindtap='tapKey'>7</button>
+    </view>
+    <view class='keyboard-row'>
+      <button class='eight' data-key='8' bindtap='tapKey'>8</button>
+      <button class='nine' data-key='9' bindtap='tapKey'>9</button>
+      <button class='zero' data-key='0' bindtap='tapKey'>0</button>
+    </view>
   </view>
 </view>
 
@@ -93,8 +92,7 @@
       </view>
     </view>
     <view class="bottom">
-      <button wx:if="{{currentGameType == 3}}" class="once-more" bindtap="sendGameDatasToSever">答题结束</button>
-      <button wx:else class="once-more" bindtap="moreNextTap">下一游戏</button>
+      <button class="once-more" bindtap="moreTap">再来一次</button>
     </view>
   </view>
 </view>

@@ -20,26 +20,24 @@
 .td {
   text-align: center;
   border: 1px solid #ccc;
-  display: inline-block;  
+  /* display: inline-block;   */
+  display: inline-flex;
   border-bottom: none;
   /* flex: 1; */
   padding: 16rpx;  
   border-left: none;
-
-  
-white-space:nowrap; 
-  
+  white-space:pre-wrap; 
 }
 .td-noborder{  
   border-right: none;
+  display: inline-block; 
 }
  
 .thead .td{
   border-top: none;
   padding: 16rpx;
   font-weight: bold;
-
-display: inline-block;   
+  display: inline-block;   
   white-space:nowrap; 
 }
 .thead{
