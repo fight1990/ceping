@@ -106,7 +106,7 @@
   height: 74rpx;
   color: #000;
   font-weight: 800;
-  font-size: 14px;
+  font-size: 48rpx;
   text-align: center;
 }
 .end{
@@ -128,7 +128,7 @@
   height: 74rpx;
   color: #000;
   font-weight: 800;
-  font-size: 14px;
+  font-size: 48rpx;
   text-align: center;
 }
 .end2{

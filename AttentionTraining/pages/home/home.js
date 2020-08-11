@@ -180,17 +180,37 @@ Page({
   reportTap: function () {
     
     var that = this
-    if (that.data.hasReports == true) {
-      // 有报告
-      wx.navigateTo({
-        url: '/pages/report/report',
-      })
-    } else {
-      // 无报告
-      that.setData({
-        hideShadow: false,
-      })
-    }
+
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            userInfo: true,
+            "nickName": res.data.nickName,
+            "avatar": res.data.avatarUrl
+          })
+
+          that.checkBaogao(res.data.openid)
+
+          if (that.data.hasReports == true) {
+            // 有报告
+            wx.navigateTo({
+              url: '/pages/report/report',
+            })
+          } else {
+            // 无报告
+            that.setData({
+              hideShadow: false,
+            })
+          }
+        }
+      },
+      fail: function (res) {
+        that.getOpenId()
+      }
+    })
+  
   },
   /**
    * 意见反馈
