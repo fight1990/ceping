@@ -77,28 +77,6 @@ Page({
           })
 
           that.checkBaogao(res.data.openid)
-
-          // api.checkBaogao({
-          //   data: { openid: res.data.openid },
-          //   success: function (result) {
-          //     var hasReports = false
-          //     if (result.games.length > 0) {
-          //       hasReports = true
-          //       that.setData({
-          //         record: result.record
-          //       })
-          //     } else {
-          //       hasReports = false
-          //     }
-
-          //     that.setData({
-          //       hasReports: hasReports
-          //     })
-          //   },
-          //   fail: function (res) {
-
-          //   }
-          // })
         }
       },
       fail: function (res) {
@@ -163,11 +141,9 @@ Page({
         } else {
           hasReports = false
         }
-
         that.setData({
           hasReports: hasReports
         })
-
       },
       fail: function (res) {
 
@@ -203,9 +179,6 @@ Page({
             "nickName": res.data.nickName,
             "avatar": res.data.avatarUrl
           })
-
-          that.checkBaogao(res.data.openid)
-
           if (that.data.hasReports == true) {
             // 有报告
             wx.navigateTo({
@@ -216,7 +189,7 @@ Page({
             that.setData({
               hideShadow: false,
             })
-          }
+          }       
         }
       },
       fail: function (res) {

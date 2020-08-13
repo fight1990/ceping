@@ -12,7 +12,7 @@
     <view class="middle-view">
       <view class="report" >
       <!-- 报告查看 -->
-        <button  open-type='{{userInfo==false ? "getUserInfo" : ""}}' bindgetuserinfo="reportTap" class="report-button">报告查看</button>
+        <button  open-type='getUserInfo' bindgetuserinfo="reportTap" class="report-button">报告查看</button>
       </view>
       <view class="space-img-one">
         <image src="../../style/images/space_img.png"></image>
@@ -21,7 +21,7 @@
       <view class="space-img-two">
         <image  src="../../style/images/space_img.png"></image>
       </view>
-      <view class="score">1234积分</view>
+      <view class="score">{{record.score}}积分</view>
     </view>
 
   </view>

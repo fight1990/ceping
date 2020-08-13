@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/home/home",
-    "pages/transition/transition",
     "pages/index/index",
+    "pages/transition/transition",  
+    "pages/home/home", 
     "pages/lights/lights",
     "pages/guide/guide",
     "pages/analysis/analysis",

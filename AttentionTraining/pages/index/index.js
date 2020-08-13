@@ -16,57 +16,56 @@ Page({
         loading: false,
       })
     }, 3000);
+    // 判断是否已经注册
+    // that.checkUser()
 
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse){
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
+    that.getStatus()
+
   },
 
-
-
-  //事件处理函数
-  getUserInfoClick: function (e) {
-
+  getStatus: function () {
     var that = this
-
-    wx.getStorage({
-      key: 'userInfo',
-      success: function(res) {
-        // wx.navigateTo({
-        //   url: '/pages/home/home',
-        // })
-        wx.navigateTo({
-          url: '/pages/start/start',
-        })
-      },
-      fail: function (res) {
-        that.getOpenId()
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          var obj = {}
+          wx.request({
+            url: config.getOpenId,
+            data: {
+              code: res.code
+            },
+            method: 'GET',
+            success: function (res) {
+              console.log("取得的openid==" + res.data.openid)
+              api.goToWeChat({
+                data: { openid: res.data.openid },
+                success: function (result) {
+                  if (result.user) { 
+                    if (result.user.state == 1) { // 已注册
+                      wx.navigateTo({
+                        url: '/pages/home/home',
+                      })
+                    } else {
+                      wx.navigateTo({
+                        url: '/pages/transition/transition',
+                      })
+                    }    
+                  } else {
+                    wx.navigateTo({
+                      url: '/pages/transition/transition',
+                    })
+                  }
+                },
+              })
+            }
+          });
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
       }
     })
   },
+
 
   getOpenId: function () {
     var that = this

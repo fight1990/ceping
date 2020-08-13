@@ -138,6 +138,19 @@
   margin-left: 580rpx;
 }
 
+.report-button {
+  margin-left: -40rpx;
+  height: 60rpx;
+  width: 206rpx;
+  line-height: 60rpx;
+  font-size: 36rpx;
+  color: #303030;
+  outline:none;
+  border:none;
+  list-style: none;
+  background-color: white;
+}
+
 
 .report-image {
   height: 60rpx;

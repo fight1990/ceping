@@ -67,17 +67,111 @@ Page({
 
   getUserInfoClick: function (e) {
     var that = this
+
     wx.getStorage({
       key: 'userInfo',
       success: function (res) {
-        // wx.navigateTo({
-        //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
-        // })      
+        if (res.data) {
+          api.goToWeChat({
+            data: { openid: res.data.openid },
+            success: function (result) {
+              if (result.user) { 
+                if (result.user.state == 1) { // 已注册
+                  wx.navigateTo({
+                    url: '/pages/home/home',
+                  })
+                } else {
+                  wx.navigateTo({
+                    url: '/pages/information/information',
+                  })
+                }    
+              } else {
+                wx.navigateTo({
+                  url: '/pages/information/information',
+                })
+              }
+            },
+          })
+        }
       },
       fail: function (res) {
-        that.getOpenId()
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              var obj = {}
+              wx.request({
+                url: config.getOpenId,
+                data: {
+                  code: res.code
+                },
+                method: 'GET',
+                success: function (res) {
+                  console.log("取得的openid==" + res.data.openid)
+                  wx.getUserInfo({
+                    success: function (response) {
+                      obj = response.userInfo
+                      obj.openid = res.data.openid
+                      wx.setStorage({
+                        key: 'userInfo',
+                        data: obj,
+                      })
+    
+                      api.goToWeChat({
+                        data: { openid: res.data.openid },
+                        success: function (result) {
+                          if (result.user) { 
+                            if (result.user.state == 1) { // 已注册
+                              wx.navigateTo({
+                                url: '/pages/home/home',
+                              })
+                            } else {
+                              wx.navigateTo({
+                                url: '/pages/information/information',
+                              })
+                            }    
+                          } else {
+                            wx.navigateTo({
+                              url: '/pages/information/information',
+                            })
+                          }
+                        }                        
+                      })    
+                    }
+                  });
+                }
+              });
+            } else {
+              console.log('获取用户登录态失败！' + res.errMsg)
+            }
+          }
+        })
       }
     })
+
+
+    // wx.getStorage({
+    //   key: 'userInfo',
+    //   success: function (res) {
+    //     if (res.data) {
+    //       that.setData({
+    //         userInfo: true,
+    //         "nickName": res.data.nickName,
+    //         "avatar": res.data.avatarUrl
+    //       })
+    //     }
+    //     wx.navigateTo({
+    //       url: '/pages/information/information'
+    //     })
+    //   },
+    //   fail: function (res) {
+    //     // that.getOpenId()
+
+    //     wx.navigateTo({
+    //       url: '/pages/information/information'
+    //     })  
+    //   }
+    // })
+
   },
 
   getOpenId: function () {
@@ -149,6 +243,8 @@ Page({
 
                     }
                   })
+
+
                 }
               });
             }

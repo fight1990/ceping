@@ -59,27 +59,49 @@ Page({
                   key: 'hasInformation',
                   data: true,
                 })
-                var param = {
-                  userid: result.user.id,
-                  score: that.data.rightCount,
-                  times: that.data.globalCount,
-                  nickname: res.data.nickName,
-                  headUrl: res.data.avatarUrl,
-                  city: res.data.city,
-                  openid: res.data.openid
-                }
-                api.saveWechatGames({
-                  data: param,
-                  success: function (response) {
-                    console.log(response)
-                    wx.navigateTo({
-                      url: '/pages/analysis/analysis' + "?gameid=" + response.gameid + "&isShare=0",
-                    })
-                  },
-                  fail: function (res) {
 
+                wx.getUserInfo({
+                  success: function (response) {
+                    obj = response.userInfo
+                    obj.openid = res.data.openid
+                    wx.setStorage({
+                      key: 'userInfo',
+                      data: obj,
+                    })                   
                   }
+                });
+
+                wx.navigateTo({
+                  url: '/pages/home/home',
                 })
+
+
+
+
+
+                // var param = {
+                //   userid: result.user.id,
+                //   score: that.data.rightCount,
+                //   times: that.data.globalCount,
+                //   nickname: res.data.nickName,
+                //   headUrl: res.data.avatarUrl,
+                //   city: res.data.city,
+                //   openid: res.data.openid
+                // }
+                // api.saveWechatGames({
+                //   data: param,
+                //   success: function (response) {
+                //     console.log(response)
+                //     wx.navigateTo({
+                //       url: '/pages/analysis/analysis' + "?gameid=" + response.gameid + "&isShare=0",
+                //     })
+                //   },
+                //   fail: function (res) {
+
+                //   }
+                // })
+
+
 
               } else { // 验证码超时
                 wx.showToast({

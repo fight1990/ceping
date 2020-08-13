@@ -9,7 +9,7 @@
     </view>
   </view>
 
-  <view wx:if="{{!loading}}" class="indexView">
+  <!-- <view wx:if="{{!loading}}" class="indexView">
       <view class="head-view">
         <image class="head-image" src="../../style/images/touxiang.png"></image>
         <text class="head-text">儿童注意力 申请获得</text>
@@ -25,5 +25,5 @@
       <view class="agree-view">
         <button class="agree-button" open-type='getUserInfo' bindgetuserinfo='getUserInfoClick' hover-class='none'>同意</button>
       </view>    
-  </view>
+  </view> -->
 </view>
