@@ -550,6 +550,52 @@ Page({
     })
   },
 
+  rotateFun:function() {
+    var that = this
+    var swingCount = 0
+    var swingAnimation  = null
+    swingAnimation = wx.createAnimation({
+      duration: 250,
+      timingFunction: 'linear',
+      delay: 0,
+      transformOrigin: '50% 50% 0'
+    })
+    that.swingAnimation = swingAnimation
+
+    
+
+    that.setData({
+      swingAnimation: that.swingAnimation.export()
+    })
+    var n = 0
+    that.data.timehandle = setInterval(function() {
+      // if (swingCount == 0) {
+
+      //   that.swingAnimation.rotate(360).step()
+      //   swingCount = 1
+      // } else {
+      //   that.swingAnimation.rotate(0).step()
+      //   swingCount = 0
+      // }
+      // that.setData({
+      //   swingAnimation: that.swingAnimation.export()
+      // })
+
+  // n=n+1;
+  // console.log(n);
+  // that.swingAnimation.rotate(360).step()
+  // that.setData({
+  //   swingAnimation: that.swingAnimation.export()
+  // })
+
+  // swingAnimation.translate(30).step();
+  // this.setData({
+  //   swingAnimation: swingAnimation.export()
+  // })
+
+  }.bind(that), 1000)
+},
+
   /**
    * 生命周期函数--监听页面隐藏
    */

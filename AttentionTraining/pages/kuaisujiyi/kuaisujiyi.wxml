@@ -22,7 +22,10 @@
             <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
             <!-- animation="{{animationData}}" -->
             <text class="canvas_text" decode="{{true}}">{{canvasContent}}</text>
-            <view class="canvasgraph_bg_view" animation="{{animationRotate}}">
+            <!-- <view class="canvasgraph_bg_view" animation="{{animationRotate}}">
+              <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
+            </view> -->
+            <view class="canvasgraph_bg_view">
               <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
             </view>
           </view>

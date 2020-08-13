@@ -221,9 +221,18 @@ Page({
    * 游戏开始页面
    */
   gotoStart:function (event) {
+    var that = this
+
     let gotoUrl = event.currentTarget.dataset['url'];
     let guide_key = event.currentTarget.dataset['guidekey'];
     let guide_url = event.currentTarget.dataset['guideurl'];
+
+    // if (gotoUrl != '/pages/cePingGame/cePingGame') { // 显示vip
+    //   that.showVip()
+    //   return
+    // }
+
+
 
     let age =  wx.getStorageSync('age_player')
     if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {

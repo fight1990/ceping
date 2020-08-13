@@ -373,3 +373,38 @@ button::after {
   border: none;
   border-radius: 0;
 }
+
+
+.canvasgraph_bg_view{
+  /* headRotate 6s linear infinite */
+  animation:radar_a 6s linear infinite;
+  -webkit-animation: radar_a 8s linear infinite;
+
+  visibility: visible;
+}
+
+@keyframes radar_a{  
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);  
+  } 
+
+ 
+  /* 0% {transform: rotate(0deg);} */
+  /* 25% {transform: rotate(90deg);}
+  50% {transform: rotate(180deg);}
+  75% {transform: rotate(270deg);} */
+  /* 100% {transform: rotate(360deg);} */
+}
+
+/*兼容ios*/
+@-webkit-keyframes radar_a {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
