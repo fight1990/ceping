@@ -67,6 +67,9 @@ const _ANIMATION_TIME = 5000; // 动画播放一次的时长ms
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
 const _tipContent2 = "&nbsp;&nbsp;&nbsp;形状和颜色\n是否与前面相同"
 
+
+
+
 Page({
 
   /**
@@ -94,7 +97,10 @@ Page({
     animationData: {},
     animationRotate: '',
 
-    stepText: 5  //设置倒计时初始值
+    stepText: 5,  //设置倒计时初始值
+
+    cylinderNumber: 0
+
   },
 
   /**
@@ -319,7 +325,7 @@ Page({
     var that = this
 
     console.log("XXXXXX --- index : " + that.data.selectedIndex + "; gameCount: " + gameDatas.length)
-
+    
     if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
       return
@@ -509,6 +515,8 @@ Page({
       transformOrigin: '50% 50% 0'
     })
 
+    // that.rotateFun()
+
     that.waveCreater();
     if (that.data.share == true) {
       that.shareTap()
@@ -552,48 +560,28 @@ Page({
 
   rotateFun:function() {
     var that = this
-    var swingCount = 0
     var swingAnimation  = null
     swingAnimation = wx.createAnimation({
-      duration: 250,
+      duration: 100,
       timingFunction: 'linear',
       delay: 0,
       transformOrigin: '50% 50% 0'
     })
     that.swingAnimation = swingAnimation
 
-    
-
     that.setData({
       swingAnimation: that.swingAnimation.export()
     })
     var n = 0
     that.data.timehandle = setInterval(function() {
-      // if (swingCount == 0) {
 
-      //   that.swingAnimation.rotate(360).step()
-      //   swingCount = 1
-      // } else {
-      //   that.swingAnimation.rotate(0).step()
-      //   swingCount = 0
-      // }
-      // that.setData({
-      //   swingAnimation: that.swingAnimation.export()
-      // })
+    n=n+1;
+    that.swingAnimation.rotate(10*n).step()
+    that.setData({
+      swingAnimation: that.swingAnimation.export()
+    })
 
-  // n=n+1;
-  // console.log(n);
-  // that.swingAnimation.rotate(360).step()
-  // that.setData({
-  //   swingAnimation: that.swingAnimation.export()
-  // })
-
-  // swingAnimation.translate(30).step();
-  // this.setData({
-  //   swingAnimation: swingAnimation.export()
-  // })
-
-  }.bind(that), 1000)
+  }.bind(that), 100)
 },
 
   /**
@@ -685,8 +673,38 @@ Page({
       ctxTimer.draw()
     }
 
+
+    var swingAnimation  = null
+    swingAnimation = wx.createAnimation({
+      duration: 100,
+      timingFunction: 'linear',
+      delay: 0,
+      transformOrigin: '50% 50% 0'
+    })
+
+    that.swingAnimation = swingAnimation
+
+    that.setData({
+      swingAnimation: that.swingAnimation.export()
+    })
+
     valHandle = setInterval(function(){
       // that.rotateAni(++_animationIndex);
+
+
+      that.data.cylinderNumber = that.data.cylinderNumber+1 
+
+      console.log(that.data.cylinderNumber)
+
+      that.swingAnimation.rotate(15*that.data.cylinderNumber).step()
+
+      that.setData({
+
+        swingAnimation: that.swingAnimation.export()
+        
+      })
+  
+  
 
       that.setData({
         stepText: parseInt(step)
@@ -696,6 +714,7 @@ Page({
       num += decNum
       drawArc(num*Math.PI)
       if(step<=0){
+        that.data.cylinderNumber = 0
         clearInterval(valHandle)  //销毁定时器
         that.doNext();
       }
