@@ -6,7 +6,7 @@
       <button wx:if="{{!userInfo}}" open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="login">{{userInfo==false?'登录':nickName}}</button>
       <view wx:if="{{userInfo}}" class="userInfo">
         <view class="nickname">{{nickName}}</view>
-        <view class="name">{{nickName}}</view>
+        <view class="name">{{name}}</view>
       </view>     
     </view>
     <view class="middle-view">

@@ -10,6 +10,7 @@ Page({
    */
   data: {
     nickName: "", // 昵称
+    name: "", // 注册name
     avatar: "", // 头像
     itemList: [{
       imgUrl : "zhcp",
@@ -60,7 +61,8 @@ Page({
     record:{},
     userInfo: false, // 是否有用户信息
     hideVip: true, // 显示vip
-    vipCodeString: '' //VIP码
+    vipCodeString: '', //VIP码
+    iamVip: false, // 是否是VIP
   },
 
   //事件处理函数
@@ -136,7 +138,8 @@ Page({
         if (result.games.length > 0) {
           hasReports = true
           that.setData({
-            record: result.record
+            record: result.record,
+            name: result.user.name
           })
         } else {
           hasReports = false
@@ -218,6 +221,28 @@ Page({
   },
 
   /**
+   * 是否是vip
+   */
+  checkVIP:function () {
+    var that = this
+    wx.getStorage({
+      key: 'IAMVIP',
+      success: function (res) {
+        if (res.data) {
+          that.setData({
+            iamVip: true,
+          })
+        }
+      },
+      fail: function (res) {
+        that.setData({
+          iamVip: false,
+        })
+      }
+    })
+  },
+
+  /**
    * 游戏开始页面
    */
   gotoStart:function (event) {
@@ -227,12 +252,18 @@ Page({
     let guide_key = event.currentTarget.dataset['guidekey'];
     let guide_url = event.currentTarget.dataset['guideurl'];
 
-    // if (gotoUrl != '/pages/cePingGame/cePingGame') { // 显示vip
-    //   that.showVip()
-    //   return
-    // }
 
 
+    // 是否显示vip弹框
+    if (gotoUrl != '/pages/cePingGame/cePingGame') { 
+      that.checkVIP()
+      if (that.data.iamVip != true) { // 不是vip
+        that.showVip()
+        return
+      } else { // vip
+        that.hideShadowTap()
+      }
+    }
 
     let age =  wx.getStorageSync('age_player')
     if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {
@@ -288,7 +319,8 @@ Page({
               if (result.games.length>0) {
                 hasReports = true
                 that.setData({
-                  record: result.record
+                  record: result.record,
+                  name: result.user.name
                 })
               } else {
                 hasReports = false
@@ -312,6 +344,19 @@ Page({
    */
   submitVipCodeAction: function() {
     var that = this
+    wx.setStorage({
+      key: 'IAMVIP',
+      data: true,
+    })
+    that.setData({
+      hideVip: true
+    })
+    that.setData({
+      iamVip: true,
+    })
+    return
+
+    
     if (that.data.vipCodeString.length == 0) {
       wx.showToast({
         title: '请输入VIP特权码！',
@@ -336,6 +381,20 @@ Page({
               that.setData({
                 hideVip: true
               })
+
+              var vip = false
+              if (result.code == 1) { //vip
+                vip = true
+                that.setData({
+                  iamVip: true,
+                })
+              } 
+              wx.setStorage({
+                key: 'IAMVIP',
+                data: vip,
+              })
+ 
+
             },
             fail: function (res) {
       

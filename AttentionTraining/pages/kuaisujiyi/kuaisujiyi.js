@@ -688,24 +688,23 @@ Page({
       swingAnimation: that.swingAnimation.export()
     })
 
+    var n = 0
     valHandle = setInterval(function(){
       // that.rotateAni(++_animationIndex);
 
 
-      that.data.cylinderNumber = that.data.cylinderNumber+1 
 
       console.log(that.data.cylinderNumber)
 
-      that.swingAnimation.rotate(36*that.data.cylinderNumber).step()
+      // that.swingAnimation.rotate(20*that.data.cylinderNumber).step()
+
+      that.swingAnimation.rotate(20*n).step()
+
 
       that.setData({
-
         swingAnimation: that.swingAnimation.export()
-
       })
   
-  
-
       that.setData({
         stepText: parseInt(step)
       })
@@ -717,7 +716,13 @@ Page({
         that.data.cylinderNumber = 0
         clearInterval(valHandle)  //销毁定时器
         that.doNext();
+      } else {
+        that.data.cylinderNumber = that.data.cylinderNumber+1 
+         n = n + 1
+
       }
+
+
     },100)
   },
 
