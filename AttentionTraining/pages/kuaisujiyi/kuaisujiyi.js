@@ -696,12 +696,12 @@ Page({
 
       console.log(that.data.cylinderNumber)
 
-      that.swingAnimation.rotate(15*that.data.cylinderNumber).step()
+      that.swingAnimation.rotate(36*that.data.cylinderNumber).step()
 
       that.setData({
 
         swingAnimation: that.swingAnimation.export()
-        
+
       })
   
   
