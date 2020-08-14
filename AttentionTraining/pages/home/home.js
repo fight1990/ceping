@@ -344,19 +344,6 @@ Page({
    */
   submitVipCodeAction: function() {
     var that = this
-    wx.setStorage({
-      key: 'IAMVIP',
-      data: true,
-    })
-    that.setData({
-      hideVip: true
-    })
-    that.setData({
-      iamVip: true,
-    })
-    return
-
-    
     if (that.data.vipCodeString.length == 0) {
       wx.showToast({
         title: '请输入VIP特权码！',
