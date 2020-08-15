@@ -40,7 +40,7 @@
             </view>
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData_test}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
-                <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="{{item.length != 0}}"></input>
+                <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="true"></input>
               </block>
             </view>
           </view>
@@ -69,6 +69,26 @@
         <button class="identical-button" bindtap="identicalTap">相同</button>
       </view>
     </block>
+  </view>
+
+  <!-- 自定义键盘  class为遮罩层-->
+  <view wx:if="{{currentGameType == 1}}" class="keyboard">
+    <view class='keyboard-row'>
+      <button class='one' data-key='1'  bindtap='tapKey'>1</button>
+      <button class='two' data-key='2' bindtap='tapKey'>2</button>
+      <button class='three' data-key='3' bindtap='tapKey'>3</button>
+      <button class='four' data-key='4' bindtap='tapKey'>4</button>
+    </view>
+    <view class='keyboard-row'>
+      <button class='five' data-key='5' bindtap='tapKey'>5</button>
+      <button class='six' data-key='6' bindtap='tapKey'>6</button>
+      <button class='seven' data-key='7' bindtap='tapKey'>7</button>
+    </view>
+    <view class='keyboard-row'>
+      <button class='eight' data-key='8' bindtap='tapKey'>8</button>
+      <button class='nine' data-key='9' bindtap='tapKey'>9</button>
+      <button class='zero' data-key='0' bindtap='tapKey'>0</button>
+    </view>
   </view>
 </view>
 

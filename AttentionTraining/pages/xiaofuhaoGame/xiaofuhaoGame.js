@@ -315,6 +315,9 @@ Page({
       that.setData({
         result: 0
       })
+      //错误就停止游戏
+      that.lastQuestion();
+      return;
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
@@ -465,6 +468,9 @@ Page({
       that.setData({
         result: 0
       })
+      //错误就结束
+      that.lastQuestion()
+      return
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
