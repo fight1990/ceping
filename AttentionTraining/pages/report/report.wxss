@@ -61,22 +61,31 @@ page {
   font-weight:bold;
   color:#333333;
   line-height:72rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 360rpx;
 }
 
 .item-view .item-time {
   position: absolute;
-  margin-left: 418rpx;
+  right: 50rpx;
   font-size:32rpx;
   font-weight:bold;
   color:#666666;
   line-height:72rpx;
+  width: 280rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: right;
 }
 
+
+
 .item-view .item-image {
-  top: 38rpx;
+  position: absolute;
   right: 36rpx;
-  width: 14rpx;
-  height: 14rpx;
 }
 
 .item-view .item-image  image{
