@@ -14,6 +14,7 @@ const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
 
 var valHandle;  //定时器
 const ctxTimer = wx.createCanvasContext("bgCanvas")
+const ctxTimer_two = wx.createCanvasContext("bgCanvas_two")
 
 var tid;
 var M = Math;
@@ -108,6 +109,10 @@ Page({
     ksjy_correct: 0,
     strp_time: 0,
     strp_correct: 0,
+
+    // 过渡页、引导页参数
+    hideGuoduye: true,
+    guoduyeTitle: "即将进入小符号游戏",
   },
 
   /**
@@ -183,8 +188,12 @@ Page({
   */
   showResultTap: function () {
     var that = this
+    var totalCorrect = that.data.jtd_correct + that.data.xfh_time + that.data.ksjy_correct + that.data.strp_correct;
+    var totalTime = that.data.jtd_time + that.data.xfh_time + that.data.ksjy_time + that.data.strp_time;
     that.setData({
       hideResultShadow: false,
+      rightCount: totalCorrect,
+      globalTimer: totalTime,
     })
   },
 
@@ -402,7 +411,11 @@ Page({
       ksjy_time: 0,
       ksjy_correct: 0,
       strp_time: 0,
-      strp_correct: 0
+      strp_correct: 0,
+
+      // 过渡页、引导页参数
+      hideGuoduye: true,
+      guoduyeTitle: "即将进入小符号游戏",
     })
 
     jtd_list = [],
@@ -502,8 +515,8 @@ Page({
       })
 
       if (that.data.selectedIndex == 15) {
-        this.timerCircleReady();
-        this.startCircleTime();
+        this.timerCircleReady(ctxTimer);
+        this.startCircleTime(ctxTimer);
       }
     } else if (this.data.currentGameType == 2) {
       
@@ -594,7 +607,7 @@ Page({
         jtd_time: spandTimer,
         jtd_correct: rightCount
       })
-      that.showResultTap()
+      that.gotoGuoDuPage()
 
     } else if (this.data.currentGameType == 1) {
       //小符号
@@ -607,7 +620,7 @@ Page({
         xfh_time: spandTimer,
         xfh_correct: rightCount
       })
-      that.showResultTap()
+      that.gotoGuoDuPage()
 
     } else if (this.data.currentGameType == 2) {
       //快速记忆
@@ -620,7 +633,7 @@ Page({
         ksjy_time: spandTimer,
         ksjy_correct: rightCount
       })
-      that.showResultTap()
+      that.gotoGuoDuPage()
 
     }  else if (this.data.currentGameType == 3) {
       //斯特如普
@@ -720,12 +733,14 @@ Page({
 
     var currentType = this.data.currentGameType + 1;
     this.setData({
-      currentGameType: currentType
+      currentGameType: currentType,
+      // 过渡页、引导页参数
+      hideGuoduye: true,
     })
     if (this.data.currentGameType == 1) {
       this.setData({
         hideBottom: true,
-        isShowTimer: false
+        isShowTimer: false,
       })
     } else {
       this.setData({
@@ -737,55 +752,58 @@ Page({
   },
 
   //倒计时圆环
-  timerCircleReady: function() {
-    ctxTimer.setLineWidth(15)
-    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
-    ctxTimer.setStrokeStyle('white')
-    ctxTimer.stroke()
+  timerCircleReady: function(ctx) {
+    ctx.setLineWidth(15)
+    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+    ctx.setStrokeStyle('white')
+    ctx.stroke()
 
-    ctxTimer.beginPath()
-    ctxTimer.setLineCap('round')
-    ctxTimer.setLineWidth(8)
-    ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
-    ctxTimer.setStrokeStyle('green')
-    ctxTimer.stroke()
-    ctxTimer.draw()
+    ctx.beginPath()
+    ctx.setLineCap('round')
+    ctx.setLineWidth(8)
+    ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, -0.5*Math.PI, true)
+    ctx.setStrokeStyle('green')
+    ctx.stroke()
+    ctx.draw()
   },
-  startCircleTime: function() {    
+  startCircleTime: function(ctx) {    
     console.log("倒计时动画开始")
     var that = this
 
-    if (this.data.currentGameType == 0) {
-      //交通灯
-      that.data.stepText = trafficlight_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
-    } else if (this.data.currentGameType == 1) {
-      //小符号
-
-    } else if (this.data.currentGameType == 2) {
-      //快速记忆
-      that.data.stepText = ksjy_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
-    }  else if (this.data.currentGameType == 3) {
-      //斯特如普
-
-    } 
+    if (this.data.hideGuoduye == true) {
+      if (this.data.currentGameType == 0) {
+        //交通灯
+        that.data.stepText = trafficlight_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+      } else if (this.data.currentGameType == 1) {
+        //小符号
+  
+      } else if (this.data.currentGameType == 2) {
+        //快速记忆
+        that.data.stepText = ksjy_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+      }  else if (this.data.currentGameType == 3) {
+        //斯特如普
+        that.data.stepText = siterupu_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+      } 
+    }
+    
     var step = that.data.stepText ;  //定义倒计时
     var num = -0.5;
     var decNum = 2/step/10
     clearInterval(valHandle)
 
     function drawArc(endAngle) {
-      ctxTimer.setLineWidth(15)
-      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
-      ctxTimer.setStrokeStyle('lightgray')
-      ctxTimer.stroke()
+      ctx.setLineWidth(15)
+      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 0, 2 * Math.PI)
+      ctx.setStrokeStyle('lightgray')
+      ctx.stroke()
 
-      ctxTimer.beginPath()
-      ctxTimer.setLineCap('round')
-      ctxTimer.setLineWidth(8)
-      ctxTimer.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
-      ctxTimer.setStrokeStyle('green')
-      ctxTimer.stroke()
-      ctxTimer.draw()
+      ctx.beginPath()
+      ctx.setLineCap('round')
+      ctx.setLineWidth(8)
+      ctx.arc(util.getScrienWidth()/2.0, 40, 30, 1.5 * Math.PI, endAngle, true)
+      ctx.setStrokeStyle('green')
+      ctx.stroke()
+      ctx.draw()
     }
 
     valHandle = setInterval(function(){
@@ -800,7 +818,12 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
-        that.doNext();
+        if (that.data.hideGuoduye == false) {
+          that.moreNextTap()
+          return
+        } else {
+          that.doNext();
+        }
       }
     },100)
   },
@@ -947,8 +970,8 @@ Page({
 
     trafficlight_canvasgraph.draw();
 
-    this.timerCircleReady();
-    this.startCircleTime();
+    this.timerCircleReady(ctxTimer);
+    this.startCircleTime(ctxTimer);
   },
 
   /**
@@ -1015,8 +1038,8 @@ Page({
     this.ksjy_grayCircle();
     ksjy_ctxWave.draw();
 
-    this.timerCircleReady();
-    this.startCircleTime();
+    this.timerCircleReady(ctxTimer);
+    this.startCircleTime(ctxTimer);
   },
 
   clearData: function() {
@@ -1049,8 +1072,8 @@ Page({
 
     siterupu_ctxtext.draw()
 
-    this.timerCircleReady();
-    this.startCircleTime();
+    this.timerCircleReady(ctxTimer);
+    this.startCircleTime(ctxTimer);
   },
   
   /**
@@ -1278,22 +1301,22 @@ Page({
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(1);
-    trafficlight_gameDatas = trafficlight_gameDatas1.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
+    trafficlight_gameDatas = trafficlight_gameDatas1//.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
 
     var xiaofuhao_gameDatas1 = this.getXFHDataWithLevel(1);
     var xiaofuhao_gameDatas2 = this.getXFHDataWithLevel(2);
     var xiaofuhao_gameDatas3 = this.getXFHDataWithLevel(3);
-    xiaofuhao_gameDatas = xiaofuhao_gameDatas1.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
+    xiaofuhao_gameDatas = xiaofuhao_gameDatas1//.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
 
     var ksjy_gameDatas1 = this.getMemoryDataWithLevel(1);
     var ksjy_gameDatas2 = this.getMemoryDataWithLevel(2);
     var ksjy_gameDatas3 = this.getMemoryDataWithLevel(3);
-    ksjy_gameDatas = ksjy_gameDatas1.concat(ksjy_gameDatas2, ksjy_gameDatas3);
+    ksjy_gameDatas = ksjy_gameDatas1//.concat(ksjy_gameDatas2, ksjy_gameDatas3);
 
     var siterupu_gameDatas1 = this.getSTRPDataWithLevel(1);
     var siterupu_gameDatas2 = this.getSTRPDataWithLevel(2);
     var siterupu_gameDatas3 = this.getSTRPDataWithLevel(3);
-    siterupu_gameDatas = siterupu_gameDatas1.concat(siterupu_gameDatas2, siterupu_gameDatas3);
+    siterupu_gameDatas = siterupu_gameDatas1//.concat(siterupu_gameDatas2, siterupu_gameDatas3);
 
   },
   /**
@@ -1330,4 +1353,25 @@ Page({
     ctxGraph.restore();
   },
   
+  // 游戏过度
+  gotoGuoDuPage: function() {
+    var guoduTitle = "即将进入交通灯测评";
+    if (this.data.currentGameType == 0) {
+      guoduTitle = "交通灯答题结束\n即将进入小符号测验";
+    } else if (this.data.currentGameType == 1) {
+      guoduTitle = "小符号答题结束\n即将进入快速记忆测验";
+    } else if (this.data.currentGameType == 2) {
+      guoduTitle = "快速记忆答题结束\n即将进入斯特如普测验";
+    }
+    this.setData({
+      hideGuoduye: false,
+      stepText: 5,
+      isShowTimer: true,
+      guoduyeTitle: guoduTitle,
+    })
+
+    this.timerCircleReady(ctxTimer_two);
+    this.startCircleTime(ctxTimer_two);
+  },
+
 })

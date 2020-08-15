@@ -1,4 +1,4 @@
-<view class="container">
+<view hidden="{{!hideGuoduye}}" class="container">
   <view class="title-view">
     <view class="title-text">
       <text>答对：</text>
@@ -115,6 +115,23 @@
     <view class="bottom">
       <button wx:if="{{currentGameType == 3}}" class="once-more" bindtap="sendGameDatasToSever">答题结束</button>
       <button wx:else class="once-more" bindtap="moreNextTap">下一游戏</button>
+    </view>
+  </view>
+</view>
+
+<!-- 游戏过渡页面 -->
+<view hidden="{{hideGuoduye}}" class="containerTwo">
+  <view class="guodu" >
+    <view class="tip">
+      <text>
+        {{guoduyeTitle}}
+      </text>
+    </view>
+    <view class="time">
+      <view wx:if="{{isShowTimer}}" class="timeCircle_two">
+      <canvas class='bgCanvas_two' canvas-id='bgCanvas_two'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>    
     </view>
   </view>
 </view>
