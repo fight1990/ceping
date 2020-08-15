@@ -10,14 +10,14 @@
         <view class="point"></view>
         <!-- 专注力交通灯分析报告 -->
         <view class="title">
-          <text >练习时长10分钟（10积分）{{item.id}}</text>
+          <text >练习时长{{item.times}}秒（{{item.score}}积分）</text>
         </view>
         <view class="item-time">
           <text>{{item.time}}</text>
         </view>
-        <!-- <view class="item-image">
+        <view class="item-image">
           <image src="../../style/images/report_rignt.png"></image>
-        </view> -->
+        </view>
         <view class="line"></view>
       </view>
     </block>
