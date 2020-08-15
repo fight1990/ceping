@@ -353,3 +353,28 @@ button::after {
   color:white;
   line-height:140rpx;
 }
+
+
+.keyboard {
+  position: absolute;
+  width: 100%;
+  height: 365rpx;
+  bottom: 0px;
+  background-color: #D5DADD;
+  border-radius: 25rpx 25rpx 0 0;
+}
+
+.keyboard-row {
+  margin-top: 10rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+button{
+  background-color: #fff; 
+  width: 100rpx;
+  height: 85%;
+}

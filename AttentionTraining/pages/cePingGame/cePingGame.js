@@ -863,6 +863,66 @@ Page({
     }
   },
 
+  tapKey: function(e) {
+    var that = this
+
+    console.log(e)
+    var inputVal = e.currentTarget.dataset.key;
+
+    var xfh_temp = that.data.xiaofuhao_currentData_test
+    for (let key in xfh_temp) {
+      if (xfh_temp[key].length == 0) {
+        xfh_temp[key] = inputVal
+        break;
+      }
+    }
+
+    that.setData({
+      xiaofuhao_currentData_test: xfh_temp
+    })
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
+    }
+
+    var correntAll = true
+    for (var key in that.data.xiaofuhao_currentData) {
+      if(that.data.xiaofuhao_currentData[key] != that.data.xiaofuhao_currentData_test[key]) {
+        correntAll = false
+        break
+      }
+    }
+
+    that.setData({
+      hideResult: false,
+    })
+
+    if(correntAll) {
+      var count = that.data.rightCount + 1
+      that.setData({
+        rightCount: count,
+        result: 1,
+      })
+      xfh_list.push(1)
+    } else {
+      that.setData({
+        result: 0
+      })
+      xfh_list.push(0)
+    }
+
+    if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
+      that.lastQuestion()
+      return
+    } else {
+      // 下一题
+      setTimeout(function () {
+        that.doNext();
+      }, 1000);
+    }
+  },
+
   /**
    * 交通灯游戏
    */

@@ -270,6 +270,10 @@ Page({
       that.setData({
         result: 0
       })
+
+      //错误就停止游戏
+      that.lastQuestion();
+      return
     }
     if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
@@ -306,6 +310,10 @@ Page({
       that.setData({
         result: 0
       })
+
+      //错误就停止游戏
+      that.lastQuestion();
+      return
     }
     if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()

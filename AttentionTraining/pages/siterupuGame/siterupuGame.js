@@ -149,6 +149,9 @@ Page({
       that.setData({
         result: 0
       })
+      //错误就停止游戏
+      that.lastQuestion();
+      return
     }
     if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
       that.lastQuestion()
@@ -185,6 +188,9 @@ Page({
       that.setData({
         result: 0
       })
+      //错误就停止游戏
+      that.lastQuestion();
+      return
     }
     if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
       that.lastQuestion()
