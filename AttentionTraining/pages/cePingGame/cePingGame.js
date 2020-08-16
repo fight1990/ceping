@@ -1,10 +1,5 @@
 // pages/cePingGame/cePingGame.js
 
-import jiaotongdeng from '../template/template'
-import xiaofuhao from '../templatexiaofuhao/templatexiaofuhao'
-
-
-
 var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 
@@ -66,7 +61,9 @@ const _tipContent2 = "&nbsp;&nbsp;&nbsp;形状和颜色\n是否与前面相同"
 var timestamp = Date.parse(new Date());  
 
 var trafficlight_gameDatas = [];
+
 var ksjy_gameDatas = [];
+
 var xiaofuhao_gameDatas = [];
 var siterupu_gameDatas = [];
 
@@ -119,6 +116,8 @@ Page({
     // 过渡页、引导页参数
     hideGuoduye: true,
     guoduyeTitle: "即将进入小符号游戏",
+    hiddenYinDaoTu: false,
+    yindaotuIndex: 0
   },
 
   /**
@@ -139,8 +138,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    that.moreTap()
+   
   },
 
   /**
@@ -422,15 +420,20 @@ Page({
       // 过渡页、引导页参数
       hideGuoduye: true,
       guoduyeTitle: "即将进入小符号游戏",
+
+      hiddenYinDaoTu: false,
+      yindaotuIndex: 0
     })
 
     jtd_list = [],
     xfh_list = [],
     ksjy_list = [],
     strp_list = []
-
+  },
+  
+  startingGame: function() {
     timestamp = Date.parse(new Date());
-    that.doNext()
+    this.doNext()
   },
   /**
    * 下一题
@@ -825,10 +828,11 @@ Page({
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
         if (that.data.hideGuoduye == false) {
-          that.moreNextTap()
-          return
-        } else {
-          that.doNext();
+          that.showYinDaoTu()
+        } /*else if(that.data.hiddenYinDaoTu == false) {
+          that.showGuideView();
+        } */else {
+          that.doNext()
         }
       }
     },100)
@@ -1307,22 +1311,22 @@ Page({
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(1);
-    trafficlight_gameDatas = trafficlight_gameDatas1//.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
+    trafficlight_gameDatas = trafficlight_gameDatas1.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
 
     var xiaofuhao_gameDatas1 = this.getXFHDataWithLevel(1);
     var xiaofuhao_gameDatas2 = this.getXFHDataWithLevel(2);
     var xiaofuhao_gameDatas3 = this.getXFHDataWithLevel(3);
-    xiaofuhao_gameDatas = xiaofuhao_gameDatas1//.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
+    xiaofuhao_gameDatas = xiaofuhao_gameDatas1.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
 
     var ksjy_gameDatas1 = this.getMemoryDataWithLevel(1);
     var ksjy_gameDatas2 = this.getMemoryDataWithLevel(2);
     var ksjy_gameDatas3 = this.getMemoryDataWithLevel(3);
-    ksjy_gameDatas = ksjy_gameDatas1//.concat(ksjy_gameDatas2, ksjy_gameDatas3);
+    ksjy_gameDatas = ksjy_gameDatas1.concat(ksjy_gameDatas2, ksjy_gameDatas3);
 
     var siterupu_gameDatas1 = this.getSTRPDataWithLevel(1);
     var siterupu_gameDatas2 = this.getSTRPDataWithLevel(2);
     var siterupu_gameDatas3 = this.getSTRPDataWithLevel(3);
-    siterupu_gameDatas = siterupu_gameDatas1//.concat(siterupu_gameDatas2, siterupu_gameDatas3);
+    siterupu_gameDatas = siterupu_gameDatas1.concat(siterupu_gameDatas2, siterupu_gameDatas3);
 
   },
   /**
@@ -1380,21 +1384,54 @@ Page({
     this.startCircleTime(ctxTimer_two);
   },
 
-  // 是否显示引导图
-  showGuideView: function (currentGame) {
+  showYinDaoTu: function () {
+    console.log("引导图显示： "+this.data.yindaotuIndex);
     
+    this.setData({
+      hideGuoduye: true,
+      hiddenYinDaoTu: false,
+    })
   },
 
-  // 
-  jiaotongdengTap(event) {
-    console.log("-------jiaotongdengTap")
-    jiaotongdeng.hideShadowThreeTap()
+  _readyJiaoTongDengGame (){
+    console.log("开始交通灯游戏");
+    
+    var that = this
+    this.setData({
+      hiddenYinDaoTu: true,
+      yindaotuIndex: 1
+    })
+    that.startingGame()
   },
+  _readyXiaoFuHaoGame () {
+    console.log("开始小符号游戏");
+    
+    var that = this
+    that.setData({
+      hiddenYinDaoTu: true,
+      yindaotuIndex: 2
+    })
+    that.moreNextTap()
+  },
+  _readyKuaiSuJiYiGame () {
+    console.log("开始快速记忆游戏");
 
-  xiaofuhaoTap(event) {
-    console.log("-------xiaofuhaoTap")
-    xiaofuhao.hideShadowOneView(event)
+    var that = this
+    that.setData({
+      hiddenYinDaoTu: true,
+      yindaotuIndex: 3
+    })
+    that.moreNextTap()
+  },
+  _readySiTeRuPuGame () {
+    console.log("开始斯特如普游戏");
+
+    var that = this
+    that.setData({
+      hiddenYinDaoTu: true,
+      yindaotuIndex: 0
+    })
+    that.moreNextTap()
   }
-
 
 })

@@ -1021,6 +1021,6 @@ Page({
     })
     this.timerCircleReady(ctxTimer_two);
     this.startCircleTime(ctxTimer_two);
-  }
+  },
 
 })

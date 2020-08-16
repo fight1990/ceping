@@ -1,25 +1,5 @@
-
-<view wx:if="{{!hiddenYinDaoTu}}" class="game_yindaotu">
-  <view wx:if="{{yindaotuIndex == 0}}" class="jiaotongdeng_yindaotu">
-    <jiaotongdeng_ydt bind:readyJiaoTongDengGame="_readyJiaoTongDengGame">
-    </jiaotongdeng_ydt>
-  </view>
-  <view wx:elif="{{yindaotuIndex == 1}}" class="xiaofuhao_yindaotu">
-    <xiaofuhao_ydt bind:readyXiaoFuHaoGame="_readyXiaoFuHaoGame">
-    </xiaofuhao_ydt>
-  </view>
-  <view wx:elif="{{yindaotuIndex == 2}}" class="kuaisujiyi_yindaotu">
-    <kuaisujiyi_ydt bind:readyKuaiSuJiYiGame="_readyKuaiSuJiYiGame">
-    </kuaisujiyi_ydt>
-  </view>
-  <view wx:if="{{yindaotuIndex == 3}}" class="siterupu_yindaotu">
-    <siterupu_ydt bind:readySiTeRuPuGame="_readySiTeRuPuGame">
-    </siterupu_ydt>
-  </view>
-</view>
-
-<!-- 游戏引擎页面 -->
-<view wx:if="{{hideGuoduye && hiddenYinDaoTu}}" class="container">
+<!--pages/components/xiaofuhao_ydt/xiaofuhao_ydt.wxml-->
+<view hidden="{{!hideGuoduye}}" class="container">
   <view class="title-view">
     <view class="title-text">
       <text>答对：</text>
@@ -29,17 +9,13 @@
   </view>
 
   <view class="scroll_box">
-    <view wx:if="{{isShowTimer}}" class="timeCircle">
+    <!-- <view wx:if="{{isShowTimer}}" class="timeCircle">
       <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
       <view class='stepText'>{{stepText}}</view>
-    </view>
+    </view> -->
     <block>
       <view class="gameView">
-        <view wx:if="{{currentGameType == 0}}" class="trafficlight">
-          <canvas class="trafficlight_canvasgraph"  canvas-id='trafficlight_canvasgraph'></canvas>
-        </view>
-
-        <view wx:elif="{{currentGameType == 1}}" class="xiaofuhao">
+        <view class="xiaofuhao">
           <view class="table">
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
@@ -61,39 +37,21 @@
             </view>
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData_test}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
+                <!-- <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="{{item.length != 0}}"></input> -->
                 <input class="td" id="{{itemIdx}}" value="{{item}}" type="number" bindinput='inputValueAction' disabled="true"></input>
               </block>
             </view>
           </view>
         </view>
-
-        <view wx:elif="{{currentGameType == 2}}" class="waterview">
-          <canvas class="ksjy_canvasArcCir_bg"  canvas-id='ksjy_canvasArcCir'></canvas>
-          <text class="ksjy_canvas_text" decode="{{true}}">{{ksjy_canvasContent}}</text>
-          <view class="ksjy_canvasgraph_bg_view" animation="{{ksjy_animationRotate}}">
-          <canvas class="ksjy_canvasgraph_bg"  canvas-id='ksjy_canvasgraph'></canvas>
-          </view>
-        </view>
-
-        <view wx:elif="{{currentGameType == 3}}" class="siterupu">
-          <text class="siterupu_title">文字颜色与其表达的意思是否相同？</text>
-          <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
-
-        </view>
       </view>
       <view class="result-view">
-        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
-      </view>
-      <view hidden="{{hideBottom}}" class="bottom-view">
-        <button class="different-button" bindtap="differentTap">不同</button>
-        <view class="line-view"></view>
-        <button class="identical-button" bindtap="identicalTap">相同</button>
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../../style/images/cuo.png':'../../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
       </view>
     </block>
   </view>
 
   <!-- 自定义键盘  class为遮罩层-->
-  <view wx:if="{{currentGameType == 1}}" class="keyboard">
+  <view class="keyboard">
     <view class='keyboard-row'>
       <button class='one' data-key='1'  bindtap='tapKey'>1</button>
       <button class='two' data-key='2' bindtap='tapKey'>2</button>
@@ -116,7 +74,7 @@
 <view hidden="{{hideResultShadow}}" class="shadow">
   <view  class="start-view">
     <view class="tankuang2">
-      <image src="../../style/images/tankuang4.png"></image>
+      <image src="../../../style/images/tankuang4.png"></image>
     </view>
     <view class="cancel" bindtap="cancelResultTap">
     </view>
@@ -134,29 +92,76 @@
       </view>
     </view>
     <view class="bottom">
-      <button wx:if="{{currentGameType == 3}}" class="once-more" bindtap="sendGameDatasToSever">答题结束</button>
-      <button wx:else class="once-more" bindtap="moreNextTap">下一游戏</button>
+      <button class="once-more" bindtap="moreTap">再来一次</button>
     </view>
   </view>
 </view>
 
-<!-- 游戏过渡页面 -->
+<view hidden="{{hideShadowOne}}" class="shadow">
+  <view class="tip-one-view">
+    <view class="one" style=""></view>
+    <view class="two" style=""></view>
+  </view>
+  <view class="tip-one-image">
+    <image src="../../../style/images/xiaoguhaoGuide_518.png"></image>
+  </view>
+
+  <view class="tip-one">
+    <text>记住这个符号</text>
+  </view>
+  <view class="tip-one-next" bindtap="hideShadowOneView">
+    <text>下一步</text>
+  </view>
+</view>
+
+
+
+<view hidden="{{hideShadowTwo}}" class="shadow">
+  <view class="tip-two-view">
+    <view class="one" style=""></view>
+    <view class="two" style=""></view>
+  </view>
+  <view class="tip-two-image">
+    <image src="../../../style/images/xiaofuhaoGuide_2_518.png"></image>
+  </view>
+  <view class="tip-two">
+    <text>找到相同的符号 
+        并记住符号对应的数字
+    </text>
+  </view>
+
+  <view class="tip-two-next" bindtap="hideShadowTwoView">
+    <text>下一步</text>
+  </view>
+</view>
+
+<view hidden="{{hideShadowThree}}" class="shadow">
+
+  <view class="tip-three-view">
+    <view class="one" style="">1</view>
+  </view>
+  <view class="tip-three-image">
+    <image src="../../../style/images/xiaofuhaoGuide_3_518.png"></image>
+  </view>
+  <view class="tip-three">
+    <text>选择数字输入</text>
+  </view>
+
+  <view class="tip-three-next" bindtap="hideShadowThreeView">开始</view>
+</view>
+
 <view hidden="{{hideGuoduye}}" class="containerTwo">
   <view class="guodu" >
     <view class="tip">
       <text>
-        {{guoduyeTitle}}
+        进入小符号测验
       </text>
     </view>
     <view class="time">
-      <view wx:if="{{isShowTimer}}" class="timeCircle_two">
-      <canvas class='bgCanvas_two' canvas-id='bgCanvas_two'></canvas>
+      <view wx:if="{{isShowTimer}}" class="timeCircle">
+      <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
       <view class='stepText'>{{stepText}}</view>
     </view>    
     </view>
   </view>
 </view>
-
-
-
-

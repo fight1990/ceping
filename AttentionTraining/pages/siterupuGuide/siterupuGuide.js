@@ -41,8 +41,6 @@ Page({
     hideResultShadow: true, // 是否隐藏结果
 
     isShowTimer: true,
-    xiaofuhao_currentData : {},
-    xiaofuhao_currentData_test : {},
 
     strp_time: 0,
     strp_correct: 0,

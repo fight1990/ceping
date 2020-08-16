@@ -1,4 +1,4 @@
-/* pages/cePingGame/cePingGame.wxss */
+/* pages/components/jiaotongdeng_ydt/jiaotongdeng_ydt.wxss */
 
 .container {
   padding: 0rpx;
@@ -82,110 +82,6 @@
   position: fixed;
   width: 650rpx;
   height: 650rpx;
-  align-items: center;
-}
-
-/* 小符号游戏 */
-.xiaofuhao {
-  position: fixed;
-  width: 100%;
-  height: 650rpx;
-  /* background-color: lightgray; */
-}
-
-.table{
-  position: flex;
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-  margin-top: 100rpx;
-  width: 80%;
-  margin-left: 10%;
-  height: 200rpx;
-}
-
-.tr{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-
-.th,.td{
-  height: 100rpx;
-  line-height: 100rpx;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  text-align: center;
-  width: 100%;
-  font-weight: 800;
-  font-size: 30rpx;
-  color: black;
-}
-
-/* 快速记忆游戏 */
-.waterview {
-  position: fixed;
-  width: 650rpx;
-  height: 650rpx;
-}
-
-.ksjy_canvasgraph_bg {
-  position: fixed;
-  width: 650rpx;
-  height: 650rpx;
-  opacity: 0.8;
-  align-items: center;
-}
-.ksjy_canvasgraph_bg_view {
-  position: fixed;
-  display: flex;
-  width: 650rpx;
-  height: 650rpx;
-  opacity: 0.8;
-  align-items: center;
-}
-
-.ksjy_canvasArcCir_bg {
-  position: fixed;
-  opacity: 0.85;
-  width: 650rpx;
-  height: 650rpx;
-  align-items: center;
-}
-
-.ksjy_canvas_text {
-  position: fixed;
-  display: flex;
-  width: 650rpx;
-  height: 650rpx;
-  font: bold 45rpx Microsoft Yahei;
-  align-items: center;
-  justify-content:center;
-  margin: auto; 
-}
-
-/* 斯特如普 */
-.siterupu {
-  position: fixed;
-  width: 650rpx;
-  height: 650rpx;
-  background-color: lightgray;
-}
-
-.siterupu_title {
-  position: fixed;
-  font: bold 36rpx Microsoft Yahei;
-  align-items: center;
-  margin-top: 100rpx;
-  margin-left: 7%;
-  align-items: center;
-  justify-content: center;
-}
-
-.siterupu_canvas_text {
-  position: fixed;
-  margin-top: 200rpx;
-  width: 650rpx;
-  height: 250rpx;
   align-items: center;
 }
 
@@ -356,33 +252,185 @@ button::after {
 }
 
 
-.keyboard {
-  position: absolute;
-  width: 100%;
-  height: 365rpx;
-  bottom: 0px;
-  background-color: #D5DADD;
-  border-radius: 25rpx 25rpx 0 0;
-}
+/* 引导图 */
+.shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
 
-.keyboard-row {
-  margin-top: 10rpx;
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  /* align-items: center; */
 }
 
-button{
-  background-color: #fff; 
-  width: 100rpx;
-  height: 85%;
+.shadow .tip-zero-image {
+  margin-top: -50rpx;
+  margin-left: 450rpx;
 }
 
-/* 游戏过渡页 */
-/* 过渡页面 */
-.containerTwo {
+.shadow .tip-zero-image image {
+  width: 104rpx;
+  height: 64rpx;
+}
+
+.shadow .tip-zero-three {
+  margin-top: 10rpx;
+  margin-left: 530rpx;
+  width: 220rpx;
+  height: 50rpx;
+  text-align: left; 
+}
+
+.tip-zero-three text {
+  /* display：block;
+  white-space：pre-line; */
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
+
+.shadow .tip-zero-four {
+  margin-top: 180rpx;
+  margin-left: 560rpx;
+  width: 150rpx;
+  height: 50rpx;
+  border:2px dashed white;
+  border-radius:10rpx;
+  text-align: center;
+}
+
+.tip-zero-four text {
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
+
+.shadow .color {
+  margin-left: 300rpx;
+  margin-top: 325rpx;
+  background-color: #fff;
+  border-radius: 4rpx; 
+  height: 150rpx;
+  width: 150rpx;
+  font-weight:600;
+  color:rgba(51,51,51,1);
+  border:1px dashed white;
+  line-height: 106rpx;
+  font-size: 98rpx;
+  text-align: center;
+  opacity: 0.35;
+}
+.shadow .selected-title {
+  margin-left: 300rpx;
+  margin-top: 325rpx;
+  background-color: #fff;
+  border-radius: 4rpx; 
+  height: 150rpx;
+  width: 150rpx;
+  font-weight:600;
+  color:rgba(51,51,51,1);
+  border:1px dashed white;
+  line-height: 106rpx;
+  font-size: 98rpx;
+  text-align: center;
+  opacity: 0.35;
+} 
+
+.shadow .tip-one-image {
+  position: fixed;
+  bottom: 144rpx;
+  margin-left: 60rpx;
+}
+
+.shadow .tip-one-image image {
+  margin-top: 20rpx;
+  width: 30rpx;
+  height: 120rpx;
+}
+
+.shadow .tip-two-image {
+  margin-top: -110rpx;
+  margin-left: 540rpx;
+}
+
+.shadow .tip-two-image image {
+  width: 104rpx;
+  height: 64rpx;
+}
+
+.shadow .tip-one {
+  position: fixed;
+  bottom: 290rpx;
+  margin-left: 36rpx;
+}
+
+.shadow .tip-one text {
+  height: 36rpx;
+  font-size:32rpx;
+  font-weight:bold;
+  color:white;
+  line-height:36rpx;
+}
+
+.shadow .tip-two {
+  position: fixed;
+  bottom: 200rpx;
+  margin-left: 130rpx;
+  width: 200rpx;
+  height: 50rpx;
+  border:2px dashed white;
+  border-radius:10rpx;
+  text-align: center;
+}
+
+.shadow .tip-two text {
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
+
+.shadow .tip-three {
+  margin-top: 10rpx;
+  margin-left: 530rpx;
+  width: 220rpx;
+  height: 50rpx;
+  text-align: left; 
+}
+
+.tip-three text {
+  /* display：block;
+  white-space：pre-line; */
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
+
+.shadow .tip-four {
+  margin-top: 180rpx;
+  margin-left: 560rpx;
+  width: 150rpx;
+  height: 50rpx;
+  border:2px dashed white;
+  border-radius:10rpx;
+  text-align: center;
+}
+
+.tip-four text {
+  font-size:34rpx;
+  font-weight:bold;
+  color:white;
+  line-height:50rpx;
+}
+
+ /* 过渡页面 */
+ .containerTwo {
   padding: 0rpx;
   margin: 0rpx;
   width: 100%;

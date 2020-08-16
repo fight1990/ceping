@@ -1,0 +1,85 @@
+<!--pages/components/jiaotongdeng_ydt/jiaotongdeng_ydt.wxml-->
+<view hidden="{{!hideGuoduye}}" class="container">
+  <view class="title-view">
+    <view class="title-text">
+      <text>答对：</text>
+      <text style="color:#1ED545">{{rightCount}}</text>
+      <text> 题</text>
+    </view>
+  </view>
+
+  <view class="scroll_box">
+    <view wx:if="{{isShowTimer}}" class="timeCircle">
+      <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>
+    <block>
+      <view class="gameView">
+        <view class="trafficlight">
+          <canvas class="trafficlight_canvasgraph"  canvas-id='trafficlight_canvasgraph'></canvas>
+        </view>
+      </view>
+      <view class="result-view">
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../../style/images/cuo.png':'../../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+      </view>
+      <view hidden="{{hideBottom}}" class="bottom-view">
+        <button class="different-button" bindtap="differentTap">不同</button>
+        <view class="line-view"></view>
+        <button class="identical-button" bindtap="identicalTap">相同</button>
+      </view>
+    </block>
+  </view>
+</view>
+
+
+<view hidden="{{hideShadowZero}}" class="shadow">
+  <view class="color"></view>
+  <view class="tip-zero-image">
+    <image src="../../../style/images/siterupu_518.png"></image>
+  </view>
+  
+  <view class="tip-zero-three">
+    <text>记住图形颜色位置</text>
+  </view>
+
+  <view class="tip-zero-four" bindtap="hideShadowZeroView">
+    <text>下一步</text>
+  </view>
+</view>
+
+<view hidden="{{hideShadowOne}}" class="shadow">
+  <view class="selected-title"></view>
+  <view class="tip-one">
+      <text>选择答题</text>
+  </view>
+  <view class="tip-two" bindtap="hideShadowView">
+    <text>开始答题</text>
+  </view>
+  
+  <view class="tip-one-image">
+    <image src="../../../style/images/siterupu_519.png"></image>
+  </view>
+  <view class="tip-two-image">
+    <image src="../../../style/images/siterupu_518.png"></image>
+  </view>
+  
+  <view class="tip-three">
+    <text>判断当前页面和上一页面是否相同</text>
+  </view>
+</view>
+
+<view hidden="{{hideGuoduye}}" class="containerTwo">
+  <view class="guodu" >
+    <view class="tip">
+      <text>
+        进入交通灯测验
+      </text>
+    </view>
+    <view class="time">
+      <view wx:if="{{isShowTimer}}" class="timeCircle_two">
+      <canvas class='bgCanvas_two' canvas-id='bgCanvas_two'></canvas>
+      <view class='stepText'>{{stepText}}</view>
+    </view>    
+    </view>
+  </view>
+</view>
