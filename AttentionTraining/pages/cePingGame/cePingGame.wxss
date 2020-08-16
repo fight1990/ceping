@@ -1,6 +1,7 @@
 /* pages/cePingGame/cePingGame.wxss */
-/* @import "../template/template.wxss";
-@import "../templatexiaofuhao/templatexiaofuhao.wxss"; */
+
+@import "../template/template.wxss";
+@import "../templatexiaofuhao/templatexiaofuhao.wxss";
 
 
 .container {

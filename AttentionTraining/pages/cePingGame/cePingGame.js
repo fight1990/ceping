@@ -1,6 +1,8 @@
 // pages/cePingGame/cePingGame.js
 
 import jiaotongdeng from '../template/template'
+import xiaofuhao from '../templatexiaofuhao/templatexiaofuhao'
+
 
 
 var api = require("../../Api/api.js")
@@ -1387,6 +1389,12 @@ Page({
   jiaotongdengTap(event) {
     console.log("-------jiaotongdengTap")
     jiaotongdeng.hideShadowThreeTap()
+  },
+
+  xiaofuhaoTap(event) {
+    console.log("-------xiaofuhaoTap")
+    xiaofuhao.hideShadowOneView(event)
   }
+
 
 })

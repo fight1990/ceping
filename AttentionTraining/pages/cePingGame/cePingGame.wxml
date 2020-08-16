@@ -1,11 +1,16 @@
 
 
 <import src="../template/template.wxml"/>
+<import src="../templatexiaofuhao/templatexiaofuhao"/>
 
-<view bindtap="jiaotongdengTap">
+
+<!-- <view bindtap="jiaotongdengTap">
   <template is="jiaotongdeng" data="{{hideShadowOne: false,hideShadowTwo: true,hideShadowThree: true}}"/>
-</view>
+</view> -->
 
+<view bindtap="xiaofuhaoTap">
+  <template is="xiaofuhao" data="{{hideShadowOne: false,hideShadowTwo: true,hideShadowThree: true}}"/>
+</view>
 
 
 
@@ -146,7 +151,6 @@
     </view>
   </view>
 </view>
-
 
 
 
