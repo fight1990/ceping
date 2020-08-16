@@ -728,10 +728,21 @@ Page({
     if (gameDatas[this.data.selectedIndex] == undefined) {
       return;
     }
-    
-    this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
-    this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
-    this.drawFillPolygon(r+cR-(r-cR)*1.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+
+    var hudu1 = Math.floor(Math.random() * 120);
+    var X1 = r + Math.sin(hudu1) * cR ;
+    var Y1 = r - Math.cos(hudu1) * cR ;
+    this.drawFillPolygon(X1,Y1,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+
+    var hudu2 = Math.floor(Math.random() * 120 + 120);
+    var X2 = r + Math.sin(hudu2) * cR ;
+    var Y2 = r - Math.cos(hudu2) * cR ;
+    this.drawFillPolygon(X2,Y2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+
+    var hudu3 = Math.floor(Math.random() * 120);
+    var X3 = r + Math.sin(hudu3) * cR ;
+    var Y3 = r - Math.cos(hudu3) * cR ;
+    this.drawFillPolygon(X3,Y3,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
 
     // this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
     // this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
