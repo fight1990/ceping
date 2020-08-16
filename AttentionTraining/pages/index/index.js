@@ -10,6 +10,11 @@ Page({
   },
 
   onLoad: function () {
+    
+
+  },
+
+  onShow: function () {
     var that = this
     setTimeout(function () {
       that.setData({
@@ -17,10 +22,7 @@ Page({
       })
     }, 3000);
     // 判断是否已经注册
-    // that.checkUser()
-
     that.getStatus()
-
   },
 
   getStatus: function () {
@@ -62,6 +64,12 @@ Page({
         } else {
           console.log('获取用户登录态失败！' + res.errMsg)
         }
+      },
+      fail: function (result) {
+        console.log('获取用户登录态失败！')
+        wx.navigateTo({
+          url: '/pages/transition/transition',
+        })
       }
     })
   },

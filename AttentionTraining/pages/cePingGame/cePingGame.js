@@ -1,4 +1,8 @@
 // pages/cePingGame/cePingGame.js
+
+import jiaotongdeng from '../template/template'
+
+
 var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 
@@ -1373,5 +1377,16 @@ Page({
     this.timerCircleReady(ctxTimer_two);
     this.startCircleTime(ctxTimer_two);
   },
+
+  // 是否显示引导图
+  showGuideView: function (currentGame) {
+    
+  },
+
+  // 
+  jiaotongdengTap(event) {
+    console.log("-------jiaotongdengTap")
+    jiaotongdeng.hideShadowThreeTap()
+  }
 
 })
