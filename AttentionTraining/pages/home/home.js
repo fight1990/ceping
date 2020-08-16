@@ -225,10 +225,6 @@ Page({
    */
   checkVIP:function () {
     var that = this
-    that.setData({
-      iamVip: true,
-    })
-    // return;
     wx.getStorage({
       key: 'IAMVIP',
       success: function (res) {
@@ -279,9 +275,13 @@ Page({
     } 
       
     let age =  wx.getStorageSync('age_player')
-    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {
-      wx.navigateTo({
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age.length == 0 )) {
+      wx.redirectTo({
         url: '/pages/cePingInfo/cePingInfo',
+      })
+    } else if (0) {
+      wx.navigateTo({
+        url: '/pages/zongheceping/zongheceping',
       })
     } else {
       if (((guide_key.length > 0) && wx.getStorageSync(guide_key)) || (guide_key.length == 0)) {

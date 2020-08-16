@@ -91,7 +91,7 @@ Page({
     hideResult: true, // 隐藏结果视图
     rightCount: 0, // 对的题目数量
     globalTimer: 0, //游戏计时器
-    stepText: '',  //设置倒计时初始值
+    stepText: 5,  //设置倒计时初始值
     hideResultShadow: true, // 是否隐藏结果
     ksjy_canvasContent: _tipContent1,
 
@@ -456,9 +456,9 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = '';
+      var time = 5;
       if (trafficlight_gameDatas[nextIndex]) {
-        time = trafficlight_gameDatas[nextIndex].time;
+        time = parseInt(trafficlight_gameDatas[nextIndex].time);
       }
       that.setData({
         selectedIndex: nextIndex,
@@ -491,14 +491,14 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = ''
+      var time = 5
       var showTimer = false
       if (nextIndex >= 15) {
         showTimer = true
       }
       if (nextIndex == 15) {
         time = 180
-      } else if(nextIndex == 35) {
+      } else if(nextIndex == 45) {
         time = 150
       }
       that.setData({
@@ -532,6 +532,9 @@ Page({
       if (that.data.selectedIndex == 15) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
+      } else if (that.data.selectedIndex == 45) {
+        this.timerCircleReady(ctxTimer);
+        this.startCircleTime(ctxTimer);
       }
     } else if (this.data.currentGameType == 2) {
       
@@ -543,9 +546,9 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = '';
+      var time = 5;
       if (ksjy_gameDatas[nextIndex]) {
-        time = ksjy_gameDatas[nextIndex].time;
+        time = parseInt(ksjy_gameDatas[nextIndex].time);
       }
       that.setData({
         selectedIndex: nextIndex,
@@ -581,9 +584,9 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = '';
+      var time = 5;
       if (siterupu_gameDatas[nextIndex]) {
-        time = siterupu_gameDatas[nextIndex].time;
+        time = parseInt(siterupu_gameDatas[nextIndex].time);
       }
       console.log('time = '+time)
 
@@ -788,20 +791,39 @@ Page({
     if (this.data.hideGuoduye == true) {
       if (this.data.currentGameType == 0) {
         //交通灯
-        that.data.stepText = trafficlight_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+        that.setData({
+          stepText : parseInt(trafficlight_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
+        })
       } else if (this.data.currentGameType == 1) {
         //小符号
-  
+        var time = 0;
+        if (nextIndex == 15) {
+          time = 180
+        } else if(nextIndex == 45) {
+          time = 150
+        }
+        that.setData({
+          stepText : time //重新设置一遍初始值，防止初始值被改变
+        })
       } else if (this.data.currentGameType == 2) {
         //快速记忆
-        that.data.stepText = ksjy_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+        that.setData({
+          stepText : parseInt(ksjy_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
+        })
+
       }  else if (this.data.currentGameType == 3) {
         //斯特如普
-        that.data.stepText = siterupu_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+        that.setData({
+          stepText : parseInt(siterupu_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
+        })
       } 
     }
     
     var step = that.data.stepText ;  //定义倒计时
+
+    console.log("XXXXXXX - TIME: "+step);
+    
+
     var num = -0.5;
     var decNum = 2/step/10
     clearInterval(valHandle)
@@ -838,7 +860,18 @@ Page({
         } /*else if(that.data.hiddenYinDaoTu == false) {
           that.showGuideView();
         } */else {
-          that.doNext()
+          if(that.data.currentGameType == 1) {
+            if(that.data.selectedIndex < 45) {
+              that.setData({
+                selectedIndex: 44
+              })
+              that.doNext();
+            } else {
+              that.lastQuestion()
+            }
+          } else {
+            that.doNext()
+          }
         }
       }
     },100)
@@ -1066,7 +1099,7 @@ Page({
       hideResult: true, // 隐藏结果视图
       rightCount: 0, // 对的题目数量
       globalTimer: 0, //游戏计时器
-      stepText: '',  //设置倒计时初始值
+      stepText: 5,  //设置倒计时初始值
       hideResultShadow: true, // 是否隐藏结果
     })
   },
@@ -1214,12 +1247,12 @@ Page({
     return gameLevelData;
   },
 
-  getTraffixLightModel: function(level, time) {
+  getTraffixLightModel: function(level, etime) {
     var position = Math.floor(Math.random()*(3));
     return {'color': 'Green',
             'position': position,
             'level': level,
-            'time': time
+            'time': etime
           };
   },
   /**
@@ -1274,7 +1307,7 @@ Page({
     }
     return gameLevelData;
   },
-  getXFHModel: function(level, time, symbolCount) {
+  getXFHModel: function(level, etime, symbolCount) {
     var symbolAll = util.sortArray(xiaofuhao_symbols)
     var numberAll = util.sortArray(xiaofuhao_number)
     var keys = this.randomSubDatas(symbolAll, symbolCount)
@@ -1341,7 +1374,7 @@ Page({
     return gameLevelData;
   },
 
-  getSTRPModel: function(level, time) {
+  getSTRPModel: function(level, etime) {
     var i = Math.floor(Math.random()*(siterupu_words.length));
     var j = Math.floor(Math.random()*(siterupu_colors.length));
     var tmpWord = siterupu_words[i];
@@ -1349,7 +1382,7 @@ Page({
     return {'color': tmpColor,
             'text': tmpWord,
             'level': level,
-            'time': time
+            'time': etime
           };
   },
 
@@ -1375,8 +1408,8 @@ Page({
   },
   makeGameDatas: function() {
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
-    var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(1);
-    var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(1);
+    var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(2);
+    var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(3);
     trafficlight_gameDatas = trafficlight_gameDatas1.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
 
     var xiaofuhao_gameDatas1 = this.getXFHDataWithLevel(1);

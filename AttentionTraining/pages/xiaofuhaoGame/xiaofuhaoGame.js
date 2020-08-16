@@ -155,14 +155,14 @@ Page({
     that.data.isAnswer = false
 
     var nextIndex = that.data.selectedIndex + 1
-    var time = ''
+    var time = that.data.stepText
     var showTimer = false
-    if (nextIndex >= 15) {
+    if (nextIndex == 15) {
       showTimer = true
     }
     if (nextIndex == 15) {
       time = 180
-    } else if(nextIndex == 35) {
+    } else if(nextIndex == 45) {
       time = 150
     }
     that.setData({
@@ -196,6 +196,9 @@ Page({
     if (that.data.selectedIndex == 15) {
       this.timerCircleReady();
       this.startCircleTime();
+    } else if (that.data.selectedIndex == 45) {
+      this.timerCircleReady(ctxTimer);
+      this.startCircleTime(ctxTimer);
     }
   },
 
@@ -267,7 +270,15 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
-        that.doNext();
+
+        if(that.data.selectedIndex < 45) {
+          that.setData({
+            selectedIndex: 44
+          })
+          that.doNext();
+        } else {
+          that.lastQuestion()
+        }
       }
     },100)
   },
@@ -440,11 +451,6 @@ Page({
     that.setData({
       xiaofuhao_currentData_test: xfh_temp
     })
-    for (var key in xfh_temp) {
-      if(xfh_temp[key].length == 0) {
-        return;
-      }
-    }
 
     var correntAll = true
     for (var key in that.data.xiaofuhao_currentData) {
@@ -469,8 +475,8 @@ Page({
         result: 0
       })
       //错误就结束
-      that.lastQuestion()
-      return
+      // that.lastQuestion()
+      // return
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {

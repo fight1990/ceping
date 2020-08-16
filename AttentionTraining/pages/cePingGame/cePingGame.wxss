@@ -97,7 +97,7 @@
   position: flex;
   border-left: 1px solid black;
   border-top: 1px solid black;
-  margin-top: 100rpx;
+  margin-top: 30rpx;
   width: 80%;
   margin-left: 10%;
   height: 200rpx;
