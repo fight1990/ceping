@@ -270,7 +270,7 @@ Page({
     }
 
     let age =  wx.getStorageSync('age_player')
-    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age != undefined)) {
       wx.navigateTo({
         url: '/pages/cePingInfo/cePingInfo',
       })
