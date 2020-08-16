@@ -228,7 +228,7 @@ Page({
     that.setData({
       iamVip: true,
     })
-    return;
+    // return;
     wx.getStorage({
       key: 'IAMVIP',
       success: function (res) {
@@ -252,6 +252,15 @@ Page({
   gotoStart:function (event) {
     var that = this
 
+    if (that.data.userInfo != true) {
+      // 提示登录
+      wx.showToast({
+        title: '请登录！',
+        icon: 'none',
+      })
+      return
+    }
+
     let gotoUrl = event.currentTarget.dataset['url'];
     let guide_key = event.currentTarget.dataset['guidekey'];
     let guide_url = event.currentTarget.dataset['guideurl'];
@@ -259,7 +268,7 @@ Page({
 
 
     // 是否显示vip弹框
-    if (gotoUrl != '/pages/cePingGame/cePingGame') { 
+    if (gotoUrl != '/pages/cePingGame/cePingGame' && gotoUrl != " ") { 
       that.checkVIP()
       if (that.data.iamVip != true) { // 不是vip
         that.showVip()
@@ -267,10 +276,10 @@ Page({
       } else { // vip
         that.hideShadowTap()
       }
-    }
-
+    } 
+      
     let age =  wx.getStorageSync('age_player')
-    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age != undefined)) {
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age == undefined)) {
       wx.navigateTo({
         url: '/pages/cePingInfo/cePingInfo',
       })

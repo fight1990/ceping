@@ -52,6 +52,7 @@ Page({
         icon: 'none'
       })
     } else {
+
       wx.setStorageSync('age_player', this.data.selectedDate)
       wx.navigateTo({
         url: '/pages/cePingGame/cePingGame',

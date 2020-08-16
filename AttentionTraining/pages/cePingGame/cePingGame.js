@@ -117,7 +117,8 @@ Page({
     hideGuoduye: true,
     guoduyeTitle: "即将进入小符号游戏",
     hiddenYinDaoTu: false,
-    yindaotuIndex: 0
+    yindaotuIndex: 0,
+    age: -1, // 年纪
   },
 
   /**
@@ -125,6 +126,11 @@ Page({
    */
   onLoad: function (options) {
     this.makeGameDatas();
+
+    // 计算年龄
+    let age = util.getAge(wx.getStorageSync('age_player'))
+    that.data.age = parseInt(age)
+    console.log(age)
   },
 
   /**
@@ -1098,15 +1104,30 @@ Page({
      第三位：颜色数量；
      第四位：图形数量;
      */
+
+    let countOne = ""
+    let countTwo = ""
+    let countThree = ""
+
+    if (this.data.age < 8) {
+      countOne = "4"
+      countTwo = "3"
+      countThree = "2"
+    } else {
+      countOne = "3"
+      countTwo = "2"
+      countThree = "2.5"
+    }
+
     switch (level) {
       case 1:
-        gameCount = [20,'4',1,6];
+        gameCount = [20,countOne,1,6];
         break;
       case 2:
-        gameCount = [30,'3',1,6];
+        gameCount = [30,countTwo,1,6];
         break;
       case 3:
-        gameCount = [35,'2',5,6];
+        gameCount = [35,countThree,5,6];
           break;
       default:
         break;
@@ -1151,15 +1172,30 @@ Page({
      第二位: 时间要求(毫秒)；
      第三位: 符号数
      */
+
+    let countOne = ""
+    let countTwo = ""
+    let countThree = ""
+
+    if (this.data.age < 8) {
+      countOne = "4"
+      countTwo = "3"
+      countThree = "2"
+    } else {
+      countOne = "3"
+      countTwo = "2"
+      countThree = "1.5"
+    }
+
     switch (level) {
       case 1:
-        gameCount = [15,'4'];
+        gameCount = [15,countOne];
         break;
       case 2:
-        gameCount = [30,'3'];
+        gameCount = [30,countTwo];
         break;
       case 3:
-        gameCount = [40,'2'];
+        gameCount = [40,countThree];
           break;
       default:
         break;
@@ -1196,15 +1232,30 @@ Page({
      第二位: 时间要求(毫秒)；
      第三位: 符号数
      */
+
+    let countOne = ""
+    let countTwo = ""
+    let countThree = ""
+
+    if (this.data.age > 7) {
+      countOne = "0"
+      countTwo = "120"
+      countThree = "100"
+    } else {
+      countOne = "0"
+      countTwo = "180"
+      countThree = "150"
+    }
+
     switch (level) {
       case 1:
-        gameCount = [15,'0',5];
+        gameCount = [15,countOne,5];
         break;
       case 2:
-        gameCount = [30,'180',7];
+        gameCount = [30,countTwo,7];
         break;
       case 3:
-        gameCount = [40,'150',12];
+        gameCount = [40,countThree,12];
           break;
       default:
         break;
@@ -1248,15 +1299,30 @@ Page({
      第二位: 时间要求(毫秒)；
      第三位: 符号数
      */
+
+    let countOne = ""
+    let countTwo = ""
+    let countThree = ""
+
+    if (this.data.age > 7) {
+      countOne = "4"
+      countTwo = "3"
+      countThree = "2"
+    } else {
+      countOne = "5"
+      countTwo = "4"
+      countThree = "3"
+    }
+
     switch (level) {
       case 1:
-        gameCount = [20,'4'];
+        gameCount = [20,countOne];
         break;
       case 2:
-        gameCount = [30,'3'];
+        gameCount = [30,countTwo];
         break;
       case 3:
-        gameCount = [35,'2'];
+        gameCount = [35,countThree];
           break;
       default:
         break;
