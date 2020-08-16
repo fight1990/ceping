@@ -376,93 +376,12 @@ Page({
   lastQuestion: function () {
     var that = this
     var timesend = Date.parse(new Date());  
-    var spandTimer = Math.floor((timesend - timestamp) / 1000) - gameDatas.length - gameDatas[0].time;
+    var spandTimer = Math.floor((timesend - timestamp) / 1000);
 
     that.setData({
-      globalTimer: spandTimer
+      globalTimer: spandTimer,
     })
-    // 判断是否已经注册信息
-    wx.getStorage({
-      key: 'userInfo',
-      success: function (res) {
-        if (res.data) {
-          api.goToWeChat({
-            data: { openid: res.data.openid },
-            success: function (result) {
-              if (result.user) { 
-                if (result.user.state == 1) { // 已注册
-                  var params = {
-                    userid: result.user.id,
-                    score: that.data.rightCount,
-                    times: that.data.globalTimer,
-                    nickname: res.data.nickName,
-                    headUrl: res.data.avatarUrl,
-                    city: res.data.city,
-                    openid: res.data.openid
-                  }
-                  api.saveGamesData({
-                    data: params,
-                    success: function (response) {
-                      console.log(response)
-                      that.showResultTap()
-                      // that.data.gameid = response.gameid
-                      // if (result.games.length >= 2) { // 大于两次 - 分享
-                      //   that.showResultTap()
-                      // } else { // 直接生成报告
-                      //   wx.navigateTo({
-                      //     url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=0",
-                      //   })
-                      // }
-                    },
-                    fail: function (res) {
-                      
-                    }
-                  })
-                } else {
-                  that.showResultTap()
-                  // if (that.data.rightCount <= 3) {
-                  //   that.setData({
-                  //     hideThreeShadow: false
-                  //   })
-                  // } else {
-                  //   wx.navigateTo({
-                  //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-                  //   })
-                  // }
-                  
-                }    
-              } else {
-                that.showResultTap()
-                // if (that.data.rightCount <= 3) {
-                //   that.setData({
-                //     hideThreeShadow: false
-                //   })
-                // } else {
-                //   wx.navigateTo({
-                //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-                //   })
-                // }
-              }
-            },
-            fail: function (res) {
-
-            }
-          })
-        }
-      },
-      fail: function (res) {
-        // if (that.data.rightCount <= 3) {
-        //   that.setData({
-        //     hideThreeShadow: false
-        //   })
-        // } else {
-
-        //   wx.navigateTo({
-        //     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalTimer,
-        //   })
-        // }
-      }
-    })
+    that.showResultTap()
   },
   
   /**
@@ -809,9 +728,14 @@ Page({
     if (gameDatas[this.data.selectedIndex] == undefined) {
       return;
     }
+    
     this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
     this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
     this.drawFillPolygon(r+cR-(r-cR)*1.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+
+    // this.drawFillPolygon(r,(r-cR)*2.2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+    // this.drawFillPolygon((r-cR)*2.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
+    // this.drawFillPolygon(r+cR-(r-cR)*1.2,r,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
   },
   //灰色圆圈
   grayCircle: function() {

@@ -25,7 +25,7 @@
             <!-- <view class="canvasgraph_bg_view" animation="{{animationRotate}}">
               <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
             </view> -->
-            <view class="canvasgraph_bg_view" animation="{{swingAnimation}}">
+            <view class="canvasgraph_bg_view">
               <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
             </view>
           </view>

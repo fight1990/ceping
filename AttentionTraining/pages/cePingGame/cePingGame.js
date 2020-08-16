@@ -492,7 +492,7 @@ Page({
       }
       if (nextIndex == 15) {
         time = 180
-      } else if(nextIndex == 35) {
+      } else if(nextIndex == 45) {
         time = 150
       }
       that.setData({
@@ -524,6 +524,9 @@ Page({
       })
 
       if (that.data.selectedIndex == 15) {
+        this.timerCircleReady(ctxTimer);
+        this.startCircleTime(ctxTimer);
+      } else if (that.data.selectedIndex == 45) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
       }
@@ -785,7 +788,7 @@ Page({
         that.data.stepText = trafficlight_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
       } else if (this.data.currentGameType == 1) {
         //小符号
-  
+        
       } else if (this.data.currentGameType == 2) {
         //快速记忆
         that.data.stepText = ksjy_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
@@ -832,7 +835,18 @@ Page({
         } /*else if(that.data.hiddenYinDaoTu == false) {
           that.showGuideView();
         } */else {
-          that.doNext()
+          if(that.data.currentGameType == 1) {
+            if(that.data.selectedIndex < 45) {
+              that.setData({
+                selectedIndex: 44
+              })
+              that.doNext();
+            } else {
+              that.lastQuestion()
+            }
+          } else {
+            that.doNext()
+          }
         }
       }
     },100)
