@@ -126,10 +126,10 @@ Page({
    */
   onLoad: function (options) {
     this.makeGameDatas();
-
+    
     // 计算年龄
     let age = util.getAge(wx.getStorageSync('age_player'))
-    that.data.age = parseInt(age)
+    this.data.age = parseInt(age)
     console.log(age)
   },
 

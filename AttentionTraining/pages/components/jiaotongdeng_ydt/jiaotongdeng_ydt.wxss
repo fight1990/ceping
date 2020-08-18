@@ -312,7 +312,7 @@ button::after {
 
 .shadow .color {
   margin-left: 300rpx;
-  margin-top: 325rpx;
+  margin-top: 275rpx;
   background-color: #fff;
   border-radius: 4rpx; 
   height: 150rpx;
@@ -327,7 +327,7 @@ button::after {
 }
 .shadow .selected-title {
   margin-left: 300rpx;
-  margin-top: 325rpx;
+  margin-top: 275rpx;
   background-color: #fff;
   border-radius: 4rpx; 
   height: 150rpx;
