@@ -434,7 +434,7 @@ button::after {
 
 .shadow .color {
   margin-left: 325rpx;
-  margin-top: 325rpx;
+  margin-top: 290rpx;
   background-color: #fff;
   border-radius: 4rpx; 
   height: 100rpx;
@@ -476,7 +476,7 @@ button::after {
 }
 
 .shadow .tip-two-image {
-  margin-top: -110rpx;
+  margin-top: 0rpx;
   margin-left: 540rpx;
 }
 
