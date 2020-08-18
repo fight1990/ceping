@@ -111,6 +111,27 @@
       <button class='zero' data-key='0' bindtap='tapKey'>0</button>
     </view>
   </view>
+
+  <!-- 底部键盘 -->
+  <view wx:if="{{currentGameType == 1}}" class="footer">
+    <view class="lineOne">
+      <button class="btnOne" data-key='1'  bindtap='tapKey'>1</button>
+      <button class="btnOne" data-key='2' bindtap='tapKey'>2</button>
+      <button class="btnOne" data-key='3' bindtap='tapKey'>3</button>
+      <button class="btnOne" data-key='4' bindtap='tapKey'>4</button>
+    </view>
+    <view class="lineTwo">
+      <button class="btnTwo" data-key='5' bindtap='tapKey'>5</button>
+      <button class="btnTwo" data-key='6' bindtap='tapKey'>6</button>
+      <button class="btnTwo" data-key='7' bindtap='tapKey'>7</button>
+    </view>
+    <view class="lineTwo">
+      <button class="btnTwo" data-key='8' bindtap='tapKey'>8</button>
+      <button class="btnTwo" data-key='9' bindtap='tapKey'>9</button>
+      <button class="btnTwo" data-key='0' bindtap='tapKey'>0</button>
+    </view>
+  </view>
+
 </view>
 
 <view hidden="{{hideResultShadow}}" class="shadow">

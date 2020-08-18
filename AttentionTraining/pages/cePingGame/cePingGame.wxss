@@ -429,3 +429,58 @@ button{
   margin: 0 auto;
   position: absolute;
 }
+
+
+/*底部键盘样式*/
+.footer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #D5DADD;
+  width: 750rpx;
+  height: 538rpx;
+  bottom: 0rpx;
+}
+
+/* 第一行 */
+.lineOne {
+  margin-top: 38rpx;
+  width: 750rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btnOne {
+  width:148rpx;
+  height:110rpx;
+  background-color: #fff;
+  border-radius:10rpx;
+  padding: 0rpx;
+  font-size:65rpx;
+  font-weight:600;
+  color:black;
+  line-height:110rpx;
+}
+
+/* 第一行 */
+.lineTwo {
+  margin-top: 35rpx;
+  width: 780rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btnTwo {
+  width:190rpx;
+  height:118rpx;
+  background-color: #fff;
+  border-radius:10rpx;
+  padding: 0rpx;
+  font-size:65rpx;
+  font-weight:600;
+  color:black;
+  line-height:110rpx;
+}
