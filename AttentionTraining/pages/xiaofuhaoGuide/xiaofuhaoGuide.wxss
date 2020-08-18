@@ -488,7 +488,7 @@ button{
   position: fixed;
   bottom: 560rpx;
   margin-left: 152rpx;
-  width: 400rpx;
+  /* width: 400rpx; */
   height: 50rpx;
   text-align: left;
 }
