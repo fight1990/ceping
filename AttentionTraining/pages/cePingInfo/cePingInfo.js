@@ -25,7 +25,7 @@ Page({
   data: {
     ageButton_disabled: true,
     isInfomation: true,
-    isAgeSelected: false,
+    isAgeSelected: true,
 
     years,
     year: date.getFullYear(),

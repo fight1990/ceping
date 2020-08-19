@@ -1,6 +1,6 @@
 <!--pages/cePingInfo/cePingInfo.wxml-->
 <view class="mainContainer">
-  <view class="isInfomation" wx:if="{{isInfomation}}">
+  <!-- <view class="isInfomation" wx:if="{{isInfomation}}">
     <view class="title">注意力测评</view>
     <view class="sub-title">测评介绍</view>
     <view class="content">该测评分5大模块组成</view>
@@ -8,7 +8,7 @@
       <button class="readButton" bindtap="readButtonAction">已阅读</button>
       <text class="bottom_title">请将手机交于您的孩子，进入游戏测试</text>
     </view>
-  </view>
+  </view> -->
 
   <view class="ageSelected" wx:if="{{isAgeSelected}}">
     <view class="title">请选择正确的年龄进入测试</view>
