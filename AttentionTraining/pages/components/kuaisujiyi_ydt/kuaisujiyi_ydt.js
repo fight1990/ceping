@@ -885,7 +885,7 @@ Component({
       that.setData({
         hideGuoduye: true,
         hideBottom: false,
-        hideShadowZero: false,
+        hideShadowZero: true,
         hideShadowOne: false,
       })
     },

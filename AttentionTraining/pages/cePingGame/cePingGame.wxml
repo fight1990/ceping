@@ -134,7 +134,7 @@
 
 </view>
 
-<view hidden="{{hideResultShadow}}" class="shadow">
+<view hidden="{{!hideResultShadow}}" class="shadow">
   <view  class="start-view">
     <view class="tankuang2">
       <image src="../../style/images/tankuang4.png"></image>
@@ -160,6 +160,7 @@
     </view>
   </view>
 </view>
+
 
 <!-- 游戏过渡页面 -->
 <view hidden="{{hideGuoduye}}" class="containerTwo">

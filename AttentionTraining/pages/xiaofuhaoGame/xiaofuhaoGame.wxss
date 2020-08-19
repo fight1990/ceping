@@ -144,7 +144,7 @@
 }
 
 .start-view .title {
-  margin-top: 240rpx;
+  margin-top: 190rpx;
   display: flex;
   flex-direction: row;
   align-items: center;

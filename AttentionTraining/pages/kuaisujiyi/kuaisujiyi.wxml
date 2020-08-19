@@ -103,7 +103,7 @@
     </view>
     <view class="bottom">
       <button class="once-more" bindtap="moreTap">再来一次</button>
-      <!-- <button open-type="share" class="share-report">分享查看测试报告</button> -->
+      <button open-type="share" class="share-report">分享查看测试报告</button>
     </view>
   </view>
 </view>
