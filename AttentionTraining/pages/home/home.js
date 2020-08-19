@@ -225,6 +225,7 @@ Page({
    */
   checkVIP:function () {
     var that = this
+  
     wx.getStorage({
       key: 'IAMVIP',
       success: function (res) {

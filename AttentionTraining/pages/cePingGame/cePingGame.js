@@ -12,6 +12,7 @@ const ksjy_ctxGraph = wx.createCanvasContext('ksjy_canvasgraph')
 
 //斯特如普
 const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
+const siterupu_ctxtext_Graph = wx.createCanvasContext('siterupu_canvas_graph')
 
 var valHandle;  //定时器
 const ctxTimer = wx.createCanvasContext("bgCanvas")
@@ -72,6 +73,8 @@ const xiaofuhao_number = ["0","1","2","3","4","5","6","7","8","9"]
 
 const siterupu_colors = ['red','yellow','green','blue','purple']
 const siterupu_words = ['纡','红','璜','黄','录','绿','监','蓝','橴','紫']
+const siterupu_words_simple = ['红','黄','绿','蓝','紫']
+
 const siterupu_wordForColor = {'red':'红','yellow':'黄','green':'绿','blue':'蓝','purple':'紫'}
 
  var jtd_list = []
@@ -95,6 +98,9 @@ Page({
     hideResultShadow: true, // 是否隐藏结果
     ksjy_canvasContent: _tipContent1,
 
+    hiddenSTRPGraph: true,
+    strp_content_title : "文字颜色与其表达的意思是否相同？",
+    siterupu_color_word: "",
     /**
      * 游戏模式 0-交通灯；1-小符号；2-快速记忆；3-斯特如普
      */
@@ -491,7 +497,7 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = 5
+      var time = that.data.stepText
       var showTimer = false
       if (nextIndex >= 15) {
         showTimer = true
@@ -585,14 +591,24 @@ Page({
   
       var nextIndex = that.data.selectedIndex + 1
       var time = 5;
+      var siterupu_color_word = that.data.siterupu_color_word
       if (siterupu_gameDatas[nextIndex]) {
         time = parseInt(siterupu_gameDatas[nextIndex].time);
+        siterupu_color_word = siterupu_gameDatas[nextIndex].text
       }
-      console.log('time = '+time)
+      var hiddenSTRPGraph = true
+      var strp_content_title = "文字颜色与其表达的意思是否相同？";
+      if (nextIndex < 20) {
+        hiddenSTRPGraph = false;
+        strp_content_title = "文字表达颜色与色块颜色是否一致？"
+      } 
 
       that.setData({
         selectedIndex: nextIndex,
-        stepText: time
+        stepText: time,
+        hiddenSTRPGraph: hiddenSTRPGraph,
+        strp_content_title: strp_content_title,
+        siterupu_color_word: siterupu_color_word
       })
       
       that.setData({
@@ -796,15 +812,7 @@ Page({
         })
       } else if (this.data.currentGameType == 1) {
         //小符号
-        var time = 0;
-        if (nextIndex == 15) {
-          time = 180
-        } else if(nextIndex == 45) {
-          time = 150
-        }
-        that.setData({
-          stepText : time //重新设置一遍初始值，防止初始值被改变
-        })
+        
       } else if (this.data.currentGameType == 2) {
         //快速记忆
         that.setData({
@@ -1057,17 +1065,17 @@ Page({
       return;
     }
 
-    var hudu1 = Math.floor(Math.random() * 120);
+    var hudu1 = Math.floor(Math.random() * 60) * Math.PI / 180;
     var X1 = r + Math.sin(hudu1) * cR ;
     var Y1 = r - Math.cos(hudu1) * cR ;
     this.drawFillPolygon(X1,Y1,(r-cR),ksjy_gameDatas[this.data.selectedIndex].shape,0,ksjy_gameDatas[this.data.selectedIndex].color,ksjy_ctxGraph);
 
-    var hudu2 = Math.floor(Math.random() * 120 + 120);
+    var hudu2 = Math.floor(Math.random() * 60 + 120) * Math.PI / 180;
     var X2 = r + Math.sin(hudu2) * cR ;
     var Y2 = r - Math.cos(hudu2) * cR ;
     this.drawFillPolygon(X2,Y2,(r-cR),ksjy_gameDatas[this.data.selectedIndex].shape,0,ksjy_gameDatas[this.data.selectedIndex].color,ksjy_ctxGraph);
 
-    var hudu3 = Math.floor(Math.random() * 120);
+    var hudu3 = Math.floor(Math.random() * 60 + 240) * Math.PI / 180;
     var X3 = r + Math.sin(hudu3) * cR ;
     var Y3 = r - Math.cos(hudu3) * cR ;
     this.drawFillPolygon(X3,Y3,(r-cR),ksjy_gameDatas[this.data.selectedIndex].shape,0,ksjy_gameDatas[this.data.selectedIndex].color,ksjy_ctxGraph);
@@ -1079,7 +1087,7 @@ Page({
   //灰色圆圈
   ksjy_grayCircle: function() {
     ksjy_ctxWave.beginPath();
-    ksjy_ctxWave.lineWidth = 25;
+    ksjy_ctxWave.lineWidth = 15;
     ksjy_ctxWave.strokeStyle = '#DADCFD';
     ksjy_ctxWave.arc(r, r, cR-10, 0, 2 * Math.PI);
     ksjy_ctxWave.stroke();
@@ -1124,12 +1132,21 @@ Page({
    * 斯特如普游戏
    */
   siterupu_createGame: function() {
-    siterupu_ctxtext.clearRect(0, 0, oW, oH)
-
-    siterupu_ctxtext.globalCompositeOperation = 'source-over'
-    siterupu_ctxtext.font = 'bold 60rpx Microsoft Yahei'
     var txt = siterupu_gameDatas[this.data.selectedIndex].text
     var color = siterupu_gameDatas[this.data.selectedIndex].color
+
+    //图形
+    siterupu_ctxtext_Graph.clearRect(0, 0, oW, oH)
+    siterupu_ctxtext_Graph.beginPath();
+    siterupu_ctxtext_Graph.rect(0,0,600,200);
+    siterupu_ctxtext_Graph.setFillStyle(color)
+    siterupu_ctxtext_Graph.fill()
+    siterupu_ctxtext_Graph.draw()
+
+    //文字
+    siterupu_ctxtext.clearRect(0, 0, oW, oH)
+    siterupu_ctxtext.globalCompositeOperation = 'source-over'
+    siterupu_ctxtext.font = 'bold 60rpx Microsoft Yahei'
 
     siterupu_ctxtext.fillStyle = color
     siterupu_ctxtext.textAlign = 'center'
@@ -1395,6 +1412,10 @@ Page({
     var j = Math.floor(Math.random()*(siterupu_colors.length));
     var tmpWord = siterupu_words[i];
     var tmpColor = siterupu_colors[j];
+    if (level == 1 || level == 2) {
+      i = Math.floor(Math.random()*(siterupu_words_simple.length));
+      var tmpWord = siterupu_words_simple[i];
+    }
     return {'color': tmpColor,
             'text': tmpWord,
             'level': level,

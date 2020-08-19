@@ -746,7 +746,7 @@ Page({
   //灰色圆圈
   grayCircle: function() {
     ctxWave.beginPath();
-    ctxWave.lineWidth = 25;
+    ctxWave.lineWidth = 15;
     ctxWave.strokeStyle = '#DADCFD';
     ctxWave.arc(r, r, cR-10, 0, 2 * Math.PI);
     ctxWave.stroke();

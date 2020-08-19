@@ -157,7 +157,7 @@ Page({
     var nextIndex = that.data.selectedIndex + 1
     var time = that.data.stepText
     var showTimer = false
-    if (nextIndex == 15) {
+    if (nextIndex >= 15) {
       showTimer = true
     }
     if (nextIndex == 15) {
@@ -451,6 +451,12 @@ Page({
     that.setData({
       xiaofuhao_currentData_test: xfh_temp
     })
+
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
+    }
 
     var correntAll = true
     for (var key in that.data.xiaofuhao_currentData) {

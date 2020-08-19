@@ -189,6 +189,25 @@
   align-items: center;
 }
 
+.siterupu_canvas_graph {
+  position: fixed;
+  margin-top: 180rpx;
+  width: 650rpx;
+  height: 200rpx;
+  align-items: center;
+}
+
+.siterupu_color_word {
+  position: fixed;
+  margin-top: 400rpx;
+  width: 650rpx;
+  height: 100rpx;
+  font-size:100rpx;
+  font-weight:bold;
+  left: 320rpx;
+  align-items: center;
+}
+
 /* 结束图 */
 .shadow {
   position: fixed;

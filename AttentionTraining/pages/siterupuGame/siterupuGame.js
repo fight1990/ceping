@@ -14,6 +14,8 @@ var siterupu_gameDatas = [];
 
 const siterupu_colors = ['red','yellow','green','blue','purple']
 const siterupu_words = ['纡','红','璜','黄','录','绿','监','蓝','橴','紫']
+const siterupu_words_simple = ['红','黄','绿','蓝','紫']
+
 const siterupu_wordForColor = {'red':'红','yellow':'黄','green':'绿','blue':'蓝','purple':'紫'}
 
 var oW =  650.0 / util.getRpx() * 1.0;
@@ -412,6 +414,10 @@ Page({
     var j = Math.floor(Math.random()*(siterupu_colors.length));
     var tmpWord = siterupu_words[i];
     var tmpColor = siterupu_colors[j];
+    if (level == 1 || level == 2) {
+      i = Math.floor(Math.random()*(siterupu_words_simple.length));
+      var tmpWord = siterupu_words_simple[i];
+    }
     return {'color': tmpColor,
             'text': tmpWord,
             'level': level,

@@ -729,17 +729,17 @@ Page({
       return;
     }
 
-    var hudu1 = Math.floor(Math.random() * 120);
+    var hudu1 = Math.floor(Math.random() * 60) * Math.PI / 180;
     var X1 = r + Math.sin(hudu1) * cR ;
     var Y1 = r - Math.cos(hudu1) * cR ;
     this.drawFillPolygon(X1,Y1,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
 
-    var hudu2 = Math.floor(Math.random() * 120 + 120);
+    var hudu2 = Math.floor(Math.random() * 60 + 120) * Math.PI / 180;
     var X2 = r + Math.sin(hudu2) * cR ;
     var Y2 = r - Math.cos(hudu2) * cR ;
     this.drawFillPolygon(X2,Y2,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
 
-    var hudu3 = Math.floor(Math.random() * 120);
+    var hudu3 = Math.floor(Math.random() * 60 + 240) * Math.PI / 180;
     var X3 = r + Math.sin(hudu3) * cR ;
     var Y3 = r - Math.cos(hudu3) * cR ;
     this.drawFillPolygon(X3,Y3,(r-cR),gameDatas[this.data.selectedIndex].shape,0);
@@ -751,7 +751,7 @@ Page({
   //灰色圆圈
   grayCircle: function() {
     ctxWave.beginPath();
-    ctxWave.lineWidth = 25;
+    ctxWave.lineWidth = 15;
     ctxWave.strokeStyle = '#DADCFD';
     ctxWave.arc(r, r, cR-10, 0, 2 * Math.PI);
     ctxWave.stroke();
