@@ -76,6 +76,7 @@
     </view>
   </view>
 </view>
+
 <view hidden="{{hideResultShadow}}" class="shadow">
   <view  class="start-view">
     <view class="tankuang2">
