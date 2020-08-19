@@ -193,6 +193,18 @@
   border-radius: 10rpx 0 0 10rpx;
 }
 
+.share-report {
+  width: 294rpx;
+  font-size: 36rpx;
+  line-height: 80rpx;
+  color: white;
+  background-color: #923179;
+  padding: 0rpx;
+  font-weight: bold;
+  border-radius: 0 10rpx 10rpx 0;
+}
+
+
 button::after {
   border: none;
   border-radius: 0;
