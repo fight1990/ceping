@@ -266,13 +266,21 @@ Page({
 
     // 是否显示vip弹框
     if (gotoUrl != '/pages/cePingGame/cePingGame' && gotoUrl != " ") { 
-      that.checkVIP()
-      if (that.data.iamVip != true) { // 不是vip
+      // that.checkVIP()
+      let vipStatus = wx.getStorageSync('IAMVIP')
+      if (vipStatus != '') {
+        that.data.iamVip = vipStatus
+        if (that.data.iamVip != true) { // 不是vip
+          that.showVip()
+          return
+        } else { // vip
+          that.hideShadowTap()
+        }
+      } else {
         that.showVip()
-        return
-      } else { // vip
-        that.hideShadowTap()
+          return
       }
+ 
     } 
       
     let age =  wx.getStorageSync('age_player')
@@ -390,11 +398,7 @@ Page({
                   iamVip: true,
                 })
               } 
-              wx.setStorage({
-                key: 'IAMVIP',
-                data: vip,
-              })
- 
+              wx.setStorageSync('IAMVIP', vip)
 
             },
             fail: function (res) {
