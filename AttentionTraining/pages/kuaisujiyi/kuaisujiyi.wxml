@@ -18,13 +18,8 @@
       <view class="item_list">
         <view class="lights-view">
           <view class="waterview">
-            <!-- <canvas class="canvasflow_bg"  canvas-id='canvasflow'></canvas> -->
             <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
-            <!-- animation="{{animationData}}" -->
             <text class="canvas_text" decode="{{true}}">{{canvasContent}}</text>
-            <!-- <view class="canvasgraph_bg_view" animation="{{animationRotate}}">
-              <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
-            </view> -->
             <view class="canvasgraph_bg_view">
               <canvas class="canvasgraph_bg"  canvas-id='canvasgraph'></canvas>
             </view>

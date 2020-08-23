@@ -59,16 +59,8 @@ var constColors = ["Blue","Purple","Yellow","Green","Red"];
 var constShapes = [0,3,4,5,6,8];
 var gameDatas = [];
 
-var _animation; // 动画实体
-var _animationIndex = 0; // 动画执行次数index（当前执行了多少次）
-var _animationIntervalId = -1; // 动画定时任务id，通过setInterval来达到无限旋转，记录id，用于结束定时任务
-const _ANIMATION_TIME = 5000; // 动画播放一次的时长ms
-
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
 const _tipContent2 = "&nbsp;&nbsp;&nbsp;形状和颜色\n是否与前面相同"
-
-
-
 
 Page({
 
@@ -94,12 +86,8 @@ Page({
     hideResultShadow: true, // 是否隐藏结果
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
-    animationData: {},
-    animationRotate: '',
 
     stepText: 5,  //设置倒计时初始值
-
-    cylinderNumber: 0
 
   },
 
@@ -234,7 +222,6 @@ Page({
         result: 0,
       })
     }
-    console.log("XXXXXX-index= "+this.data.selectedIndex+";count="+gameDatas.length);
 
     if (that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
@@ -252,7 +239,6 @@ Page({
    */
   differentTap: function () {
     var that = this
-    that.abortAnimationFrame(tid);
     clearInterval(valHandle)  //销毁定时器
 
     that.setData({
@@ -291,7 +277,6 @@ Page({
    */
   identicalTap: function () {
     var that = this
-    that.abortAnimationFrame(tid);
     clearInterval(valHandle)  //销毁定时器
 
     that.setData({
@@ -331,8 +316,6 @@ Page({
    */
   doNext: function () {
     var that = this
-
-    console.log("XXXXXX --- index : " + that.data.selectedIndex + "; gameCount: " + gameDatas.length)
     
     if(that.data.selectedIndex == gameDatas.length-1) {
       that.lastQuestion()
@@ -424,9 +407,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animationRotate = ''; 
+  
   },
 
   /**
@@ -435,88 +416,20 @@ Page({
   onShow: function () {
     var that = this
 
-    _animation = wx.createAnimation({
-      duration: _ANIMATION_TIME,
-      timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
-
-    // that.rotateFun()
-
     that.waveCreater();
     if (that.data.share == true) {
       that.shareTap()
     } else {
       that.moreTap()
     }
-
-    /*
-    //缩放动画
-    var animation = wx.createAnimation({
-      duration: 500,
-      timingFunction: 'linear',
-    })
-    this.animation = animation
-    var next = true;
-    //连续动画关键步骤
-    setInterval(function () {
-      if (next) {
-        this.animation.scale(0.95).step() 
-        next = !next;
-      } else {
-        this.animation.scale(1).step()
-        next = !next;
-      }
-
-      this.setData({
-        animationData: animation.export()
-      })
-    }.bind(this), 500)
-    */
   },
-   /**
-   * 实现image旋转动画，每次旋转 120*n度
-   */
-  rotateAni: function (n) {
-    _animation.rotate(120 * (n)).step();
-    this.setData({
-      animationRotate: _animation.export()
-    })
-  },
-
-  rotateFun:function() {
-    var that = this
-    var swingAnimation  = null
-    swingAnimation = wx.createAnimation({
-      duration: 100,
-      timingFunction: 'linear',
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
-    that.swingAnimation = swingAnimation
-
-    that.setData({
-      swingAnimation: that.swingAnimation.export()
-    })
-    var n = 0
-    that.data.timehandle = setInterval(function() {
-
-    n=n+1;
-    that.swingAnimation.rotate(10*n).step()
-    that.setData({
-      swingAnimation: that.swingAnimation.export()
-    })
-
-  }.bind(that), 100)
-},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
     var that = this
-    this.abortAnimationFrame(tid);
+    clearInterval(valHandle)  //销毁定时器
   },
 
   /**
@@ -524,6 +437,7 @@ Page({
    */
   onUnload: function () {
     var that = this
+    clearInterval(valHandle)  //销毁定时器
   },
 
   /**
@@ -617,21 +531,8 @@ Page({
 
     var n = 0
     valHandle = setInterval(function(){
-      // that.rotateAni(++_animationIndex);
-
-
-
-      console.log(that.data.cylinderNumber)
-
-      // that.swingAnimation.rotate(20*that.data.cylinderNumber).step()
-
+    
       that.swingAnimation.rotate(20*n).step()
-
-
-      that.setData({
-        swingAnimation: that.swingAnimation.export()
-      })
-  
       that.setData({
         stepText: parseInt(step)
       })
@@ -770,7 +671,6 @@ Page({
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
     ctxFlow.clearRect(0, 0, oW, oH);
-    this.rotateAni(0);
 
     this.clearData();
 
@@ -806,65 +706,8 @@ Page({
     } else {
       waveupsp = 30.0 / 4000 * 0.9;
     }
-
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animationRotate = ''; 
-  },
-  drawWaveFlow: function() {
-    this.abortAnimationFrame(tid);
-    this.rotateAni(++_animationIndex);
-    /*
-    if (data >= 0.85) {
-      if (nowrange > range / 4) {
-        var t = range * 0.01;
-        nowrange -= t;
-      }
-    } else if (data <= 0.1) {
-      if (nowrange < range * 1.5) {
-        var t = range * 0.01;
-        nowrange += t;
-      }
-    } else {
-      if (nowrange <= range) {
-        var t = range * 0.01;
-        nowrange += t;
-      }
-      if (nowrange >= range) {
-        var t = range * 0.01;
-        nowrange -= t;
-      }
-    }
-    if ((data - nowdata) > 0) {
-      nowdata += waveupsp;
-    }
-    if ((data - nowdata) < 0) {
-      nowdata -= waveupsp
-    }
-    sp += 0.07;
-    // 开始水波动画
-    this.drawSine();
-    // this.clearArcFun(r,r,cR,ctxFlow);
-    ctxFlow.draw();
-    */
-    tid = this.doAnimationFrame(this.drawWaveFlow);
-    /*
-    if((lastFrameTime > 0) && (lastFrameTime > gameDatas[this.data.selectedIndex].time - 30)) {
-      this.doNext();
-      return;
-    }
-    lastFrameTime += 30;
-    */
   },
   
-  doAnimationFrame: function(callback) {
-    var id = setTimeout(function () { callback(); }, _ANIMATION_TIME);
-    return id;
-  },
-  // 模拟 cancelAnimationFrame
-  abortAnimationFrame: function(id) {
-    clearTimeout(id)
-  },
   /**
  * canvas绘图相关
  * (x,y)为要清除的圆的圆心，r为外径，cR为内径，cxt为context

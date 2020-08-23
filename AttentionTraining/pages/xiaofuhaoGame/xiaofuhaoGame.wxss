@@ -144,7 +144,7 @@
 }
 
 .start-view .title {
-  margin-top: 190rpx;
+  margin-top: 240rpx;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -314,13 +314,13 @@ button{
   align-items: center;
   background-color: #D5DADD;
   width: 750rpx;
-  height: 538rpx;
+  height: 400rpx;
   bottom: 0rpx;
 }
 
 /* 第一行 */
 .lineOne {
-  margin-top: 38rpx;
+  margin-top: 20rpx;
   width: 750rpx;
   display: flex;
   flex-direction: row;
@@ -341,7 +341,7 @@ button{
 
 /* 第一行 */
 .lineTwo {
-  margin-top: 35rpx;
+  margin-top: 20rpx;
   width: 780rpx;
   display: flex;
   flex-direction: row;
@@ -350,7 +350,7 @@ button{
 
 .btnTwo {
   width:190rpx;
-  height:118rpx;
+  height:110rpx;
   background-color: #fff;
   border-radius:10rpx;
   padding: 0rpx;
