@@ -16,8 +16,14 @@
     <block>
       <view class="gameView">
         <view class="siterupu">
-          <text class="siterupu_title">文字颜色与其表达的意思是否相同？</text>
-          <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
+          <text class="siterupu_title">{{strp_content_title}}</text>
+          <view wx:if="{{hiddenSTRPGraph}}">
+            <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
+          </view>
+          <view wx:else>
+            <canvas class="siterupu_canvas_graph"  canvas-id='siterupu_canvas_graph'></canvas>
+            <text class="siterupu_color_word">{{siterupu_color_word}}</text>
+          </view>
         </view>
       </view>
       <view class="result-view">

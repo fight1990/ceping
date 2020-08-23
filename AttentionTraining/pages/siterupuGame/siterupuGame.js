@@ -4,6 +4,7 @@ const util = require("../../utils/util.js");
 
 //斯特如普
 const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
+const siterupu_ctxtext_Graph = wx.createCanvasContext('siterupu_canvas_graph')
 
 var valHandle;  //定时器
 const ctxTimer = wx.createCanvasContext("bgCanvas")
@@ -44,6 +45,10 @@ Page({
     isShowTimer: true,
     xiaofuhao_currentData : {},
     xiaofuhao_currentData_test : {},
+
+    hiddenSTRPGraph: true,
+    strp_content_title : "文字颜色与其表达的意思是否相同？",
+    siterupu_color_word: "",
 
     strp_time: 0,
     strp_correct: 0,
@@ -242,15 +247,27 @@ Page({
     that.data.isAnswer = false
 
     var nextIndex = that.data.selectedIndex + 1
-    var time = '';
+    var time = that.data.stepText
+    var siterupu_color_word = that.data.siterupu_color_word
+
     if (siterupu_gameDatas[nextIndex]) {
       time = siterupu_gameDatas[nextIndex].time;
+      siterupu_color_word = siterupu_gameDatas[nextIndex].text
     }
-    console.log('time = '+time)
+
+    var hiddenSTRPGraph = true
+    var strp_content_title = "文字颜色与其表达的意思是否相同？";
+    if (nextIndex < 20) {
+      hiddenSTRPGraph = false;
+      strp_content_title = "文字表达颜色与色块颜色是否一致？"
+    } 
 
     that.setData({
       selectedIndex: nextIndex,
-      stepText: time
+      stepText: time,
+      hiddenSTRPGraph: hiddenSTRPGraph,
+      strp_content_title: strp_content_title,
+      siterupu_color_word: siterupu_color_word
     })
     
     that.setData({
@@ -355,12 +372,22 @@ Page({
    * 斯特如普游戏
    */
   siterupu_createGame: function() {
+    var txt = siterupu_gameDatas[this.data.selectedIndex].text
+    var color = siterupu_gameDatas[this.data.selectedIndex].color
+
+    //图形
+    siterupu_ctxtext_Graph.clearRect(0, 0, oW, oH)
+    siterupu_ctxtext_Graph.beginPath();
+    siterupu_ctxtext_Graph.rect(0,0,600,200);
+    siterupu_ctxtext_Graph.setFillStyle(color)
+    siterupu_ctxtext_Graph.fill()
+    siterupu_ctxtext_Graph.draw()
+
+    //文字
     siterupu_ctxtext.clearRect(0, 0, oW, oH)
 
     siterupu_ctxtext.globalCompositeOperation = 'source-over'
     siterupu_ctxtext.font = 'bold 60rpx Microsoft Yahei'
-    var txt = siterupu_gameDatas[this.data.selectedIndex].text
-    var color = siterupu_gameDatas[this.data.selectedIndex].color
 
     siterupu_ctxtext.fillStyle = color
     siterupu_ctxtext.textAlign = 'center'
