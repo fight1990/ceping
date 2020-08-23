@@ -329,6 +329,7 @@ Page({
     if (gameDatas[nextIndex]) {
       time = gameDatas[nextIndex].time;
     }
+
     that.setData({
       selectedIndex: nextIndex,
       stepText: time
@@ -493,7 +494,7 @@ Page({
   startCircleTime: function() {    
     console.log("倒计时动画开始")
     var that = this
-    that.data.stepText = gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
+
     var step = that.data.stepText ;  //定义倒计时
     var num = -0.5;
     var decNum = 2/step/10
@@ -514,25 +515,8 @@ Page({
       ctxTimer.draw()
     }
 
-
-    var swingAnimation  = null
-    swingAnimation = wx.createAnimation({
-      duration: 100,
-      timingFunction: 'linear',
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
-
-    that.swingAnimation = swingAnimation
-
-    that.setData({
-      swingAnimation: that.swingAnimation.export()
-    })
-
-    var n = 0
     valHandle = setInterval(function(){
     
-      that.swingAnimation.rotate(20*n).step()
       that.setData({
         stepText: parseInt(step)
       })
@@ -541,16 +525,13 @@ Page({
       num += decNum
       drawArc(num*Math.PI)
       if(step<=0){
-        that.data.cylinderNumber = 0
         clearInterval(valHandle)  //销毁定时器
-        that.doNext();
-      } else {
-        that.data.cylinderNumber = that.data.cylinderNumber+1 
-         n = n + 1
-
-      }
-
-
+        if (that.data.selectedIndex >=1) {
+          that.lastQuestion()
+        } else {
+          that.doNext();
+        }
+      } 
     },100)
   },
 
@@ -600,7 +581,11 @@ Page({
   drawText: function() {
 
     var txt = _tipContent1;
-    if (this.data.selectedIndex > 35) {
+    var level = 1;
+    if (gameDatas[this.data.selectedIndex]) {
+      level = gameDatas[this.data.selectedIndex].level;
+    }
+    if (level == 3) {
       txt = _tipContent2;
     }
     this.setData({

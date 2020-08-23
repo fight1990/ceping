@@ -950,9 +950,11 @@ Page({
     var inputVal = e.currentTarget.dataset.key;
 
     var xfh_temp = that.data.xiaofuhao_currentData_test
+    var temp_key = ''
     for (let key in xfh_temp) {
       if (xfh_temp[key].length == 0) {
         xfh_temp[key] = inputVal
+        temp_key = key
         break;
       }
     }
@@ -960,6 +962,7 @@ Page({
     that.setData({
       xiaofuhao_currentData_test: xfh_temp
     })
+    /*
     for (var key in xfh_temp) {
       if(xfh_temp[key].length == 0) {
         return;
@@ -973,12 +976,13 @@ Page({
         break
       }
     }
-
+    */
     that.setData({
       hideResult: false,
     })
 
-    if(correntAll) {
+    // if(correntAll) {
+    if(that.data.xiaofuhao_currentData[temp_key] == inputVal) {
       var count = that.data.rightCount + 1
       that.setData({
         rightCount: count,
@@ -990,6 +994,12 @@ Page({
         result: 0
       })
       xfh_list.push(0)
+    }
+
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
@@ -1315,13 +1325,13 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [15,countOne,5];
+        gameCount = [3,countOne,5];
         break;
       case 2:
-        gameCount = [30,countTwo,7];
+        gameCount = [4,countTwo,7];
         break;
       case 3:
-        gameCount = [40,countThree,12];
+        gameCount = [4,countThree,10];
           break;
       default:
         break;

@@ -271,14 +271,14 @@ Page({
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
 
-        if(that.data.selectedIndex < 45) {
-          that.setData({
-            selectedIndex: 44
-          })
-          that.doNext();
-        } else {
+        // if(that.data.selectedIndex < 45) {
+        //   that.setData({
+        //     selectedIndex: 44
+        //   })
+        //   that.doNext();
+        // } else {
           that.lastQuestion()
-        }
+        // }
       }
     },100)
   },
@@ -367,13 +367,13 @@ Page({
      */
     switch (level) {
       case 1:
-        gameCount = [15,'0',5];
+        gameCount = [3,'0',5];
         break;
       case 2:
-        gameCount = [30,'180',7];
+        gameCount = [4,'180',7];
         break;
       case 3:
-        gameCount = [40,'150',12];
+        gameCount = [4,'150',10];
           break;
       default:
         break;
@@ -441,9 +441,11 @@ Page({
     var inputVal = e.currentTarget.dataset.key;
 
     var xfh_temp = that.data.xiaofuhao_currentData_test
+    var temp_key = ''
     for (let key in xfh_temp) {
       if (xfh_temp[key].length == 0) {
         xfh_temp[key] = inputVal
+        temp_key = key
         break;
       }
     }
@@ -452,6 +454,7 @@ Page({
       xiaofuhao_currentData_test: xfh_temp
     })
 
+    /*
     for (var key in xfh_temp) {
       if(xfh_temp[key].length == 0) {
         return;
@@ -465,12 +468,14 @@ Page({
         break
       }
     }
+  */
 
     that.setData({
       hideResult: false,
     })
 
-    if(correntAll) {
+    // if(correntAll) {
+    if(that.data.xiaofuhao_currentData[temp_key] == inputVal) {
       var count = that.data.rightCount + 1
       that.setData({
         rightCount: count,
@@ -480,9 +485,15 @@ Page({
       that.setData({
         result: 0
       })
-      //错误就结束
-      // that.lastQuestion()
-      // return
+      // 错误就结束
+      that.lastQuestion()
+      return
+    }
+
+    for (var key in xfh_temp) {
+      if(xfh_temp[key].length == 0) {
+        return;
+      }
     }
 
     if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {

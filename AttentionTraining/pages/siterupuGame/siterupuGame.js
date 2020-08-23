@@ -350,7 +350,11 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
-        that.doNext();
+        if (that.data.selectedIndex >=0) {
+          that.lastQuestion()
+        } else {
+          that.doNext();
+        }
       }
     },100)
   },
