@@ -57,7 +57,7 @@ var constColors = ["Blue","Purple","Yellow","Green","Red"];
  */
 var constShapes = [0,3,4,5,6,8];
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
-const _tipContent2 = "&nbsp;&nbsp;&nbsp;形状和颜色\n是否与前面相同"
+const _tipContent2 = "&nbsp;&nbsp;&nbsp;颜色\n是否与前面相同"
 
 var timestamp = Date.parse(new Date());  
 
@@ -257,7 +257,15 @@ Page({
       //快速记忆
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
-      if(currentData.color != beforeData.color || currentData.shape != beforeData.shape) {
+
+      var tmp_1 = currentData.color;
+      var tmp_2 = beforeData.color
+      if (currentData.pv == 1) {
+        tmp_1 = currentData.shape;
+        tmp_2 = beforeData.shape
+      }
+
+      if(tmp_1 != tmp_2) {
         var count = that.data.rightCount + 1
         that.setData({
           rightCount: count,
@@ -352,7 +360,15 @@ Page({
       //快速记忆
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
-      if(currentData.color == beforeData.color && currentData.shape == beforeData.shape) {
+
+      var tmp_1 = currentData.color;
+      var tmp_2 = beforeData.color
+      if (currentData.pv == 1) {
+        tmp_1 = currentData.shape;
+        tmp_2 = beforeData.shape
+      }
+
+      if(tmp_1 == tmp_2) {
         var count = that.data.rightCount + 1
         that.setData({
           rightCount: count,
@@ -499,13 +515,19 @@ Page({
       var nextIndex = that.data.selectedIndex + 1
       var time = that.data.stepText
       var showTimer = false
-      if (nextIndex >= 15) {
+      if (nextIndex >= 3) {
         showTimer = true
       }
-      if (nextIndex == 15) {
+      if (nextIndex == 3) {
         time = 180
-      } else if(nextIndex == 45) {
+        if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
+          time = xiaofuhao_gameDatas[that.data.selectedIndex].time
+        }
+      } else if(nextIndex == 7) {
         time = 150
+        if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
+          time = xiaofuhao_gameDatas[that.data.selectedIndex].time
+        }
       }
       that.setData({
         selectedIndex: nextIndex,
@@ -517,7 +539,7 @@ Page({
         count: that.data.count,
         hideResult: true,
       })
-      var xfh_temp = xiaofuhao_gameDatas[that.data.selectedIndex]
+      var xfh_temp = xiaofuhao_gameDatas[that.data.selectedIndex].data
       var xiaofuhao = {}
       var xiaofuhao_key = []
       for (var key in xfh_temp) {
@@ -531,14 +553,14 @@ Page({
 
       //小符号
       that.setData({
-        xiaofuhao_currentData: xiaofuhao_gameDatas[that.data.selectedIndex],
+        xiaofuhao_currentData: xiaofuhao_gameDatas[that.data.selectedIndex].data,
         xiaofuhao_currentData_test: xiaofuhao
       })
 
-      if (that.data.selectedIndex == 15) {
+      if (that.data.selectedIndex == 3) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
-      } else if (that.data.selectedIndex == 45) {
+      } else if (that.data.selectedIndex == 7) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
       }
@@ -869,9 +891,9 @@ Page({
           that.showGuideView();
         } */else {
           if(that.data.currentGameType == 1) {
-            if(that.data.selectedIndex < 45) {
+            if(that.data.selectedIndex < 7) {
               that.setData({
-                selectedIndex: 44
+                selectedIndex: 6
               })
               that.doNext();
             } else {
@@ -1062,10 +1084,15 @@ Page({
   },
 
   ksjy_drawText: function() {
+    var that = this
     var txt = _tipContent1;
-    if (this.data.selectedIndex > 35) {
+    
+    var currentData = ksjy_gameDatas[that.data.selectedIndex];
+
+    if (currentData.pv == 1) {
       txt = _tipContent2;
     }
+ 
     this.setData({
       ksjy_canvasContent:txt
     })
@@ -1181,18 +1208,14 @@ Page({
      第四位：图形数量;
      */
 
-    let countOne = ""
-    let countTwo = ""
-    let countThree = ""
+    let countOne = 4
+    let countTwo = 3
+    let countThree = 2
 
-    if (this.data.age < 8) {
-      countOne = "4"
-      countTwo = "3"
-      countThree = "2"
-    } else {
-      countOne = "3"
-      countTwo = "2"
-      countThree = "2.5"
+    if (this.data.age > 8) {
+      countOne = 3
+      countTwo = 2
+      countThree = 1.5
     }
 
     switch (level) {
@@ -1230,11 +1253,17 @@ Page({
     var j = Math.floor(Math.random()*(shapes.length));
     var tmpColor = colors[i];
     var tmpShape = shapes[j];
+    var pv = 1 //0 判断颜色, 1判断形状
+
+    if (this.data.age > 7) {
+      pv = Math.floor(Math.random() * 2)
+    }
 
     return {'color': tmpColor,
             'shape': tmpShape,
             'level': level,
-            'time': time
+            'time': time,
+            'pv': pv
           };
   },
 
@@ -1249,18 +1278,14 @@ Page({
      第三位: 符号数
      */
 
-    let countOne = ""
-    let countTwo = ""
-    let countThree = ""
+    let countOne = 4
+    let countTwo = 3
+    let countThree = 2
 
-    if (this.data.age < 8) {
-      countOne = "4"
-      countTwo = "3"
-      countThree = "2"
-    } else {
-      countOne = "3"
-      countTwo = "2"
-      countThree = "1.5"
+    if (this.data.age  > 8) {
+      countOne = 3
+      countTwo = 2
+      countThree = 1.5
     }
 
     switch (level) {
@@ -1309,18 +1334,14 @@ Page({
      第三位: 符号数
      */
 
-    let countOne = ""
-    let countTwo = ""
-    let countThree = ""
+    let countOne = 0
+    let countTwo = 180
+    let countThree = 150
 
     if (this.data.age > 7) {
-      countOne = "0"
-      countTwo = "120"
-      countThree = "100"
-    } else {
-      countOne = "0"
-      countTwo = "180"
-      countThree = "150"
+      countOne = 0
+      countTwo = 120
+      countThree = 100
     }
 
     switch (level) {
@@ -1362,7 +1383,11 @@ Page({
       var value = valules[index]
       resultData[key] = value;
     }
-    return resultData;
+    return {
+      'data': resultData,
+      'time': etime,
+      'level': level
+    };
   },
  
   /**
@@ -1376,18 +1401,14 @@ Page({
      第三位: 符号数
      */
 
-    let countOne = ""
-    let countTwo = ""
-    let countThree = ""
+    let countOne = 5
+    let countTwo = 4
+    let countThree = 3
 
     if (this.data.age > 7) {
-      countOne = "4"
-      countTwo = "3"
-      countThree = "2"
-    } else {
-      countOne = "5"
-      countTwo = "4"
-      countThree = "3"
+      countOne = 4
+      countTwo = 3
+      countThree = 2
     }
 
     switch (level) {

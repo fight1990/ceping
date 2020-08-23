@@ -34,7 +34,7 @@
       <view class='stepText'>{{stepText}}</view>
     </view>
     <block>
-      <view class="gameView">
+      <view class="gameView" hidden="{{!hideResultShadow}}">
         <view wx:if="{{currentGameType == 0}}" class="trafficlight">
           <canvas class="trafficlight_canvasgraph"  canvas-id='trafficlight_canvasgraph'></canvas>
         </view>

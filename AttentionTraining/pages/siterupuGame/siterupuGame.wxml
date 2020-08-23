@@ -15,7 +15,7 @@
     </view>
     <block>
       <view class="gameView">
-        <view class="siterupu">
+        <view class="siterupu" hidden="{{!hideResultShadow}}">
           <text class="siterupu_title">{{strp_content_title}}</text>
           <view wx:if="{{hiddenSTRPGraph}}">
             <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>

@@ -15,7 +15,7 @@
     </view>
     <block>
       <view class="gameView">
-        <view class="xiaofuhao">
+        <view class="xiaofuhao" hidden="{{!hideResultShadow}}">
           <view class="table">
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
