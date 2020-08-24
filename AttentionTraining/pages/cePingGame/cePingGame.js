@@ -88,7 +88,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selectedIndex: 0,
+    selectedIndex: -1,
     result: 0, // 结果对错 0-错 1-对
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
@@ -258,11 +258,11 @@ Page({
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
 
-      var tmp_1 = currentData.color;
-      var tmp_2 = beforeData.color
+      var tmp_1 = currentData.shape;
+      var tmp_2 = beforeData.shape
       if (currentData.pv == 1) {
-        tmp_1 = currentData.shape;
-        tmp_2 = beforeData.shape
+        tmp_1 = currentData.color;
+        tmp_2 = beforeData.color
       }
 
       if(tmp_1 != tmp_2) {
@@ -361,11 +361,11 @@ Page({
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
 
-      var tmp_1 = currentData.color;
-      var tmp_2 = beforeData.color
+      var tmp_1 = currentData.shape;
+      var tmp_2 = beforeData.shape
       if (currentData.pv == 1) {
-        tmp_1 = currentData.shape;
-        tmp_2 = beforeData.shape
+        tmp_1 = currentData.color;
+        tmp_2 = beforeData.color
       }
 
       if(tmp_1 == tmp_2) {
@@ -478,7 +478,7 @@ Page({
       that.data.isAnswer = false
   
       var nextIndex = that.data.selectedIndex + 1
-      var time = 5;
+      var time = that.data.stepText;
       if (trafficlight_gameDatas[nextIndex]) {
         time = parseInt(trafficlight_gameDatas[nextIndex].time);
       }
@@ -520,13 +520,13 @@ Page({
       }
       if (nextIndex == 3) {
         time = 180
-        if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
-          time = xiaofuhao_gameDatas[that.data.selectedIndex].time
+        if (xiaofuhao_gameDatas[nextIndex]) {
+          time = xiaofuhao_gameDatas[nextIndex].time
         }
       } else if(nextIndex == 7) {
         time = 150
-        if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
-          time = xiaofuhao_gameDatas[that.data.selectedIndex].time
+        if (xiaofuhao_gameDatas[nextIndex]) {
+          time = xiaofuhao_gameDatas[nextIndex].time
         }
       }
       that.setData({
@@ -1253,7 +1253,7 @@ Page({
     var j = Math.floor(Math.random()*(shapes.length));
     var tmpColor = colors[i];
     var tmpShape = shapes[j];
-    var pv = 1 //0 判断颜色, 1判断形状
+    var pv = 0 //1 判断颜色, 0判断形状
 
     if (this.data.age > 7) {
       pv = Math.floor(Math.random() * 2)

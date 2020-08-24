@@ -1011,6 +1011,9 @@ Page({
     })
     ctxTimer_two.clearRect(0,0,oW,oH)
     that.countDownTwo()
+    // wx.redirectTo({
+    //   url: '/pages/kuaisujiyi/kuaisujiyi',
+    // })
   },
 
   countDownTwo: function() {
