@@ -26,6 +26,7 @@ Page({
     hideShadow: true, // 隐藏提示框
     rightCount: 0, //
     globalCount: 0, //
+    from: ""
 
   },
 
@@ -71,9 +72,16 @@ Page({
                   }
                 });
 
-                wx.navigateTo({
-                  url: '/pages/home/home',
-                })
+                if (that.data.from == "ceping") {
+                  wx.redirectTo({
+                    url: '/pages/zongheceping/zongheceping',
+                  })
+                } else {
+                  wx.redirectTo({
+                    url: '/pages/home/home',
+                  })
+                }
+                
 
 
 
@@ -361,9 +369,11 @@ Page({
   onLoad: function (options) {
     var rightCount = options.score
     var globalCount = options.times
+    var from = options.from
     this.setData({
       rightCount: rightCount,
-      globalCount: globalCount
+      globalCount: globalCount,
+      from: from
     })
   },
 

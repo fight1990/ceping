@@ -11,7 +11,7 @@ Page({
     rightCount: 0, //
     globalCount: 0, //
     hideResultShadow: true,
-
+    from: ""
   },
 
   /**
@@ -230,12 +230,12 @@ Page({
                           })
                         } else {
                           wx.navigateTo({
-                            url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+                            url: '/pages/information/information' + "?from=" + that.data.from ,
                           })
                         }
                       } else {
                         wx.navigateTo({
-                          url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+                          url: '/pages/information/information' + "?from=" + that.data.from
                         })
                       }
                     },
@@ -271,9 +271,11 @@ Page({
   onLoad: function (options) {
     var rightCount = options.score
     var globalCount = options.times
+    var from = options.from
     this.setData({
       rightCount: rightCount,
-      globalCount: globalCount
+      globalCount: globalCount,
+      from: from
     })
 
   },

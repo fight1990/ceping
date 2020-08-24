@@ -49,12 +49,12 @@ Page({
                       })
                     } else {
                       wx.navigateTo({
-                        url: '/pages/transition/transition',
+                        url: '/pages/transition/transition' + "?from=" + "index",
                       })
                     }    
                   } else {
                     wx.navigateTo({
-                      url: '/pages/transition/transition',
+                      url: '/pages/transition/transition' + "?from=" + "index",
                     })
                   }
                 },
@@ -68,7 +68,7 @@ Page({
       fail: function (result) {
         console.log('获取用户登录态失败！')
         wx.navigateTo({
-          url: '/pages/transition/transition',
+          url: '/pages/transition/transition' + "?from=" + "index"
         })
       }
     })

@@ -760,16 +760,23 @@ Page({
                       wx.redirectTo({
                         url: '/pages/zongheceping/zongheceping',
                       })
+                      // wx.navigateTo({
+                      //   url: '/pages/transition/transition' + "?from=" + "ceping",
+                      // })
                     },
                     fail: function (res) {
                       
                     }
                   })
                 } else {
-                  
+                  wx.navigateTo({
+                    url: '/pages/transition/transition' + "?from=" + "ceping",
+                  })
                 }    
               } else {
-
+                wx.navigateTo({
+                  url: '/pages/transition/transition' + "?from=" + "ceping",
+                })
               }
             },
             fail: function (res) {
