@@ -11,7 +11,8 @@ Page({
     rightCount: 0, //
     globalCount: 0, //
     hideResultShadow: true,
-    from: ""
+    from: "",
+    gameResult:[]
   },
 
   /**
@@ -65,8 +66,8 @@ Page({
     // }) 
 
     wx.navigateTo({
-      url: '/pages/information/information' + "?from=" + that.data.from
-    })
+      url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount + "gameResult=" + that.data.gameResult+ "?from=" + that.data.from,
+    }) 
   },
 
   getUserInfoClick: function (e) {
@@ -81,8 +82,8 @@ Page({
             success: function (result) {
               if (result.user) { 
                 if (result.user.state == 1) { // 已注册
-                  wx.navigateTo({
-                    url: '/pages/home/home',
+                  wx.navigateBack({
+                    delta: 1,
                   })
                 } else {
                   wx.navigateTo({
@@ -279,10 +280,13 @@ Page({
     var rightCount = options.score
     var globalCount = options.times
     var from = options.from
+    var gameResult = options.gameResult
+
     this.setData({
       rightCount: rightCount,
       globalCount: globalCount,
-      from: from
+      from: from,
+      gameResult: gameResult
     })
 
   },

@@ -8,10 +8,9 @@
     <xiaofuhao_ydt bind:readyXiaoFuHaoGame="_readyXiaoFuHaoGame">
     </xiaofuhao_ydt>
   </view>
-  <view wx:elif="{{yindaotuIndex == 2}}" class="kuaisujiyi_yindaotu" bindtap="_readyKuaiSuJiYiGame">
-    <!-- <kuaisujiyi_ydt bind:readyKuaiSuJiYiGame="_readyKuaiSuJiYiGame"> -->
-    <!-- </kuaisujiyi_ydt> -->
-    <image class="kuaisujiyi_yindaotu_img" src='../../style/images/yd-1_03.png' mode='aspectFill'></image>
+  <view wx:elif="{{yindaotuIndex == 2}}" class="kuaisujiyi_yindaotu">
+    <kuaisujiyi_ydt bind:readyKuaiSuJiYiGame="_readyKuaiSuJiYiGame">
+    </kuaisujiyi_ydt>
   </view>
   <view wx:if="{{yindaotuIndex == 3}}" class="siterupu_yindaotu">
     <siterupu_ydt bind:readySiTeRuPuGame="_readySiTeRuPuGame">

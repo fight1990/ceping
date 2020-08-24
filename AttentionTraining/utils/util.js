@@ -63,8 +63,8 @@ function getScrienWidth() {
 
 // 根据出生日期计算年龄周岁 传参格式为1996-06-08
 function getAge(strBirthday) {
-  var returnAge = '';
-  var mouthAge = '';
+  var returnAge = 0;
+  var mouthAge = 0;
   var strBirthdayArr = strBirthday.split("-");
   var birthYear = strBirthdayArr[0];
   var birthMonth = strBirthdayArr[1];

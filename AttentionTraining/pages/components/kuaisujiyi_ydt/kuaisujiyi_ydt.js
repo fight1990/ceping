@@ -904,7 +904,6 @@ Component({
     },
 
     countDownTwo: function() {
-      wx.setStorageSync('kuaisujiyi_guide', true)
       this.setData({
         stepText: 5,
         isShowTimer: true

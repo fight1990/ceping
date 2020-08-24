@@ -225,6 +225,11 @@ Page({
     })
 
     if (this.data.currentGameType == 0) {
+      console.log("XXXXXXX count:"+trafficlight_gameDatas.length+";index:"+that.data.selectedIndex);
+      
+      if (that.data.selectedIndex >= trafficlight_gameDatas.length) {
+        return
+      }
       //交通灯
       var currentData = trafficlight_gameDatas[that.data.selectedIndex];
       var beforeData = trafficlight_gameDatas[that.data.selectedIndex-1];
@@ -255,6 +260,10 @@ Page({
       
     } else if (this.data.currentGameType == 2) {
       //快速记忆
+      if (that.data.selectedIndex >= ksjy_gameDatas.length) {
+        return
+      }
+
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
 
@@ -289,8 +298,13 @@ Page({
       }
     }  else if (this.data.currentGameType == 3) {
       //斯特如普
+      if (that.data.selectedIndex >= siterupu_gameDatas.length) {
+        return
+      }
+      
       var currentData = siterupu_gameDatas[that.data.selectedIndex];
       var color = currentData.color;
+
       if(siterupu_wordForColor[color] != currentData.text) {
         var count = that.data.rightCount + 1
         that.setData({
@@ -329,6 +343,10 @@ Page({
 
     if (this.data.currentGameType == 0) {
       //交通灯
+      if (that.data.selectedIndex >= trafficlight_gameDatas.length) {
+        return
+      }
+
       var currentData = trafficlight_gameDatas[that.data.selectedIndex];
       var beforeData = trafficlight_gameDatas[that.data.selectedIndex-1];
       if(currentData.position == beforeData.position) {
@@ -358,6 +376,10 @@ Page({
 
     } else if (this.data.currentGameType == 2) {
       //快速记忆
+      if (that.data.selectedIndex >= ksjy_gameDatas.length) {
+        return
+      }
+
       var currentData = ksjy_gameDatas[that.data.selectedIndex];
       var beforeData = ksjy_gameDatas[that.data.selectedIndex-1];
 
@@ -392,6 +414,9 @@ Page({
       }
     }  else if (this.data.currentGameType == 3) {
       //斯特如普
+      if (that.data.selectedIndex >= siterupu_gameDatas.length) {
+        return
+      }
       var currentData = siterupu_gameDatas[that.data.selectedIndex];
       var color = currentData.color;
       if(siterupu_wordForColor[color] == currentData.text) {
@@ -708,6 +733,36 @@ Page({
 
   sendGameDatasToSever:function () {
     var that = this
+    var gameResult = [{
+      type: 0,
+      time: that.data.jtd_time,
+      correctNumber: that.data.jtd_correct,
+      accuracy: trafficlight_gameDatas.length,
+      score: that.data.jtd_correct/trafficlight_gameDatas.length*1.0,
+      list: jtd_list
+    },{
+      type: 1,
+      time:that.data.xfh_time,
+      correctNumber: that.data.xfh_correct,
+      accuracy: xiaofuhao_gameDatas.length,
+      score: that.data.xfh_correct/xiaofuhao_gameDatas.length*1.0,
+      list: xfh_list
+    },{
+      type: 2,
+      time:that.data.ksjy_time,
+      correctNumber: that.data.ksjy_correct,
+      accuracy: ksjy_gameDatas.length,
+      score: that.data.ksjy_correct/ksjy_gameDatas.length*1.0,
+      list: ksjy_list
+    },{
+      type: 3,
+      time:that.data.strp_time,
+      correctNumber: that.data.strp_correct,
+      accuracy: siterupu_gameDatas.length,
+      score: that.data.strp_correct/siterupu_gameDatas.length*1.0,
+      list: strp_list
+    }]
+
     // 判断是否已经注册信息
     wx.getStorage({
       key: 'userInfo',
@@ -723,35 +778,7 @@ Page({
                     userid: result.user.id,
                     nickname: res.data.nickName,
                     headUrl: res.data.avatarUrl,
-                    data: [{
-                      type: 0,
-                      time: that.data.jtd_time,
-                      correctNumber: that.data.jtd_correct,
-                      accuracy: trafficlight_gameDatas.length,
-                      score: that.data.jtd_correct/trafficlight_gameDatas.length*1.0,
-                      list: jtd_list
-                    },{
-                      type: 1,
-                      time:that.data.xfh_time,
-                      correctNumber: that.data.xfh_correct,
-                      accuracy: xiaofuhao_gameDatas.length,
-                      score: that.data.xfh_correct/xiaofuhao_gameDatas.length*1.0,
-                      list: xfh_list
-                    },{
-                      type: 2,
-                      time:that.data.ksjy_time,
-                      correctNumber: that.data.ksjy_correct,
-                      accuracy: ksjy_gameDatas.length,
-                      score: that.data.ksjy_correct/ksjy_gameDatas.length*1.0,
-                      list: ksjy_list
-                    },{
-                      type: 3,
-                      time:that.data.strp_time,
-                      correctNumber: that.data.strp_correct,
-                      accuracy: siterupu_gameDatas.length,
-                      score: that.data.strp_correct/siterupu_gameDatas.length*1.0,
-                      list: strp_list
-                    }],
+                    data: gameResult
                   }
                   api.saveGamesData({
                     data: params,
@@ -770,12 +797,12 @@ Page({
                   })
                 } else {
                   wx.navigateTo({
-                    url: '/pages/transition/transition' + "?from=" + "ceping",
+                    url: '/pages/transition/transition' + "?gameResult=" + gameResult + "&from=" + "ceping",
                   })
                 }    
               } else {
                 wx.navigateTo({
-                  url: '/pages/transition/transition' + "?from=" + "ceping",
+                  url: '/pages/transition/transition' + "?gameResult=" + gameResult + "&from=" + "ceping",
                 })
               }
             },
@@ -786,7 +813,9 @@ Page({
         }
       },
       fail: function (res) {
-
+        wx.navigateTo({
+          url: '/pages/transition/transition' + "?gameResult=" + gameResult,
+        })
       }
     })
   },
@@ -856,10 +885,7 @@ Page({
       } 
     }
     
-    var step = that.data.stepText ;  //定义倒计时
-
-    console.log("XXXXXXX - TIME: "+step);
-    
+    var step = that.data.stepText ;  //定义倒计时    
 
     var num = -0.5;
     var decNum = 2/step/10
@@ -986,6 +1012,10 @@ Page({
         temp_key = key
         break;
       }
+    }
+
+    if (temp_key.length == 0) {
+      return
     }
 
     that.setData({
@@ -1227,7 +1257,7 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [20,countOne,1,6];
+        gameCount = [21,countOne,1,6];
         break;
       case 2:
         gameCount = [30,countTwo,1,6];
@@ -1264,6 +1294,8 @@ Page({
 
     if (this.data.age > 7) {
       pv = Math.floor(Math.random() * 2)
+      console.log("XXXXXX ---- " + pv);
+      
     }
 
     return {'color': tmpColor,
@@ -1297,7 +1329,7 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [15,countOne];
+        gameCount = [16,countOne];
         break;
       case 2:
         gameCount = [30,countTwo];
@@ -1559,7 +1591,6 @@ Page({
   },
 
   showYinDaoTu: function () {
-    console.log("引导图显示： "+this.data.yindaotuIndex);
     
     this.setData({
       hideGuoduye: true,

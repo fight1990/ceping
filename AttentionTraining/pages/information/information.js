@@ -26,8 +26,8 @@ Page({
     hideShadow: true, // 隐藏提示框
     rightCount: 0, //
     globalCount: 0, //
-    from: ""
-
+    from: "",
+    gameResult: []
   },
 
   /**
@@ -72,17 +72,25 @@ Page({
                   }
                 });
 
-                if (that.data.from == "ceping") {
-                  wx.redirectTo({
+                // if (that.data.from == "ceping") {
+                //   wx.redirectTo({
+                //     url: '/pages/zongheceping/zongheceping',
+                //   })
+                // } else {
+                //   wx.redirectTo({
+                //     url: '/pages/home/home',
+                //   })
+                // }
+                
+                if (that.data.gameResult.count > 0) {
+                  wx.navigateTo({
                     url: '/pages/zongheceping/zongheceping',
                   })
                 } else {
-                  wx.redirectTo({
+                  wx.navigateTo({
                     url: '/pages/home/home',
                   })
                 }
-                
-
 
 
 
@@ -370,10 +378,12 @@ Page({
     var rightCount = options.score
     var globalCount = options.times
     var from = options.from
+    var gameResult = options.gameResult
     this.setData({
       rightCount: rightCount,
       globalCount: globalCount,
-      from: from
+      from: from,
+      gameResult: gameResult
     })
   },
 
