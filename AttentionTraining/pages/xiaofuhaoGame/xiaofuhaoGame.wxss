@@ -100,8 +100,8 @@
   border-right: 1px solid black;
   text-align: center;
   width: 100%;
-  font-weight: 800;
-  font-size: 30rpx;
+  font-weight: bold;
+  font-size: 40rpx;
   color: black;
 }
 
