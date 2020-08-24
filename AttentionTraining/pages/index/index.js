@@ -47,6 +47,9 @@ Page({
                       wx.navigateTo({
                         url: '/pages/home/home',
                       })
+                      // wx.navigateTo({
+                      //   url: '/pages/transition/transition' + "?from=" + "index",
+                      // })
                     } else {
                       wx.navigateTo({
                         url: '/pages/transition/transition' + "?from=" + "index",

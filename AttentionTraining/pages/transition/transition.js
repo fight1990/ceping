@@ -60,9 +60,13 @@ Page({
    */
   registerTap: function () {
     var that = this
+    // wx.navigateTo({
+    //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+    // }) 
+
     wx.navigateTo({
-      url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
-    }) 
+      url: '/pages/information/information' + "?from=" + that.data.from
+    })
   },
 
   getUserInfoClick: function (e) {
@@ -82,12 +86,12 @@ Page({
                   })
                 } else {
                   wx.navigateTo({
-                    url: '/pages/information/information',
+                    url: '/pages/information/information' + "?from=" + that.data.from
                   })
                 }    
               } else {
                 wx.navigateTo({
-                  url: '/pages/information/information',
+                  url: '/pages/information/information' + "?from=" + that.data.from
                 })
               }
             },
@@ -126,12 +130,12 @@ Page({
                               })
                             } else {
                               wx.navigateTo({
-                                url: '/pages/information/information',
+                                url: '/pages/information/information' + "?from=" + that.data.from
                               })
                             }    
                           } else {
                             wx.navigateTo({
-                              url: '/pages/information/information',
+                              url: '/pages/information/information' + "?from=" + that.data.from
                             })
                           }
                         }                        
@@ -260,8 +264,11 @@ Page({
    * 稍后再填
    */
   laterTap: function () {
-    wx.navigateBack({
+    // wx.navigateBack({
       
+    // })
+    wx.navigateTo({
+      url: '/pages/home/home',
     })
   },
 
