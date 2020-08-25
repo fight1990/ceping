@@ -82,7 +82,7 @@ Page({
                 //   })
                 // }
                 
-                if (that.data.gameResult.count > 0) {
+                if (that.data.gameResult) {
                   wx.navigateTo({
                     url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + gameResult,
                   })
