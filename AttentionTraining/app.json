@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/transition/transition",  
-    "pages/home/home", 
+    "pages/transition/transition",
+    "pages/home/home",
     "pages/lights/lights",
     "pages/guide/guide",
     "pages/analysis/analysis",
@@ -23,7 +23,8 @@
     "pages/cePingInfo/cePingInfo",
     "pages/xiaofuhaoGame/xiaofuhaoGame",
     "pages/siterupuGame/siterupuGame",
-    "pages/kuaisujiyiGuide/kuaisujiyiGuide"
+    "pages/kuaisujiyiGuide/kuaisujiyiGuide",
+    "pages/zonghecepinginfo/zonghecepinginfo"
   ],
   "window": {
     "backgroundTextStyle": "light",

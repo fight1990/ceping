@@ -131,12 +131,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.makeGameDatas();
     
     // 计算年龄
     let age = util.getAge(wx.getStorageSync('age_player'))
-    this.data.age = parseInt(age)
+    this.setData({
+      age: age
+    })
     console.log(age)
+
+    this.makeGameDatas();
   },
 
   /**

@@ -84,10 +84,10 @@ Page({
                 
                 if (that.data.gameResult.count > 0) {
                   wx.navigateTo({
-                    url: '/pages/zongheceping/zongheceping',
+                    url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + gameResult,
                   })
                 } else {
-                  wx.navigateTo({
+                  wx.redirectTo({
                     url: '/pages/home/home',
                   })
                 }

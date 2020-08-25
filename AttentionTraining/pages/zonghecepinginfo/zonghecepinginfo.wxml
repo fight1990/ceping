@@ -1,0 +1,42 @@
+<!--pages/zonghecepinginfo/zonghecepinginfo.wxml-->
+<view>
+  <scroll-view>
+    <view class="user_info">
+      <view class="user_info_element"><text>{{userData.userName}} {{userData.sex}} {{userData.age}}</text></view>
+      <view class="user_info_element"><text>手机：{{userData.mobile}}</text></view>
+    </view>
+    <view class="score">
+      <view class="table_title">
+        <text>\n得分情况：\n</text>
+        <text>{{deFen.jdt}}</text>
+        <text>{{deFen.xfh}}</text>
+        <text>{{deFen.ksjy}}</text>
+        <text>{{deFen.strp}}</text>
+        <text>{{deFen.zsc}}</text>
+      </view>
+    </view>
+
+    <view class="ability">
+      <view class="table_title">
+        <text>\n能力体现：\n</text>
+        <text>{{tiXian.fy.title}}</text>
+        <text>{{tiXian.fy.scole}}</text>
+        <text>{{tiXian.fy.info}}</text>
+        <text>\n</text>
+        <text>{{tiXian.rz.title}}</text>
+        <text>{{tiXian.rz.scole}}</text>
+        <text>{{tiXian.rz.info}}</text>
+        <text>\n</text>
+        <text>{{tiXian.xx.title}}</text>
+        <text>{{tiXian.xx.scole}}</text>
+        <text>{{tiXian.xx.info}}</text>
+        <text>\n</text>
+        <text>{{tiXian.jy.title}}</text>
+        <text>{{tiXian.jy.scole}}</text>
+        <text>{{tiXian.jy.info}}</text>
+        <text>\n</text>
+      </view>
+    </view>
+    
+  </scroll-view>
+</view>
