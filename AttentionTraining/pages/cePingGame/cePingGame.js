@@ -880,7 +880,6 @@ Page({
     ctx.draw()
   },
   startCircleTime: function(ctx) {    
-    console.log("倒计时动画开始")
     var that = this
 
     if (this.data.hideGuoduye == true) {

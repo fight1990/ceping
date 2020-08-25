@@ -168,7 +168,7 @@
       </view>
     </view>
     <view class="bottom">
-      <button wx:if="{{currentGameType == 3}}" class="once-more" bindtap="sendGameDatasToSever">答题结束</button>
+      <button wx:if="{{currentGameType == 3}}" class="once-more" bindtap="sendGameDatasToSever">答题结束查看结果</button>
       <button wx:else class="once-more" bindtap="moreNextTap">下一游戏</button>
     </view>
   </view>
