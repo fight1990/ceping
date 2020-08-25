@@ -788,7 +788,7 @@ Page({
                     success: function (response) {
                       console.log(response)
                       wx.redirectTo({
-                        url: '/pages/zongheceping/zongheceping',
+                        url: '/pages/zonghecepinginfo/zonghecepinginfo',
                       })
                       // wx.navigateTo({
                       //   url: '/pages/transition/transition' + "?from=" + "ceping",
