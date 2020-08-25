@@ -86,10 +86,18 @@
           </view>
         </view>
       </view>
-      <view class="result-view">
+      <view wx:if="{{currentGameType != 1}}" class="result-view">
         <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
       </view>
-      <view hidden="{{hideBottom}}" class="bottom-view">
+      <view wx:else class="result-view-xfh">
+        <image hidden="{{hideResult}}" src="{{result == 0 ? '../../style/images/cuo.png':'../../style/images/dui.png'}}" class="{{result == 0 ? 'cross-image':'tick-image'}}"></image>
+      </view>
+      <view wx:if='{{disabled}}' hidden="{{hideBottom}}" class="bottom-view">
+          <button class="different-button">不同</button>
+          <view class="line-view"></view>
+          <button class="identical-button">相同</button>
+      </view>
+      <view wx:else hidden="{{hideBottom}}" class="bottom-view">
         <button class="different-button" bindtap="differentTap">不同</button>
         <view class="line-view"></view>
         <button class="identical-button" bindtap="identicalTap">相同</button>

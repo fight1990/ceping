@@ -47,6 +47,8 @@ var arcStack = [];  // 圆栈
 var bR = r - 8 * lineWidth;
 
 var constColors = ["Blue","Purple","Yellow","Green","Red"];
+
+var ksjyColor = '';
 /**
  * 0 -- 圆形
  * 3 -- 三角形
@@ -57,7 +59,7 @@ var constColors = ["Blue","Purple","Yellow","Green","Red"];
  */
 var constShapes = [0,3,4,5,6,8];
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
-const _tipContent2 = "&nbsp;&nbsp;&nbsp;颜色\n是否与前面相同"
+const _tipContent2 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;颜色\n是否与前面相同"
 
 var timestamp = Date.parse(new Date());  
 
@@ -125,6 +127,8 @@ Page({
     hiddenYinDaoTu: false,
     yindaotuIndex: 0,
     age: -1, // 年纪
+
+    disabled: false
   },
 
   /**
@@ -225,7 +229,14 @@ Page({
 
     that.setData({
       hideResult: false,
+      disabled: true
     })
+
+    setTimeout(function () {
+      that.setData({
+        disabled: false
+      })
+    }, 1000)
 
     if (this.data.currentGameType == 0) {
       console.log("XXXXXXX count:"+trafficlight_gameDatas.length+";index:"+that.data.selectedIndex);
@@ -342,7 +353,14 @@ Page({
 
     that.setData({
       hideResult: false,
+      disabled: true
     })
+
+    setTimeout(function () {
+      that.setData({
+        disabled: false
+      })
+    }, 1000)
 
     if (this.data.currentGameType == 0) {
       //交通灯
@@ -1252,10 +1270,10 @@ Page({
     let countTwo = 3
     let countThree = 2
 
-    if (this.data.age > 8) {
+    if (this.data.age > 7) {
       countOne = 3
       countTwo = 2
-      countThree = 1.5
+      countThree = 2.5
     }
 
     switch (level) {
@@ -1297,8 +1315,8 @@ Page({
 
     if (this.data.age > 7) {
       pv = Math.floor(Math.random() * 2)
-      console.log("XXXXXX ---- " + pv);
-      
+    } else {
+      tmpColor = ksjyColor;
     }
 
     return {'color': tmpColor,
@@ -1324,7 +1342,7 @@ Page({
     let countTwo = 3
     let countThree = 2
 
-    if (this.data.age  > 8) {
+    if (this.data.age  > 7) {
       countOne = 3
       countTwo = 2
       countThree = 1.5
@@ -1517,6 +1535,8 @@ Page({
     return results;
   },
   makeGameDatas: function() {
+    ksjyColor = this.randlist(constColors, 1)
+
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(2);
     var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(3);

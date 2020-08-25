@@ -13,6 +13,8 @@ var xiaofuhao_gameDatas = [];
 const xiaofuhao_symbols = ["@","#","%","《","*","(","{","}","》","】"]
 const xiaofuhao_number = ["0","1","2","3","4","5","6","7","8","9"]
 
+var isLoadingGame = false
+
 Page({
 
   /**

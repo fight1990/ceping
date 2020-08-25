@@ -345,6 +345,15 @@ button::after {
   align-items: center;
 }
 
+.result-view-xfh {
+  height: 80rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -430rpx;
+}
+
 .tick-image {
   height: 90rpx;
   width: 90rpx;
