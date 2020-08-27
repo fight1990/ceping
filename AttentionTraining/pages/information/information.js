@@ -26,7 +26,7 @@ Page({
     hideShadow: true, // 隐藏提示框
     rightCount: 0, //
     globalCount: 0, //
-    from: "",
+    from: '',
     gameResult: ''
   },
 
@@ -82,9 +82,9 @@ Page({
                 //   })
                 // }
                 
-                if (that.data.gameResult) {
+                if (that.data.gameResult != undefined) {
                   wx.navigateTo({
-                    url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + gameResult,
+                    url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + that.data.gameResult,
                   })
                 } else {
                   wx.redirectTo({

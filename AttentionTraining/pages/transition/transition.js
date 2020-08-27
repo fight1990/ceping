@@ -11,7 +11,7 @@ Page({
     rightCount: 0, //
     globalCount: 0, //
     hideResultShadow: true,
-    from: "",
+    from: '',
     gameResult:''
   },
 
@@ -61,13 +61,15 @@ Page({
    */
   registerTap: function () {
     var that = this
-    // wx.navigateTo({
-    //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
-    // }) 
-
-    wx.navigateTo({
-      url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount + "gameResult=" + that.data.gameResult+ "?from=" + that.data.from,
-    }) 
+    if (that.data.gameResult != undefined) {
+      wx.navigateTo({
+        url: '/pages/information/information' + "?gameResult=" + that.data.gameResult+ "&from=" + that.data.from,
+      }) 
+    } else {
+      wx.navigateTo({
+        url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
+      }) 
+    }
   },
 
   getUserInfoClick: function (e) {
