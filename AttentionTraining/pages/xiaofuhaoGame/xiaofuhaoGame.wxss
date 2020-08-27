@@ -225,7 +225,7 @@ button::after {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -280rpx;
+  margin-top: -40rpx;
   /* background-color: greenyellow; */
 }
 

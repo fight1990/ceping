@@ -46,7 +46,7 @@ var xoffset = 8 * lineWidth; // x 轴偏移量
 var arcStack = [];  // 圆栈
 var bR = r - 8 * lineWidth;
 
-var constColors = ["Blue","Purple","Yellow","Green","Red"];
+var constColors = ["Blue","Purple","Green","Red"];
 
 var ksjyColor = '';
 /**
@@ -57,7 +57,7 @@ var ksjyColor = '';
  * 6 -- 六边形
  * 8 -- 八边形
  */
-var constShapes = [0,3,4,5,6,8];
+var constShapes = [0,4,5,6,8];
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
 const _tipContent2 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;颜色\n是否与前面相同"
 
@@ -73,11 +73,11 @@ var siterupu_gameDatas = [];
 const xiaofuhao_symbols = ["@","#","%","《","*","(","{","}","》","】"]
 const xiaofuhao_number = ["0","1","2","3","4","5","6","7","8","9"]
 
-const siterupu_colors = ['red','yellow','green','blue','purple']
-const siterupu_words = ['纡','红','璜','黄','录','绿','监','蓝','橴','紫']
-const siterupu_words_simple = ['红','黄','绿','蓝','紫']
+const siterupu_colors = ['red','green','blue','purple']
+const siterupu_words = ['纡','红','录','绿','监','蓝','橴','紫']
+const siterupu_words_simple = ['红','绿','蓝','紫']
 
-const siterupu_wordForColor = {'red':'红','yellow':'黄','green':'绿','blue':'蓝','purple':'紫'}
+const siterupu_wordForColor = {'red':'红','green':'绿','blue':'蓝','purple':'紫'}
 
  var jtd_list = []
  var xfh_list = []
@@ -758,29 +758,29 @@ Page({
       type: 0,
       time: that.data.jtd_time,
       correctNumber: that.data.jtd_correct,
-      accuracy: trafficlight_gameDatas.length,
-      score: that.data.jtd_correct/trafficlight_gameDatas.length*1.0,
+      score: that.data.jtd_correct,
+      accuracy: that.data.jtd_correct/(trafficlight_gameDatas.length-1)*1.0,
       list: jtd_list
     },{
       type: 1,
       time:that.data.xfh_time,
       correctNumber: that.data.xfh_correct,
-      accuracy: xiaofuhao_gameDatas.length,
-      score: that.data.xfh_correct/xiaofuhao_gameDatas.length*1.0,
+      accuracy: that.data.xfh_correct/83*1.0,
+      score: that.data.xfh_correct,
       list: xfh_list
     },{
       type: 2,
       time:that.data.ksjy_time,
       correctNumber: that.data.ksjy_correct,
-      accuracy: ksjy_gameDatas.length,
-      score: that.data.ksjy_correct/ksjy_gameDatas.length*1.0,
+      accuracy: that.data.ksjy_correct/(ksjy_gameDatas.length-1)*1.0,
+      score: that.data.ksjy_correct,
       list: ksjy_list
     },{
       type: 3,
       time:that.data.strp_time,
       correctNumber: that.data.strp_correct,
-      accuracy: siterupu_gameDatas.length,
-      score: that.data.strp_correct/siterupu_gameDatas.length*1.0,
+      accuracy: that.data.strp_correct/siterupu_gameDatas.length*1.0,
+      score: that.data.strp_correct,
       list: strp_list
     }]
 
@@ -943,17 +943,44 @@ Page({
         } /*else if(that.data.hiddenYinDaoTu == false) {
           that.showGuideView();
         } */else {
+
+          if ((that.data.currentGameType == 0 || that.data.currentGameType == 2) && that.data.selectedIndex == 0) {
+            
+          } else {
+            that.setData({
+              hideResult: false,
+              disabled: true,
+              result: 0,
+              disabled: false
+            })
+          }
+
+
           if(that.data.currentGameType == 1) {
             if(that.data.selectedIndex < 7) {
               that.setData({
                 selectedIndex: 6
               })
-              that.doNext();
+              // 下一题
+              setTimeout(function () {
+                that.doNext();
+              }, 1000);
             } else {
               that.lastQuestion()
             }
           } else {
-            that.doNext()
+            // 下一题
+            if (that.data.currentGameType == 0) {
+              jtd_list.push[0]
+            } else if (that.data.currentGameType == 2) {
+              ksjy_list.push[0]
+            } else if (that.data.currentGameType == 3){
+              strp_list.push[0]
+            }
+
+            setTimeout(function () {
+              that.doNext();
+            }, 1000);
           }
         }
       }
@@ -1277,13 +1304,13 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [21,countOne,1,6];
+        gameCount = [21,countOne,1,5];
         break;
       case 2:
-        gameCount = [30,countTwo,1,6];
+        gameCount = [30,countTwo,1,5];
         break;
       case 3:
-        gameCount = [35,countThree,5,6];
+        gameCount = [35,countThree,4,5];
           break;
       default:
         break;

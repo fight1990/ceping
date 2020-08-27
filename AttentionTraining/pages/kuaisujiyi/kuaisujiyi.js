@@ -47,7 +47,7 @@ var rotateNumber = 0;//旋转度数
 var kMaxTime = 5000; //倒计时时间
 var timestamp = Date.parse(new Date());  
 
-var constColors = ["Blue","Purple","Yellow","Green","Red"];
+var constColors = ["Blue","Purple","Green","Red"];
 /**
  * 0 -- 圆形
  * 3 -- 三角形
@@ -56,7 +56,7 @@ var constColors = ["Blue","Purple","Yellow","Green","Red"];
  * 6 -- 六边形
  * 8 -- 八边形
  */
-var constShapes = [0,3,4,5,6,8];
+var constShapes = [0,4,5,6,8];
 var gameDatas = [];
 
 const _tipContent1 = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;形状\n是否与前面相同"
@@ -728,13 +728,13 @@ Page({
      */
     switch (level) {
       case 1:
-        gameCount = [15,4,1,6];
+        gameCount = [15,4,1,5];
         break;
       case 2:
-        gameCount = [20,3,1,6];
+        gameCount = [20,3,1,5];
         break;
       case 3:
-        gameCount = [35,2,5,6];
+        gameCount = [35,2,4,5];
           break;
       default:
         break;
