@@ -27,7 +27,7 @@ Page({
     rightCount: 0, //
     globalCount: 0, //
     from: "",
-    gameResult: []
+    gameResult: ''
   },
 
   /**

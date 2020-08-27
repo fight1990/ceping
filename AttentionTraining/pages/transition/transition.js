@@ -12,7 +12,7 @@ Page({
     globalCount: 0, //
     hideResultShadow: true,
     from: "",
-    gameResult:[]
+    gameResult:''
   },
 
   /**

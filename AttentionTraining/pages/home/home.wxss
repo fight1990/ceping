@@ -139,9 +139,9 @@
 }
 
 .report-button {
-  margin-left: -40rpx;
+  margin-left: -50rpx;
   height: 60rpx;
-  width: 206rpx;
+  width: 216rpx;
   line-height: 60rpx;
   font-size: 36rpx;
   color: #303030;

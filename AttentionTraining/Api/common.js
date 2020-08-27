@@ -196,7 +196,7 @@ function saveGamesData(params) {
   wx.request({
     url: config.saveGamesData,
     data: params.data,
-    method: 'GET',
+    method: 'POST',
     success: function (res) {
       params.success(res.data)
     },

@@ -258,7 +258,7 @@ Page({
         that.setData({
           result: 0
         })
-        jtd_list.push[0]
+        jtd_list.push(0)
       }
       if(that.data.selectedIndex == trafficlight_gameDatas.length-1) {
         that.lastQuestion()
@@ -294,12 +294,12 @@ Page({
           rightCount: count,
           result: 1
         })
-        ksjy_list.push[1]
+        ksjy_list.push(1)
       } else {
         that.setData({
           result: 0
         })
-        ksjy_list.push[0]
+        ksjy_list.push(0)
       }
       if(that.data.selectedIndex == ksjy_gameDatas.length-1) {
         that.lastQuestion()
@@ -325,7 +325,7 @@ Page({
           rightCount: count,
           result: 1
         })
-        strp_list.push[1]
+        strp_list.push(1)
       } else {
         that.setData({
           result: 0
@@ -714,7 +714,7 @@ Page({
     } else if (this.data.currentGameType == 1) {
       //小符号
       var timesend = Date.parse(new Date());  
-      var spandTimer = Math.floor((timesend - timestamp) / 1000);
+      var spandTimer = Math.floor((timesend - timestamp) / 1000) - xiaofuhao_gameDatas.length;
 
       var rightCount = that.data.rightCount
       that.setData({
@@ -740,7 +740,7 @@ Page({
     }  else if (this.data.currentGameType == 3) {
       //斯特如普
       var timesend = Date.parse(new Date());  
-      var spandTimer = Math.floor((timesend - timestamp) / 1000);
+      var spandTimer = Math.floor((timesend - timestamp) / 1000) - siterupu_gameDatas.length;
 
       var rightCount = that.data.rightCount
       that.setData({
@@ -799,7 +799,7 @@ Page({
                     userid: result.user.id,
                     nickname: res.data.nickName,
                     headUrl: res.data.avatarUrl,
-                    data: gameResult
+                    data: JSON.stringify(gameResult)
                   }
                   api.saveGamesData({
                     data: params,
@@ -818,12 +818,12 @@ Page({
                   })
                 } else {
                   wx.navigateTo({
-                    url: '/pages/transition/transition' + "?gameResult=" + gameResult + "&from=" + "ceping",
+                    url: '/pages/transition/transition' + "?gameResult=" + JSON.stringify(gameResult) + "&from=" + "ceping",
                   })
                 }    
               } else {
                 wx.navigateTo({
-                  url: '/pages/transition/transition' + "?gameResult=" + gameResult + "&from=" + "ceping",
+                  url: '/pages/transition/transition' + "?gameResult=" + JSON.stringify(gameResult) + "&from=" + "ceping",
                 })
               }
             },
@@ -835,7 +835,7 @@ Page({
       },
       fail: function (res) {
         wx.navigateTo({
-          url: '/pages/transition/transition' + "?gameResult=" + gameResult,
+          url: '/pages/transition/transition' + "?gameResult=" + JSON.stringify(gameResult),
         })
       }
     })
@@ -971,11 +971,11 @@ Page({
           } else {
             // 下一题
             if (that.data.currentGameType == 0) {
-              jtd_list.push[0]
+              jtd_list.push(0)
             } else if (that.data.currentGameType == 2) {
-              ksjy_list.push[0]
+              ksjy_list.push(0)
             } else if (that.data.currentGameType == 3){
-              strp_list.push[0]
+              strp_list.push(0)
             }
 
             setTimeout(function () {
@@ -1339,7 +1339,7 @@ Page({
     var tmpShape = shapes[j];
     var pv = 0 //1 判断颜色, 0判断形状
 
-    if (this.data.age > 7) {
+    if (this.data.age > 7 && level == 3) {
       pv = Math.floor(Math.random() * 2)
     } else {
       tmpColor = ksjyColor;
