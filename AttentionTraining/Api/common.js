@@ -197,6 +197,9 @@ function saveGamesData(params) {
     url: config.saveGamesData,
     data: params.data,
     method: 'POST',
+    header:{
+      'content-type': 'application/x-www-form-urlencoded',
+    },
     success: function (res) {
       params.success(res.data)
     },
