@@ -8,10 +8,11 @@
     <view class="score">
       <view class="table_title">
         <text>\n得分情况：\n</text>
-        <text>{{deFen.jdt}}</text>
+        <text>{{deFen.jtd}}</text>
         <text>{{deFen.xfh}}</text>
         <text>{{deFen.ksjy}}</text>
         <text>{{deFen.strp}}</text>
+        <text>\n</text>
         <text>{{deFen.zsc}}</text>
       </view>
     </view>

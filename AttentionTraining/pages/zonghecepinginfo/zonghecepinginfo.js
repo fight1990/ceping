@@ -161,27 +161,63 @@ Page({
                     data: { openid: res.data.openid },
                     success: function (result) {
                       if (result.code == 1) { 
-                        var fy_score = Math.floor(result.data.score0*0.4+result.data.score1*0.4+result.data.score2*0.1+result.data.score3*0.1);
-                        var rz_score = Math.floor(result.data.score0*0.1+result.data.score1*0.1+result.data.score2*0.4+result.data.score3*0.4);
-                        var xx_score = Math.floor(result.data.score0*0.1+result.data.score1*0.15+result.data.score2*0.15+result.data.score3*0.6);
-                        var jy_score = Math.floor(result.data.score0*0.05+result.data.score1*0.1+result.data.score2*0.7+result.data.score3*0.15);
+                        var fy_score = result.data.score0?result.data.score0:'-';
+                        var rz_score = result.data.score1?result.data.score1:'-';
+                        var xx_score = result.data.score2?result.data.score2:'-';
+                        var jy_score = result.data.score3?result.data.score3:'-';
 
-                        var fy_percentage = that.normalDistribution(fy_score);
-                        var rz_percentage = that.normalDistribution(rz_score);
-                        var xx_percentage = that.normalDistribution(xx_score);
-                        var jy_percentage = that.normalDistribution(jy_score);
+                        var fy_percentage = result.data.percentage0?result.data.percentage0:'-';
+                        var rz_percentage = result.data.percentage1?result.data.percentage1:'-';
+                        var xx_percentage = result.data.percentage2?result.data.percentage2:'-';
+                        var jy_percentage = result.data.percentage3?result.data.percentage3:'-';
 
-                        var jtd_time = result.data.time0?result.data.time0:0
-                        var xfh_time = result.data.time1?result.data.time1:0
-                        var ksjy_time = result.data.time2?result.data.time2:0
-                        var strp_time = result.data.time3?result.data.time3:0
+                        var jtd_time = result.data.time0?result.data.time0:'-'
+                        var xfh_time = result.data.time1?result.data.time1:'-'
+                        var ksjy_time = result.data.time2?result.data.time2:'-'
+                        var strp_time = result.data.time3?result.data.time3:'-'
+
+                        var jtd_score = 0,xfh_score = 0,ksjy_score = 0,strp_score = 0;
+                        var jtd_percent =0.0,xfh_percent = 0.0,ksjy_percent = 0.0,strp_percent = 0.0;
+
+                        var jtd_list = result.data.scantron0.split(",");
+                        var xfh_list = result.data.scantron1.split(",");
+                        var ksjy_list = result.data.scantron2.split(",");
+                        var strp_list = result.data.scantron3.split(",");
+
+                        for (var value in jtd_list) {
+                          if (value == '1') {
+                            jtd_score++;
+                          }
+                        }
+                        jtd_percent = (jtd_score/jtd_list.length * 100).toFixed(2)
+
+                        for (var value in xfh_list) {
+                          if (value == '1') {
+                            xfh_score++;
+                          }
+                        }
+                        xfh_percent = (xfh_score/xfh_list.length * 100).toFixed(2)
+
+                        for (var value in ksjy_list) {
+                          if (value == '1') {
+                            ksjy_score++;
+                          }
+                        }
+                        ksjy_percent = (ksjy_score/ksjy_list.length * 100).toFixed(2)
+
+                        for (var value in strp_list) {
+                          if (value == '1') {
+                            strp_score++;
+                          }
+                        }
+                        strp_percent = (strp_score/strp_list.length * 100).toFixed(2)
 
                         that.setData({
                           deFen: {
-                            jtd: '交通灯：用时'+jtd_time+'秒，正确数'+result.data.score0+'题，正确率'+(result.data.percentage0*100).toFixed(2)+'%，得分'+result.data.score0+'分；\n',
-                            xfh: '小符号：用时'+xfh_time+'秒，正确数'+result.data.score1+'题，正确率'+(result.data.percentage1*100).toFixed(2)+'%，得分'+result.data.score1+'分；\n',
-                            ksjy: '快速记忆：用时'+ksjy_time+'秒，正确数'+result.data.score2+'题，正确率'+(result.data.percentage2*100).toFixed(2)+'%，得分'+result.data.score2+'分；\n',
-                            strp: '斯特如普：用时'+strp_time+'秒，正确数'+result.data.score3+'题，正确率'+(result.data.percentage3*100).toFixed(2)+'%，得分'+result.data.score3+'分；\n',
+                            jtd: '交通灯：用时'+jtd_time+'秒，正确数'+jtd_score+'题，正确率'+jtd_percent+'%，得分'+jtd_score+'分；\n',
+                            xfh: '小符号：用时'+xfh_time+'秒，正确数'+xfh_score+'题，正确率'+xfh_percent+'%，得分'+xfh_score+'分；\n',
+                            ksjy: '快速记忆：用时'+ksjy_time+'秒，正确数'+ksjy_score+'题，正确率'+ksjy_percent+'%，得分'+ksjy_score+'分；\n',
+                            strp: '斯特如普：用时'+strp_time+'秒，正确数'+strp_score+'题，正确率'+strp_percent+'%，得分'+strp_score+'分；\n',
                             zsc: '总用时长：'+ result.data.times +'秒'
                           },
                           tiXian: {
