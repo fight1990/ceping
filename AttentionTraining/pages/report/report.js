@@ -99,8 +99,16 @@ Page({
    */
   showDetailTap: function (e) {
     var that = this
-    console.log(e)
     var gameid = e.currentTarget.dataset.gameid
+    var gametype = e.currentTarget.dataset.gametype
+
+    if (gametype == 1) {
+     wx.navigateTo({
+       url: '/pages/zonghecepinginfo/zonghecepinginfo',
+     })
+      return
+    }
+
     that.setData({
       showDetail: true,
     })
@@ -176,11 +184,20 @@ Page({
           api.checkBaogao({
             data: { openid: res.data.openid },
             success: function (res) {
-              var list = res.games
+              var list = [].concat(res.games)
               for (var i = 0; i < list.length;i++) {
                 var obj = list[i]
                 obj.time = that.formatTimeTwo(obj.creatime/1000, 'Y/M/D h:m')
 
+              }
+
+              var ceping = res.ceping
+              if (ceping) {
+                ceping.zhcp = true
+                ceping.id = 'zhcp'
+                ceping.type = 1
+                ceping.time = that.formatTimeTwo(ceping.creatime/1000, 'Y/M/D h:m')
+                list = list.concat([ceping])
               }
               var user = res.user
               user.birth = that.getChaYMD(user.age / 1000)

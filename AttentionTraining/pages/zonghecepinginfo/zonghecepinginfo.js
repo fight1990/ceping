@@ -161,20 +161,20 @@ Page({
                     data: { openid: res.data.openid },
                     success: function (result) {
                       if (result.code == 1) { 
-                        var fy_score = result.data.score0?result.data.score0:'-';
-                        var rz_score = result.data.score1?result.data.score1:'-';
-                        var xx_score = result.data.score2?result.data.score2:'-';
-                        var jy_score = result.data.score3?result.data.score3:'-';
+                        var fy_score = result.data.score0;
+                        var rz_score = result.data.score1;
+                        var xx_score = result.data.score2;
+                        var jy_score = result.data.score3;
 
-                        var fy_percentage = result.data.percentage0?result.data.percentage0:'-';
-                        var rz_percentage = result.data.percentage1?result.data.percentage1:'-';
-                        var xx_percentage = result.data.percentage2?result.data.percentage2:'-';
-                        var jy_percentage = result.data.percentage3?result.data.percentage3:'-';
+                        var fy_percentage = result.data.percentage0;
+                        var rz_percentage = result.data.percentage1;
+                        var xx_percentage = result.data.percentage2;
+                        var jy_percentage = result.data.percentage3;
 
-                        var jtd_time = result.data.time0?result.data.time0:'-'
-                        var xfh_time = result.data.time1?result.data.time1:'-'
-                        var ksjy_time = result.data.time2?result.data.time2:'-'
-                        var strp_time = result.data.time3?result.data.time3:'-'
+                        var jtd_time = result.data.time0
+                        var xfh_time = result.data.time1
+                        var ksjy_time = result.data.time2
+                        var strp_time = result.data.time3
 
                         var jtd_score = 0,xfh_score = 0,ksjy_score = 0,strp_score = 0;
                         var jtd_percent =0.0,xfh_percent = 0.0,ksjy_percent = 0.0,strp_percent = 0.0;
@@ -189,28 +189,28 @@ Page({
                             jtd_score++;
                           }
                         }
-                        jtd_percent = (jtd_score/jtd_list.length * 100).toFixed(2)
+                        jtd_percent = ((jtd_score/jtd_list.length) * 100).toFixed(2)
 
                         for (var value in xfh_list) {
                           if (value == '1') {
                             xfh_score++;
                           }
                         }
-                        xfh_percent = (xfh_score/xfh_list.length * 100).toFixed(2)
+                        xfh_percent = ((xfh_score/xfh_list.length) * 100).toFixed(2)
 
                         for (var value in ksjy_list) {
                           if (value == '1') {
                             ksjy_score++;
                           }
                         }
-                        ksjy_percent = (ksjy_score/ksjy_list.length * 100).toFixed(2)
+                        ksjy_percent = ((ksjy_score/ksjy_list.length) * 100).toFixed(2)
 
                         for (var value in strp_list) {
                           if (value == '1') {
                             strp_score++;
                           }
                         }
-                        strp_percent = (strp_score/strp_list.length * 100).toFixed(2)
+                        strp_percent = ((strp_score/strp_list.length) * 100).toFixed(2)
 
                         that.setData({
                           deFen: {
