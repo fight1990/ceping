@@ -176,38 +176,44 @@ Page({
                         var ksjy_time = result.data.time2
                         var strp_time = result.data.time3
 
-                        var jtd_score = 0,xfh_score = 0,ksjy_score = 0,strp_score = 0;
-                        var jtd_percent =0.0,xfh_percent = 0.0,ksjy_percent = 0.0,strp_percent = 0.0;
+                        var jtd_score = 0
+                        var xfh_score = 0
+                        var ksjy_score = 0
+                        var strp_score = 0
+                        var jtd_percent =0.0
+                        var xfh_percent = 0.0
+                        var ksjy_percent = 0.0
+                        var strp_percent = 0.0
 
                         var jtd_list = result.data.scantron0.split(",");
                         var xfh_list = result.data.scantron1.split(",");
                         var ksjy_list = result.data.scantron2.split(",");
                         var strp_list = result.data.scantron3.split(",");
 
-                        for (var value in jtd_list) {
-                          if (value == '1') {
-                            jtd_score++;
+                        for (var index in jtd_list) {
+                          if (jtd_list[index] == '1') {
+                            jtd_score += 1;
                           }
                         }
                         jtd_percent = ((jtd_score/jtd_list.length) * 100).toFixed(2)
 
-                        for (var value in xfh_list) {
-                          if (value == '1') {
-                            xfh_score++;
+                        for (var index in xfh_list) {
+                          if (xfh_list[index] == '1') {
+                            xfh_score += 1;
                           }
                         }
                         xfh_percent = ((xfh_score/xfh_list.length) * 100).toFixed(2)
 
-                        for (var value in ksjy_list) {
-                          if (value == '1') {
-                            ksjy_score++;
+                        for (var index in ksjy_list) {
+                          if (ksjy_list[index] == '1') {
+                            ksjy_score += 1;
                           }
                         }
                         ksjy_percent = ((ksjy_score/ksjy_list.length) * 100).toFixed(2)
 
-                        for (var value in strp_list) {
-                          if (value == '1') {
-                            strp_score++;
+                        for (var index in strp_list) {
+                          if (strp_list[index] == '1') {
+                            strp_score += 1;
                           }
                         }
                         strp_percent = ((strp_score/strp_list.length) * 100).toFixed(2)
