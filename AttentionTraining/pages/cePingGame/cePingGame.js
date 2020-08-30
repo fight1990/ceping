@@ -1561,7 +1561,7 @@ Page({
     return results;
   },
   makeGameDatas: function() {
-    ksjyColor = this.randlist(constColors, 1)
+    ksjyColor = this.randlist(constColors, 1)[0]
 
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
     var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(2);

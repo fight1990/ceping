@@ -186,9 +186,12 @@ Page({
             success: function (res) {
               var list = [].concat(res.games)
               for (var i = 0; i < list.length;i++) {
-                var obj = list[i]
-                obj.time = that.formatTimeTwo(obj.creatime/1000, 'Y/M/D h:m')
-
+                if (Object.keys(list[i]).length === 0) {
+                  list.splice(i, 1)
+                } else {
+                  var obj = list[i]
+                  obj.time = that.formatTimeTwo(obj.creatime/1000, 'Y/M/D h:m')
+                }
               }
 
               var ceping = res.ceping
@@ -199,6 +202,9 @@ Page({
                 ceping.time = that.formatTimeTwo(ceping.creatime/1000, 'Y/M/D h:m')
                 list = list.concat([ceping])
               }
+
+              list.sort(that.compare('creatime'))
+
               var user = res.user
               user.birth = that.getChaYMD(user.age / 1000)
               var newAge = that.getAge(that.formatTimeTwo(user.age/ 1000, 'Y/M/D h:m'))
@@ -215,8 +221,15 @@ Page({
         }
       }
     })
+  },
 
-   
+  //json数组比较
+  compare:function (property) {
+    return function (a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value2 - value1;
+    }
   },
 
   /**
