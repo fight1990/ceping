@@ -25,7 +25,7 @@ Page({
       gId : "jtd",
       title : "专注力交通灯",
       url : "/pages/start/start",
-      url_guide: "",
+      url_guide: "/pages/start/start",
       guide_key: ""
     },{
       imgUrl : "xfh",
@@ -265,7 +265,7 @@ Page({
 
 
     // 是否显示vip弹框
-    if (gotoUrl != '/pages/cePingGame/cePingGame' && gotoUrl != " ") { 
+    if (gotoUrl != '/pages/cePingGame/cePingGame' && gotoUrl != '/pages/start/start' && gotoUrl != " ") { 
       // that.checkVIP()
       let vipStatus = wx.getStorageSync('IAMVIP')
       if (vipStatus != '') {

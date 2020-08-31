@@ -211,7 +211,7 @@ Page({
   */
   showResultTap: function () {
     var that = this
-    var totalCorrect = that.data.jtd_correct + that.data.xfh_time + that.data.ksjy_correct + that.data.strp_correct;
+    var totalCorrect = that.data.jtd_correct + that.data.xfh_correct + that.data.ksjy_correct + that.data.strp_correct;
     var totalTime = that.data.jtd_time + that.data.xfh_time + that.data.ksjy_time + that.data.strp_time;
     that.setData({
       hideResultShadow: false,
@@ -1561,6 +1561,8 @@ Page({
     return results;
   },
   makeGameDatas: function() {
+    this.clearAllData()
+
     ksjyColor = this.randlist(constColors, 1)[0]
 
     var trafficlight_gameDatas1 = this.getTraffixLightDataWithLevel(1);
@@ -1686,6 +1688,44 @@ Page({
       yindaotuIndex: 0
     })
     that.moreNextTap()
+  },
+
+  clearAllData: function () {
+    var that = this
+
+    that.setData({
+      selectedIndex: -1,
+      result: 0, 
+      count: 4,
+      globalTimer: 0,
+      rightCount: 0,
+      scrId: 0,
+      hideThreeShadow: true,
+      hideResultShadow: true,
+
+      currentGameType: 0,
+
+      jtd_time: 0,
+      jtd_correct: 0,
+      xfh_time: 0,
+      xfh_correct: 0,
+      ksjy_time: 0,
+      ksjy_correct: 0,
+      strp_time: 0,
+      strp_correct: 0,
+
+      // 过渡页、引导页参数
+      hideGuoduye: true,
+      guoduyeTitle: "即将进入小符号游戏",
+
+      hiddenYinDaoTu: false,
+      yindaotuIndex: 0
+    })
+
+    jtd_list = [],
+    xfh_list = [],
+    ksjy_list = [],
+    strp_list = []
   }
 
 })
