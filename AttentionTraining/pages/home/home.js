@@ -248,6 +248,14 @@ Page({
    */
   gotoStart:function (event) {
     var that = this
+    
+    let gotoUrl = event.currentTarget.dataset['url'];
+    let guide_key = event.currentTarget.dataset['guidekey'];
+    let guide_url = event.currentTarget.dataset['guideurl'];
+
+    if (gotoUrl == undefined || gotoUrl.length <= 0) {
+      return
+    }
 
     if (that.data.userInfo != true) {
       // 提示登录
@@ -257,12 +265,6 @@ Page({
       })
       return
     }
-
-    let gotoUrl = event.currentTarget.dataset['url'];
-    let guide_key = event.currentTarget.dataset['guidekey'];
-    let guide_url = event.currentTarget.dataset['guideurl'];
-
-
 
     // 是否显示vip弹框
     if (gotoUrl != '/pages/cePingGame/cePingGame' && gotoUrl != '/pages/start/start' && gotoUrl != " ") { 

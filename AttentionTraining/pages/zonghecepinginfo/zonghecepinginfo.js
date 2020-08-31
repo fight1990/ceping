@@ -154,6 +154,9 @@ Page({
             success: function (result) {
               if (result.user) { 
                 if (result.user.state == 1) { // 已注册
+                  if (result.user.age != undefined && age <= 0) {
+                    age = result.user.age
+                  }
                   that.setData({
                     userData: {
                       userName: result.user.name,

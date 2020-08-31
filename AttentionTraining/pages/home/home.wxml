@@ -33,7 +33,7 @@
           <view wx:if="{{item.imgUrl}}">
             <image src='../../style/images/{{item.imgUrl}}.png'></image>
           </view>
-          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" bindtap="showVip">
+          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" bindtap="">
             <view class="item-tip">
               <text>暂未开通</text>
             </view> 
@@ -52,7 +52,7 @@
           <view wx:if="{{item.imgUrl}}">
             <image src='../../style/images/{{item.imgUrl}}.png'></image>
           </view> 
-          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}"  bindtap="showVip">
+          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}"  bindtap="">
             <view class="item-tip">
               <text>暂未开通</text>
             </view> 
