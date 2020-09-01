@@ -57,6 +57,8 @@ Page({
       this.setData({
         gameData: JSON.parse(gameResult)
       })
+    } else {
+      this.getGameData()
     }
   },
 
@@ -64,7 +66,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getGameData()
+    // this.getGameData()
   },
 
   /**
@@ -110,27 +112,36 @@ Page({
   },
 
   uploadGameData: function(gameResult) {
+    var that =this
 
     wx.getStorage({
       key: 'userInfo',
       success: function (res) {
         if (res.data) {
-          var params = {
-            openid: res.data.openid,
-            userid: result.user.id,
-            nickname: res.data.nickName,
-            headUrl: res.data.avatarUrl,
-            data: gameResult
-          }
-          api.saveGamesData({
-            data: params,
-            success: function (response) {
-              console.log(response)
+          api.goToWeChat({
+            data: { openid: res.data.openid },
+            success: function (result) {
+              var params = {
+                openid: res.data.openid,
+                userid: result.user.id,
+                nickname: res.data.nickName,
+                headUrl: res.data.avatarUrl,
+                data: gameResult
+              }
+              api.saveGamesData({
+                data: params,
+                success: function (response) {
+                  console.log(response)
+                  that.getGameData()
+                },
+                fail: function (res) {
+                  
+                }
+              })
             },
-            fail: function (res) {
-              
+            fail: function(error) {
             }
-          })
+          });
         }
       },
       fail:function (res){
@@ -164,7 +175,7 @@ Page({
                     },
                   })
 
-                  if (that.data.gameData != undefined) {
+                  if (0/*that.data.gameData != undefined*/) {
                     var fy_score = that.data.gameData.score0;
                     var rz_score = that.data.gameData.score1;
                     var xx_score = that.data.gameData.score2;
