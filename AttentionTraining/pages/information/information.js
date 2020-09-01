@@ -83,8 +83,9 @@ Page({
                 // }
                 
                 if (that.data.gameResult != undefined) {
+                // if (that.data.from == "ceping") {
                   wx.navigateTo({
-                    url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + that.data.gameResult,
+                    url: '/pages/zonghecepinginfo/zonghecepinginfo' + '?gameResult=' + that.data.gameResult +'&from=ceping',
                   })
                 } else {
                   wx.redirectTo({

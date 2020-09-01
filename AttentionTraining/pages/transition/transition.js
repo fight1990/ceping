@@ -89,12 +89,12 @@ Page({
                   })
                 } else {
                   wx.navigateTo({
-                    url: '/pages/information/information' + "?from=" + that.data.from
+                    url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult
                   })
                 }    
               } else {
                 wx.navigateTo({
-                  url: '/pages/information/information' + "?from=" + that.data.from
+                  url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult
                 })
               }
             },
@@ -133,12 +133,12 @@ Page({
                               })
                             } else {
                               wx.navigateTo({
-                                url: '/pages/information/information' + "?from=" + that.data.from
+                                url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult
                               })
                             }    
                           } else {
                             wx.navigateTo({
-                              url: '/pages/information/information' + "?from=" + that.data.from
+                              url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult
                             })
                           }
                         }                        
@@ -237,12 +237,12 @@ Page({
                           })
                         } else {
                           wx.navigateTo({
-                            url: '/pages/information/information' + "?from=" + that.data.from ,
+                            url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult ,
                           })
                         }
                       } else {
                         wx.navigateTo({
-                          url: '/pages/information/information' + "?from=" + that.data.from
+                          url: '/pages/information/information' + "?from=" + that.data.from + '&gameResult='+that.data.gameResult
                         })
                       }
                     },

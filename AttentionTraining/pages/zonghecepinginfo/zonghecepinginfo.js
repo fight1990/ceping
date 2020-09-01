@@ -52,12 +52,10 @@ Page({
    */
   onLoad: function (options) {
     var gameResult = options.gameResult
-    var gameData = options.gameData
     if (gameResult) {
       this.uploadGameData(gameResult)
-    } else if (gameData != undefined) {
       this.setData({
-        gameData: JSON.parse(gameData)
+        gameData: JSON.parse(gameResult)
       })
     }
   },
