@@ -286,7 +286,7 @@ Page({
     } 
       
     let age =  wx.getStorageSync('age_player')
-    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age.length == 0 )) {
+    if((gotoUrl == '/pages/cePingGame/cePingGame') && (age && age.length == 0 )) {
       wx.redirectTo({
         url: '/pages/cePingInfo/cePingInfo',
       })
@@ -340,7 +340,7 @@ Page({
             data: { openid: res.data.openid },
             success: function (result) {
               var hasReports = false
-              if (result.games.length>0) {
+              if (result.games && result.games.length>0) {
                 hasReports = true
                 that.setData({
                   record: result.record,
