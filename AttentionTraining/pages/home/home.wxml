@@ -39,9 +39,9 @@
             </view> 
           </view>
           <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" data-guidekey="{{item.guide_key}}" data-guideurl="{{item.url_guide}}" bindtap="gotoStart">
-            <!-- <view wx:if="{{userInfo}}" hidden="{{!hasReports}}" class="time">
+            <view wx:if="{{userInfo && item.gId == 'jtd' && record}}" hidden="{{!hasReports}}" class="time">
               <text>{{record.score}}题 {{record.times}}秒</text>
-            </view> -->
+            </view>
           </view>
         </view>
       </block>
@@ -58,9 +58,9 @@
             </view> 
           </view>
           <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" data-guidekey="{{item.guide_key}}" data-guideurl="{{item.url_guide}}" bindtap="gotoStart">
-            <!-- <view wx:if="{{userInfo}}" hidden="{{!hasReports}}" class="time">
+            <view wx:if="{{userInfo && item.gId == 'jtd' && record}}" hidden="{{!hasReports}}" class="time">
               <text>{{record.score}}题 {{record.times}}秒</text>
-            </view> -->
+            </view>
           </view>
         </view>
       </block>
