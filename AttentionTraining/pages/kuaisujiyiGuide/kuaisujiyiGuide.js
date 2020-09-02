@@ -489,7 +489,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.makeGameDatas();
+    this.makeGameDatas();
   },
 
   /**
@@ -498,11 +498,7 @@ Page({
   onReady: function () {
     var that = this;
     // that.waveCreater();
-    // if (that.data.share == true) {
-    //   that.shareTap()
-    // } else {
-    //   that.moreTap()
-    // }
+    // that.moreTap()
   },
 
   /**
