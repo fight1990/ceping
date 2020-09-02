@@ -489,16 +489,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.makeGameDatas();
+    // this.makeGameDatas();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    _animationIndex = 0;
-    _animationIntervalId = -1;
-    this.data.animationRotate = ''; 
+    var that = this;
+    // that.waveCreater();
+    // if (that.data.share == true) {
+    //   that.shareTap()
+    // } else {
+    //   that.moreTap()
+    // }
   },
 
   /**
@@ -507,19 +511,19 @@ Page({
   onShow: function () {
     var that = this
 
-    _animation = wx.createAnimation({
-      duration: _ANIMATION_TIME,
-      timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
-      delay: 0,
-      transformOrigin: '50% 50% 0'
-    })
+    // _animation = wx.createAnimation({
+    //   duration: _ANIMATION_TIME,
+    //   timingFunction: 'linear', // "linear","ease","ease-in","ease-in-out","ease-out","step-start","step-end"
+    //   delay: 0,
+    //   transformOrigin: '50% 50% 0'
+    // })
 
-    that.waveCreater();
-    if (that.data.share == true) {
-      that.shareTap()
-    } else {
-      that.moreTap()
-    }
+    // that.waveCreater();
+    // if (that.data.share == true) {
+    //   that.shareTap()
+    // } else {
+    //   that.moreTap()
+    // }
 
     /*
     //缩放动画
@@ -544,6 +548,9 @@ Page({
       })
     }.bind(this), 500)
     */
+    if (!this.data.hideGuoduye && this.data.isShowTimer && valHandle) {
+      this.startCircleTime(ctxTimer_two)
+    }
   },
    /**
    * 实现image旋转动画，每次旋转 120*n度

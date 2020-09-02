@@ -3,7 +3,6 @@ var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 const ctxWave = wx.createCanvasContext('canvasArcCir')
 const ctxGraph = wx.createCanvasContext('canvasgraph')
-const ctxFlow = wx.createCanvasContext('canvasflow')
 
 var valHandle;  //定时器
 const ctxTimer = wx.createCanvasContext("bgCanvas")
@@ -408,20 +407,18 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    var that = this
+
+    that.waveCreater();
+    that.moreTap()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-
-    that.waveCreater();
-    if (that.data.share == true) {
-      that.shareTap()
-    } else {
-      that.moreTap()
+    if (this.data.hideResultShadow && valHandle) {
+      this.startCircleTime();
     }
   },
 
@@ -459,23 +456,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    var that = this
-    that.data.share = true
-    that.cancelResultTap()
-    if (res.from == "button") {
-      var title = "我的孩子已闯过" + this.data.rightCount + "题，让你的孩子也试试吧！"
-      return {
-        title: title,
-        path: "/pages/home/home",
-        imageUrl: "../../style/images/tupian.png",
-        success: (res) => {
-          console.log("转发成功", res);
-        },
-        fail: (res) => {
-          console.log("转发失败", res);
-        }
-      }
-    }
+    
   },
   timerCircleReady: function() {
     ctxTimer.setLineWidth(15)
@@ -492,7 +473,6 @@ Page({
     ctxTimer.draw()
   },
   startCircleTime: function() {    
-    console.log("倒计时动画开始")
     var that = this
 
     var step = that.data.stepText ;  //定义倒计时
@@ -552,32 +532,6 @@ Page({
     this.render();
   },
 
-  drawSine: function() {
-    // ctxFlow.save();
-    ctxFlow.beginPath();
-
-    var Stack = []; // 记录起始点和终点坐标
-    for (var i = xoffset; i <= xoffset + axisLength; i += 20 / axisLength) {
-      var x = sp + (xoffset + i) / unit;
-      var y = Sin(x) * nowrange;
-      var dx = i;
-      var dy = 2 * cR * (1 - nowdata) + (r - cR) - (unit * y);
-      ctxFlow.lineTo(dx, dy);
-      Stack.push([dx, dy])
-    }
-
-    // 获取初始点和结束点
-    var startP = Stack[0]
-    var endP = Stack[Stack.length - 1]
-    ctxFlow.fillStyle = "#f6b37f";
-
-    ctxFlow.lineTo(xoffset + axisLength, oW);
-    ctxFlow.lineTo(xoffset, oW);
-    ctxFlow.lineTo(startP[0], startP[1])
-    ctxFlow.fill();
-
-    ctxFlow.restore();
-  },
   drawText: function() {
 
     var txt = _tipContent1;
@@ -645,17 +599,11 @@ Page({
     ctxWave.save();
     ctxWave.beginPath();
   },
-  //裁剪中间水圈
-  clipCircle: function() {
-    ctxFlow.beginPath();
-    ctxFlow.arc(r, r, cR - 25, 0, 2 * Math.PI, false);
-    ctxFlow.clip();
-  },
+
   //渲染canvas
   render: function() {
     ctxWave.clearRect(0, 0, oW, oH);
     ctxGraph.clearRect(0, 0, oW, oH);
-    ctxFlow.clearRect(0, 0, oW, oH);
 
     this.clearData();
 
@@ -668,13 +616,6 @@ Page({
     //灰色圆圈  
     this.grayCircle();
     ctxWave.draw();
-
-    //裁剪中间水圈  
-    this.clipCircle();
-    // ctxFlow.save()
-    //水纹路
-    // this.drawWaveFlow();
-    // ctxFlow.draw();
 
     this.timerCircleReady();
     this.startCircleTime();

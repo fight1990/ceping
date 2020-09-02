@@ -53,15 +53,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this
+    that.moreTap()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    that.moreTap()
+    if (this.data.isShowTimer && this.data.hideResultShadow && valHandle) {
+      this.startCircleTime();
+    }
   },
 
   /**
@@ -205,8 +207,8 @@ Page({
       this.timerCircleReady();
       this.startCircleTime();
     } else if (that.data.selectedIndex == 7) {
-      this.timerCircleReady(ctxTimer);
-      this.startCircleTime(ctxTimer);
+      this.timerCircleReady();
+      this.startCircleTime();
     }
   },
 

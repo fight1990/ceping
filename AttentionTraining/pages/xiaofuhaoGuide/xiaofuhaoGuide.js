@@ -55,15 +55,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this
+    that.moreTap()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    that.moreTap()
+    if (this.data.isShowTimer && !this.data.hideGuoduye) {
+      this.startCircleTime()
+    }
   },
 
   /**
@@ -428,6 +430,8 @@ Page({
     xiaofuhao_gameDatas = xiaofuhao_gameDatas1.concat(xiaofuhao_gameDatas2, xiaofuhao_gameDatas3);
   },
   tapKey: function(e) {
+    return;
+    
     var that = this
 
     console.log(e)

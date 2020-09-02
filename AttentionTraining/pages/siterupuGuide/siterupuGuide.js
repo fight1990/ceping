@@ -60,15 +60,17 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    var that = this
+    that.moreTap()
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    that.moreTap()
+    if (!this.data.hideGuoduye && this.data.isShowTimer && valHandle) {
+      this.startCircleTime(ctxTimer_two)
+    }
   },
 
   /**
@@ -121,6 +123,7 @@ Page({
   * 显示结果弹框
   */
   showResultTap: function () {
+    return;
     var that = this
     that.setData({
       hideResultShadow: false,
@@ -131,6 +134,7 @@ Page({
    * 不相同
    */
   differentTap: function () {
+    return;
     var that = this
     clearInterval(valHandle)  //销毁定时器
 
@@ -167,6 +171,7 @@ Page({
    * 相同
    */
   identicalTap: function () {
+    return;
     var that = this
     clearInterval(valHandle)  //销毁定时器
 

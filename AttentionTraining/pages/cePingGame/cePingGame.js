@@ -157,7 +157,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   
+    if (this.data.isShowTimer && this.data.hiddenYinDaoTu && this.data.hideGuoduye && this.data.hideResultShadow && valHandle) {
+      this.startCircleTime(ctxTimer);
+    } else if(!this.data.hideGuoduye && this.data.isShowTimer  && valHandle) {
+      this.startCircleTime(ctxTimer_two);
+    }
   },
 
   /**
@@ -881,6 +885,10 @@ Page({
   },
   startCircleTime: function(ctx) {    
     var that = this
+
+    if (that.data.selectedIndex < 0) {
+      return;
+    }
 
     if (this.data.hideGuoduye == true) {
       if (this.data.currentGameType == 0) {
