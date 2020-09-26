@@ -187,16 +187,16 @@ Page({
                     },
                   })
 
-                  if (0/*that.data.gameData != undefined*/) {
+                  if (that.data.gameData != undefined) {
                     var fy_score = that.data.gameData.score0;
                     var rz_score = that.data.gameData.score1;
                     var xx_score = that.data.gameData.score2;
                     var jy_score = that.data.gameData.score3;
 
-                    var fy_percentage = that.data.gameData.percentage0;
-                    var rz_percentage = that.data.gameData.percentage1;
-                    var xx_percentage = that.data.gameData.percentage2;
-                    var jy_percentage = that.data.gameData.percentage3;
+                    var fy_percentage = (that.data.gameData.percentage0 * 100).toFixed(2) + '%';
+                    var rz_percentage = (that.data.gameData.percentage1* 100).toFixed(2) + '%';
+                    var xx_percentage = (that.data.gameData.percentage2* 100).toFixed(2) + '%';
+                    var jy_percentage = (that.data.gameData.percentage3* 100).toFixed(2) + '%';
 
                     var jtd_time = that.data.gameData.time0
                     var xfh_time = that.data.gameData.time1
@@ -293,10 +293,10 @@ Page({
                           var xx_score = result.data.score2;
                           var jy_score = result.data.score3;
   
-                          var fy_percentage = result.data.percentage0;
-                          var rz_percentage = result.data.percentage1;
-                          var xx_percentage = result.data.percentage2;
-                          var jy_percentage = result.data.percentage3;
+                          var fy_percentage = (result.data.percentage0* 100).toFixed(2) + '%';
+                          var rz_percentage = (result.data.percentage1* 100).toFixed(2) + '%';
+                          var xx_percentage = (result.data.percentage2* 100).toFixed(2) + '%';
+                          var jy_percentage = (result.data.percentage3* 100).toFixed(2) + '%';
   
                           var jtd_time = result.data.time0
                           var xfh_time = result.data.time1

@@ -2,7 +2,7 @@
 <!-- <view class="background">
   <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
 </view> -->
-<view>
+<view class="mainContent">
   <scroll-view class="scroll-View" scroll-y enable-flex>
     <view class="headView">
       <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
