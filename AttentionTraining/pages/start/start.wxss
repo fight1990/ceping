@@ -10,6 +10,8 @@
   height: 100%;
   width:100%;
   position:absolute;
+  z-index: -999;
+  display: block;
 }
 
 .guide-view {
@@ -65,7 +67,7 @@
 .tip-view {
   position: absolute;
   /* margin-top: 492rpx; */
-  bottom: 180rpx;
+  bottom: 160rpx;
 
   display: flex;
   flex-direction: column;
@@ -82,7 +84,7 @@
 
 .start-view {
   position: absolute;
-  bottom: 70rpx;
+  bottom: 50rpx;
   /* margin-top: 24rpx; */
   width: 100%;
 }

@@ -56,7 +56,7 @@
           <view class="time-head">
             <image src="../../style/images/tubiao2.png"></image>
             <view class="text">
-              <text>计时/秒</text>
+              <text>平均时长</text>
             </view>   
           </view>
           <view class="count">
@@ -82,7 +82,7 @@
         </view>
 
         <view class="content">
-          <textarea style="text-align-last: justify;" disabled="{{true}}">
+          <textarea disabled="{{true}}">
             {{game.questions}}
           </textarea>
         </view>  
