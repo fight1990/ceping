@@ -27,5 +27,7 @@ module.exports = {
   //验证码兑换
   validationCode: common.validationCode,
   //获取最新一条组合评测数据
-  getCombinationEvaluationByOpenid: common.getCombinationEvaluationByOpenid
+  getCombinationEvaluationByOpenid: common.getCombinationEvaluationByOpenid,
+  //获取所有程序最优数据
+  getBestScaleWithGame: common.getBestScaleWithGame
 }

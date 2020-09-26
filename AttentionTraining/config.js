@@ -33,7 +33,9 @@ var config = {
   //验证码兑换
   validationCode: "https://a.jingsiedu.com/app/validationCode.json",
   //获取最新一组综合测评信息
-  getCombinationEvaluationByOpenid: "https://a.jingsiedu.com/app/getCombinationEvaluationByOpenid.json"
+  getCombinationEvaluationByOpenid: "https://a.jingsiedu.com/app/getCombinationEvaluationByOpenid.json",
+  //获取游戏最优数据
+  getBestScaleWithGame: "https://a.jingsiedu.com/app/getScale.json"
   
 }
 

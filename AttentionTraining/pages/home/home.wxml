@@ -1,72 +1,72 @@
 <!--pages/home/home.wxml-->
-<view class="container">
-  <view class="head-view">
-    <view class="user-box">
-      <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
-      <button wx:if="{{!userInfo}}" open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="login">{{userInfo==false?'登录':nickName}}</button>
-      <view wx:if="{{userInfo}}" class="userInfo">
-        <view class="nickname">{{nickName}}</view>
-        <view class="name">{{name}}</view>
-      </view>     
-    </view>
-    <view class="middle-view">
-      <view class="report" >
-      <!-- 报告查看 -->
-        <button  open-type='getUserInfo' bindgetuserinfo="reportTap" class="report-button">报告查看</button>
-      </view>
-      <view class="space-img-one">
-        <image src="../../style/images/space_img.png"></image>
-      </view>
-      <view class="task" bindtap="">每日任务</view>
-      <view class="space-img-two">
-        <image  src="../../style/images/space_img.png"></image>
-      </view>
-      <view class="score">{{record.score}}积分</view>
-    </view>
-
+<view class='nav-wrap'>
+  <image class="backgroundimg" src="../../style/images/shouye_header.png" bindload="imgLoaded" mode="aspectFill"/>
+  <view class='nav-title'>
+    注意力测评
   </view>
-
-  <view class="list-page">
-    <view class="list-page-left">
-      <block wx:for="{{itemList}}" wx:key="key">
-        <view wx:if="{{index%2==0}}" class="list-item">
-          <view wx:if="{{item.imgUrl}}">
-            <image src='../../style/images/{{item.imgUrl}}.png'></image>
-          </view>
-          <view class="item-bg" wx:if="{{item.gId =='zwkf'}}" bindtap="">
-            <view class="item-tip">
-              <text>暂未开通</text>
-            </view> 
-          </view>
-          <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" data-guidekey="{{item.guide_key}}" data-guideurl="{{item.url_guide}}" bindtap="gotoStart">
-            <view wx:if="{{userInfo && item.gId == 'jtd' && record}}" hidden="{{!hasReports}}" class="time">
-              <text>{{record.score}}题 {{record.times}}秒</text>
-            </view>
-          </view>
-        </view>
-      </block>
+  <view class="container">
+    <view class="head-view">
+      <view class="user-box">
+        <image class="avatar" src="{{userInfo==false?'../../style/images/touxiang1.png':avatar}}"></image>
+        <button wx:if="{{!userInfo}}" open-type='getUserInfo' bindgetuserinfo="{{userInfo==false?'getUserInfoClick':''}}" class="login">{{userInfo==false?'登录':nickName}}</button>
+        <view wx:if="{{userInfo}}" class="userInfo">
+          <view class="nickname">{{nickName}}</view>
+          <view class="name">{{name}}</view>
+        </view>     
+      </view>
     </view>
-    <view class="list-page-right">
-      <block wx:if="{{index%2!=0}}" wx:for="{{itemList}}" wx:key="key">
-        <view class="list-item">
-          <view wx:if="{{item.imgUrl}}">
-            <image src='../../style/images/{{item.imgUrl}}.png'></image>
-          </view> 
-          <view class="item-bg" wx:if="{{item.gId == 'zwkf'}}"  bindtap="">
-            <view class="item-tip">
-              <text>暂未开通</text>
-            </view> 
-          </view>
-          <view class="item-normal" wx:if="{{item.gId !='zwkf'}}" data-url="{{item.url}}" data-guidekey="{{item.guide_key}}" data-guideurl="{{item.url_guide}}" bindtap="gotoStart">
-            <view wx:if="{{userInfo && item.gId == 'jtd' && record}}" hidden="{{!hasReports}}" class="time">
-              <text>{{record.score}}题 {{record.times}}秒</text>
-            </view>
-          </view>
-        </view>
-      </block>
+    <view class="header-right-view">
+      <button class="middel-score">
+        <image class="middle-img" mode="center" src="../../style/images/home-score.png"></image>
+        <text class="middel-info">积分</text>
+        <text class="middel-info-score">999</text>
+      </button>
+      <button class="middle-report" open-type='getUserInfo' bindgetuserinfo="reportTap">
+        <image class="middle-img" mode="center" src="../../style/images/home-report.png"></image>
+        <text class="middel-info">报告</text>
+      </button>
     </view>
   </view>
 </view>
+
+<scroll-view class="listView" scroll-y="true">
+  <block wx:for="{{itemList}}" wx:key="key">
+    <!-- 每个cell -->
+    <view class='item' wx:key="{{item.ID}}" data-url="{{item.url}}" data-guidekey="{{item.guide_key}}" data-guideurl="{{item.url_guide}}"  bindtap='gotoStart' data-item= "{{item}}" data-id="{{item.ID}}" >
+
+    <!-- 产品图片 -->
+    <view class='iconImageView'>
+      <image class='iconImage' src="../../style/images/{{item.imgUrl}}.png" mode = 'aspectFit'></image>
+    </view>
+
+    <!-- 产品名称 -->
+    <view class='productNameView'>
+      <text class='productNameText'>{{item.title}}</text>
+    </view>
+
+    <!-- 题数 -->
+    <view class='needScoreView'>
+      <text class='needSocreText'>{{gameScore[item.gId].pourcentage}}</text>
+    </view>
+    
+    <!-- 排名 -->
+    <view class='productDesView'>
+      <text class = 'productDesText'>排名：{{gameScore[item.gId].rank}}</text>
+    </view>
+    
+    <!-- 耗时 -->
+    <view class='numView'>
+      <text class='numText'>平均反应时：{{gameScore[item.gId].useTime}}秒</text>
+    </view>
+
+    <!-- GO -->
+    <view class='goView'>
+      <image class="goImg" src="../../style/images/game_go.png" mode = 'aspectFit'></image>
+    </view>
+
+    </view>
+  </block>
+</scroll-view>
 
 <view class="feedback-view" bindtap="feedbackTap">
     <text>  意见反馈</text>

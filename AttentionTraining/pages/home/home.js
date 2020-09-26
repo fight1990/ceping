@@ -2,6 +2,7 @@
 
 var api = require("../../Api/api.js")
 var config = require("../../config.js")
+const app = getApp()
 
 Page({
 
@@ -12,6 +13,43 @@ Page({
     nickName: "", // 昵称
     name: "", // 注册name
     avatar: "", // 头像
+    gameScore: {
+      zhpc: {
+        corNum: 0,
+        allNum: 0,
+        pourcentage:'0/--',
+        rank: 0,
+        useTime: 0.0
+      },
+      jtd: {
+        corNum: 0,
+        allNum: 0,
+        pourcentage:'0/--',
+        rank: 0,
+        useTime: 0.0
+      },
+      xfh: {
+        corNum: 0,
+        allNum: 0,
+        pourcentage:'0/--',
+        rank: 0,
+        useTime: 0.0
+      },
+      ksjy: {
+        corNum: 0,
+        allNum: 0,
+        pourcentage:'0/--',
+        rank: 0,
+        useTime: 0.0
+      },
+      strp: {
+        corNum: 0,
+        allNum: 0,
+        pourcentage:'0/--',
+        rank: 0,
+        useTime: 0.0
+      }
+    },
     itemList: [{
       imgUrl : "zhcp",
       gId: "zhpc",
@@ -48,14 +86,7 @@ Page({
       url: "/pages/siterupuGame/siterupuGame",
       url_guide: "/pages/siterupuGuide/siterupuGuide",
       guide_key: "siterupu_guide"
-    },{
-      imgUrl : "",
-      gId : "zwkf",
-      title : "暂未开放",
-      url : "",
-      url_guide: "",
-      guide_key: ""
-    },], // 图片
+    }], // 图片
     hideShadow: true, // 无报告显示
     hasReports: false, // 是否有报告
     record:{},
@@ -79,6 +110,7 @@ Page({
           })
 
           that.checkBaogao(res.data.openid)
+          that.getBestScole(res.data.openid)
         }
       },
       fail: function (res) {
@@ -117,7 +149,7 @@ Page({
                   })
                   
                   that.checkBaogao(res.data.openid)
-                  
+                  that.getBestScole(res.data.openid)
                 }
               });
             }
@@ -358,7 +390,85 @@ Page({
 
             }
           })
+          
+          that.getBestScole(res.data.openid);
         }
+      }
+    })
+  },
+
+  getBestScole: function(openid)  {
+    var that = this
+    api.getBestScaleWithGame({
+      data: { openid: openid },
+      success: function (result) {
+        
+        var gameScole = that.data.gameScore;
+        var corNum = result.ceping.score_0 + result.ceping.score_1 + result.ceping.score_2 + result.ceping.score_3;
+        var allNum = result.ceping.scantron0.length + result.ceping.scantron1.length + result.ceping.scantron2.length + result.ceping.scantron3.length;
+        
+        gameScole.zhpc = {
+          corNum: corNum,
+          allNum: allNum,
+          pourcentage:corNum+'/'+allNum,
+          rank: result.ceping.scale,
+          useTime: result.ceping.times
+        }
+        
+        for (var i=0;i<result.games.length;i++) {
+            var game = result.games[i];
+            var element = game['type'];
+            switch (element) {
+              case 0: {
+                gameScole.jtd= {
+                  corNum: game.score,
+                  allNum: '--',
+                  pourcentage:game.score+'/'+'--',
+                  rank: game.scale,
+                  useTime: game.times
+                }
+              }
+                break;
+              case 1: {
+                gameScole.xfh= {
+                  corNum: game.score,
+                  allNum: '--',
+                  pourcentage:game.score+'/'+'--',
+                  rank: game.scale,
+                  useTime: game.times
+                }
+              }
+                break;
+              case 2: {
+                gameScole.ksjy= {
+                  corNum: game.score,
+                  allNum: '--',
+                  pourcentage:game.score+'/'+'--',
+                  rank: game.scale,
+                  useTime: game.times
+                }
+              }
+                break;
+              case 3: {
+                gameScole.strp= {
+                  corNum: game.score,
+                  allNum: '--',
+                  pourcentage:game.score+'/'+'--',
+                  rank: game.scale,
+                  useTime: game.times
+                }
+              }
+                break;
+              default:
+                break;
+            }
+        }
+        that.setData({
+          gameScore: gameScole
+        })
+      },
+      fail: function (res) {
+
       }
     })
   },

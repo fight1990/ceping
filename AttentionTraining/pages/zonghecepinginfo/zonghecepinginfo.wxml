@@ -1,43 +1,69 @@
 <!--pages/zonghecepinginfo/zonghecepinginfo.wxml-->
+<!-- <view class="background">
+  <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
+</view> -->
 <view>
-  <scroll-view>
-    <view class="user_info">
-      <view class="user_info_element"><text>{{userData.userName}} {{userData.sex}} {{userData.age}}</text></view>
-      <view class="user_info_element"><text>手机：{{userData.mobile}}</text></view>
+  <scroll-view class="scroll-View" scroll-y enable-flex>
+    <view class="headView">
+      <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
+      <view class="headView-info">
+        <image class="avatar" src="{{userData.avatar.length <= 0 ?'../../style/images/touxiang1.png':userData.avatar}}"></image>
+        <view class="user_info">
+          <view class="user_info_element"><text>{{userData.userName}} {{userData.sex}} {{userData.age}}</text></view>
+          <view class="user_info_element_mobile"><text>手机：{{userData.mobile}}</text></view>
+        </view>
+        <view class="right_scole">
+          <image class="right_scole_bg" src="../../style/images/ceping_info_right_scole.png" mode="heightFix"></image>
+          <view class="right_scole_info">
+            <view class="times_info">
+              <text class="yellow_big">{{time_minute}}</text>
+              <text>分</text>
+              <text class="yellow_big">{{time_second}}</text>
+              <text>秒</text>
+            </view>
+            <view class="times_title">
+              <text>平均用时</text>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
     <view class="score">
-      <view class="table_title">
-        <text>\n得分情况：\n</text>
-        <text>{{deFen.jtd}}</text>
-        <text>{{deFen.xfh}}</text>
-        <text>{{deFen.ksjy}}</text>
-        <text>{{deFen.strp}}</text>
-        <text>\n</text>
-        <text>{{deFen.zsc}}</text>
+      <image class="ceping_top_bg" src="../../style/images/ceping_top_bg.png" mode="aspectFill"/>
+      <view class="score_table_title">
+        <text class="scole-title">得分情况\r\n</text>
+        <block wx:for="{{games}}" wx:key="key">
+          <view class="score-item">
+            <view class="scole-type-header">
+              <text class="scole-type-name">{{item.title}}</text>
+              <text class="scole-type-number">{{item.scole}}</text>
+              <text class="scole-type-text">分</text>
+            </view>
+            <text class="scole-type-info">{{item.info}}</text>
+          </view>
+        </block>
       </view>
     </view>
-
+    <view class="middle-line">
+      <image class="middle-line-left" src="../../style/images/ceping_top_bottom.png" mode="aspectFill"/>
+      <image class="middle-line-right" src="../../style/images/ceping_top_bottom.png" mode="aspectFill"/>
+    </view>
     <view class="ability">
-      <view class="table_title">
-        <text>\n能力体现：\n</text>
-        <text>{{tiXian.fy.title}}</text>
-        <text>{{tiXian.fy.scole}}</text>
-        <text>{{tiXian.fy.info}}</text>
-        <text>\n</text>
-        <text>{{tiXian.rz.title}}</text>
-        <text>{{tiXian.rz.scole}}</text>
-        <text>{{tiXian.rz.info}}</text>
-        <text>\n</text>
-        <text>{{tiXian.xx.title}}</text>
-        <text>{{tiXian.xx.scole}}</text>
-        <text>{{tiXian.xx.info}}</text>
-        <text>\n</text>
-        <text>{{tiXian.jy.title}}</text>
-        <text>{{tiXian.jy.scole}}</text>
-        <text>{{tiXian.jy.info}}</text>
-        <text>\n</text>
+      <image class="ceping_bottom_bg" src="../../style/images/ceping_bottom.png" mode="aspectFill"/>
+      <view class="score_table_title">
+        <text class="scole-title">能力体现\r\n</text>
+        <block wx:for="{{tiXian}}" wx:key="key">
+          <view class="ability-item">
+            <view class="ability-type-header">
+              <text class="ability-type-name">{{item.title}}</text>
+            </view>
+            <view class="ability-info">
+              <text class="ability-type-scole">{{item.scole}}</text>
+              <text class="ability-type-info">{{item.info}}</text>
+            </view>
+          </view>
+        </block>
       </view>
     </view>
-    
   </scroll-view>
 </view>

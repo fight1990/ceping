@@ -237,6 +237,20 @@ function getCombinationEvaluationByOpenid(params) {
   })
 }
 
+function getBestScaleWithGame(params) {
+  wx.request({
+    url: config.getBestScaleWithGame,
+    data: params.data,
+    method: 'GET',
+    success: function (res) {
+      params.success(res.data)
+    },
+    fail: function (res) {
+      params.fail(res.data)
+    }
+  })
+}
+
 module.exports = {
   saveWechatGames: saveWechatGames,
   wechatLogin: wechatLogin,
@@ -249,5 +263,6 @@ module.exports = {
   shareGetGames: shareGetGames,
   saveGamesData: saveGamesData,
   validationCode: validationCode,
-  getCombinationEvaluationByOpenid: getCombinationEvaluationByOpenid
+  getCombinationEvaluationByOpenid: getCombinationEvaluationByOpenid,
+  getBestScaleWithGame: getBestScaleWithGame
 }
