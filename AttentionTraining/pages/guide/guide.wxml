@@ -119,13 +119,11 @@
 
 <view hidden="{{hideShadowThree}}" class="shadow-three" bindtap="hideShadowThreeTap">
   <view class="start-view">
-    <view class="tankuang2">
-      <image src="../../style/images/alert-1.png" mode="widthFix"></image>
-    </view>
-    <view class="title">
+    <image class="tankuang2" src="../../style/images/alert-1.png" mode="aspectFit"></image>
+    <!-- <view class="title"> -->
       <text class='title-main'>恭喜你</text>
       <text class="title-sub">顺利通过新手历练</text>
-    </view>
+    <!-- </view> -->
     <button bindtap="startTap">正式开始</button>
     <view class="cancel">
       <image src="" bindtap="hideShadowThreeTap"></image>

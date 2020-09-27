@@ -23,29 +23,29 @@ Page({
       },
       jtd: {
         corNum: 0,
-        allNum: 0,
-        pourcentage:'0/--',
+        allNum: 100,
+        pourcentage:'0/100',
         rank: 0,
         useTime: 0.0
       },
       xfh: {
         corNum: 0,
-        allNum: 0,
-        pourcentage:'0/--',
+        allNum: 100,
+        pourcentage:'0/100',
         rank: 0,
         useTime: 0.0
       },
       ksjy: {
         corNum: 0,
-        allNum: 0,
-        pourcentage:'0/--',
+        allNum: 100,
+        pourcentage:'0/100',
         rank: 0,
         useTime: 0.0
       },
       strp: {
         corNum: 0,
-        allNum: 0,
-        pourcentage:'0/--',
+        allNum: 100,
+        pourcentage:'0/100',
         rank: 0,
         useTime: 0.0
       }
@@ -405,7 +405,7 @@ Page({
         
         var gameScole = that.data.gameScore;
         var corNum = result.ceping.score_0 + result.ceping.score_1 + result.ceping.score_2 + result.ceping.score_3;
-        var allNum = result.ceping.scantron0.length + result.ceping.scantron1.length + result.ceping.scantron2.length + result.ceping.scantron3.length;
+        var allNum = result.ceping.scantron0.split(",").length + result.ceping.scantron1.split(",").length + result.ceping.scantron2.split(",").length + result.ceping.scantron3.split(",").length;
         
         gameScole.zhpc = {
           corNum: corNum,
@@ -422,8 +422,8 @@ Page({
               case 0: {
                 gameScole.jtd= {
                   corNum: game.score,
-                  allNum: '--',
-                  pourcentage:game.score+'/'+'--',
+                  allNum: 100,
+                  pourcentage:game.score+'/'+'100',
                   rank: game.scale,
                   useTime: game.times
                 }
@@ -432,8 +432,8 @@ Page({
               case 1: {
                 gameScole.xfh= {
                   corNum: game.score,
-                  allNum: '--',
-                  pourcentage:game.score+'/'+'--',
+                  allNum: '100',
+                  pourcentage:game.score+'/'+'100',
                   rank: game.scale,
                   useTime: game.times
                 }
@@ -442,8 +442,8 @@ Page({
               case 2: {
                 gameScole.ksjy= {
                   corNum: game.score,
-                  allNum: '--',
-                  pourcentage:game.score+'/'+'--',
+                  allNum: '100',
+                  pourcentage:game.score+'/'+'100',
                   rank: game.scale,
                   useTime: game.times
                 }
@@ -452,8 +452,8 @@ Page({
               case 3: {
                 gameScole.strp= {
                   corNum: game.score,
-                  allNum: '--',
-                  pourcentage:game.score+'/'+'--',
+                  allNum: '100',
+                  pourcentage:game.score+'/'+'100',
                   rank: game.scale,
                   useTime: game.times
                 }

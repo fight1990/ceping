@@ -3,8 +3,8 @@
   <view class="main-view">
     <view class="title-view">
       <view class="title-text">
-        <text>答对：</text>
-        <text style="color:#1ED545">{{rightCount}}</text>
+        <text>题数：</text>
+        <text style="color:#1ED545">{{rightCount+'/'+answerList.length}}</text>
         <text> 题</text>
       </view>
       <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
@@ -117,31 +117,26 @@
   </view>
 </view>
 <view hidden="{{hideResultShadow}}" class="shadow">
-  <view  class="start-view">
-    <view class="tankuang2">
-      <image src="../../style/images/tankuang4.png"></image>
-    </view>
-    <view class="cancel" bindtap="cancelResultTap">
-      <!-- <image src="../../style/images/guanbi2.png"></image> -->
-    </view>
-    <view class="success">
-      <text wx:if="{{rightCount == 100}}">通关成功</text>
-    </view>
-    <view class="title">
-      <view class="right">
-        <text>答对</text>
-        <text style="color:#E40303">{{rightCount}}</text>
-        <text>题</text>
+  <view class="start-view">
+    <image class="tankuang2" src="../../style/images/alert-2.png" mode="aspectFit"></image>
+    <view class="describle-view">
+      <block wx:for="{{result_info_items}}">
+        <view class='describle-view-item'>
+          <text class="info-1">{{item.one}}</text>
+          <text class="info-2" style="color:{{item.color}}">{{item.two}}</text>
+          <text class="info-3">{{item.three}}</text>
+        </view>
+      </block>
+      <text class="info-end">{{result_info_value}}</text>
+      <view class="info-buttons">
+        <button class="info-once-more" bindtap="moreTap" >
+          <image src="../../style/images/game-replay-green.png" mode="aspectFit"></image>
+        </button>
+        <button open-type="share" class="info-share-report">
+          <image src="../../style/images/share-report.png" mode="aspectFit"></image>
+        </button>
       </view>
-      <view class="time" >
-        <text>用时</text>
-        <text style="color:#FB7000">{{globalCount}}</text>
-        <text>秒</text>
-      </view>
-    </view>
-    <view class="bottom">
-      <button class="once-more" bindtap="moreTap">再来一次</button>
-      <button open-type="share" class="share-report">分享查看测试报告</button>
+      <view class="info-cancel" bindtap="cancelResultTap"></view>
     </view>
   </view>
 </view>

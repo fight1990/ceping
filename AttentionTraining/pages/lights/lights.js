@@ -42,6 +42,28 @@ Page({
     gameid: 0,
     share: false, // 分享之后
     hideThreeShadow: true, // 隐藏 请认真答题弹框
+    result_info_value: "",
+    result_info_items:[{
+      one: '我是',
+      two: "小宇航员士兵",
+      three: "",
+      color:'green'
+    },{
+      one: '我的专注力超过',
+      two: "20%",
+      three: "的人！",
+      color:'red'
+    },{
+      one: '答对',
+      two: "40",
+      three: "题",
+      color:'red'
+    },{
+      one: '平均答题时长：',
+      two: "2.12",
+      three: "秒",
+      color:'red'
+    }],
   },
 
 
@@ -583,6 +605,31 @@ Page({
                     success: function (response) {
                       console.log(response)
                       that.data.gameid = response.gameid
+                      that.setData({
+                        result_info_value: response.remark,
+                        result_info_items:[{
+                          one: '我是',
+                          two: response.rank,
+                          three: "",
+                          color:'green'
+                        },{
+                          one: '我的专注力超过',
+                          two: response.scale,
+                          three: "的人！",
+                          color:'red'
+                        },{
+                          one: '答对',
+                          two: that.data.rightCount,
+                          three: "题",
+                          color:'red'
+                        },{
+                          one: '平均答题时长：',
+                          two: that.data.globalCount,
+                          three: "秒",
+                          color:'red'
+                        }]
+                      })
+
                       if (result.games.length >= 2) { // 大于两次 - 分享
                         that.showResultTap()
                       } else { // 直接生成报告
