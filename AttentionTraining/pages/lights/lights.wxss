@@ -221,16 +221,6 @@
   line-height:140rpx;
 }
 
-.shadow {
-  position: fixed;
-  flex-direction: row;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.75);
-}
-
 .introduce {
   margin-top: 150rpx;
   margin-left: 75rpx;
@@ -311,7 +301,15 @@
   line-height:32rpx;
 }
 
-
+.shadow {
+  position: fixed;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+}
 
 .start-view {
   margin-top: 30rpx;

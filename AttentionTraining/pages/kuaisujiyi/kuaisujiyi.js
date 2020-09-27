@@ -88,6 +88,28 @@ Page({
 
     stepText: 5,  //设置倒计时初始值
 
+    result_info_value: "",
+    result_info_items:[{
+      one: '我是',
+      two: "小宇航员士兵",
+      three: "",
+      color:'green'
+    },{
+      one: '我的专注力超过',
+      two: "20%",
+      three: "的人！",
+      color:'red'
+    },{
+      one: '答对',
+      two: "40",
+      three: "题",
+      color:'red'
+    },{
+      one: '平均答题时长：',
+      two: "2.12",
+      three: "秒",
+      color:'red'
+    }],
   },
 
   /**
@@ -364,7 +386,79 @@ Page({
     that.setData({
       globalTimer: spandTimer,
     })
-    that.showResultTap()
+    that.senderGameDatas()
+  },
+
+  senderGameDatas:function() {
+    var that = this;
+    // 判断是否已经注册信息
+    wx.getStorage({
+      key: 'userInfo',
+      success: function (res) {
+        if (res.data) {
+          api.goToWeChat({
+            data: { openid: res.data.openid },
+            success: function (result) {
+              if (result.user) { 
+                if (result.user.state == 1) { // 已注册
+                  var params = {
+                    userid: result.user.id,
+                    score: that.data.rightCount,
+                    times: that.data.globalTimer,
+                    nickname: res.data.nickName,
+                    headUrl: res.data.avatarUrl,
+                    city: res.data.city,
+                    openid: res.data.openid,
+                    type: 2
+                  }
+                  api.saveWechatGames({
+                    data: params,
+                    success: function (response) {
+                      that.data.gameid = response.gameid
+                      that.setData({
+                        result_info_value: response.remark,
+                        result_info_items:[{
+                          one: '我是',
+                          two: response.rank,
+                          three: "",
+                          color:'green'
+                        },{
+                          one: '我的专注力超过',
+                          two: response.scale,
+                          three: "的人！",
+                          color:'red'
+                        },{
+                          one: '答对',
+                          two: that.data.rightCount,
+                          three: "题",
+                          color:'red'
+                        },{
+                          one: '平均答题时长：',
+                          two: that.data.globalTimer,
+                          three: "秒",
+                          color:'red'
+                        }]
+                      })
+
+                      that.showResultTap()
+                    },
+                    fail: function (res) {
+                      
+                    }
+                  })
+                }
+              }
+            },
+            fail: function (res) {
+
+            }
+          })
+        }
+      },
+      fail: function (res) {
+      
+      }
+    })
   },
   
   /**

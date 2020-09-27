@@ -291,3 +291,109 @@ button::after {
   color:white;
   line-height:140rpx;
 }
+
+
+/* 结束图 */
+.shadow-result {
+  position: fixed;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.start-view-result {
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 942rpx;
+  width: 100%;
+}
+
+.tankuang2-result {
+  position: absolute;
+  width: 660rpx;
+  height: 942rpx;
+  display: block;
+  z-index: -999;
+}
+
+.describle-view {
+  margin-top: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 942rpx;
+  width: 100%;
+}
+
+.describle-view-item {
+  width: 70%;
+  height: 80rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.info-1, .info-3 {
+  height: 50rpx;
+  color: gray;
+  font-size: 35rpx;
+  font-weight: normal;
+}
+
+.info-2 {
+  color: black;
+  font-size: 45rpx;
+  font-weight: bold;
+}
+
+.info-end {
+  height: 50rpx;
+  width: 70%;
+  color: chocolate;
+  font-size: 45rpx;
+  font-weight: bold;
+  display: block;
+}
+
+.info-buttons {
+  margin-top: 50rpx;
+  width: 80%;
+  height: 0rpx;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+  text-align: center;
+}
+
+.info-once-more, .info-share-report {
+  width: 280rpx;
+  height: 90rpx;
+  background-color: rgba(1,1,1,0);
+}
+.info-once-more::after {
+  border: 0;
+}
+.info-share-report::after {
+  border: 0;
+}
+
+.info-once-more image {
+  width: 240rpx;
+  height: 90rpx;
+}
+.info-share-report image {
+  width: 240rpx;
+  height: 90rpx;
+}
+.info-cancel {
+  margin-top: 150rpx;
+  width: 60%;
+  height: 100rpx;
+}

@@ -598,7 +598,8 @@ Page({
                     nickname: res.data.nickName,
                     headUrl: res.data.avatarUrl,
                     city: res.data.city,
-                    openid: res.data.openid
+                    openid: res.data.openid,
+                    type: 0
                   }
                   api.saveWechatGames({
                     data: params,
