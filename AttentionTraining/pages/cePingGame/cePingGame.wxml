@@ -22,8 +22,8 @@
 <view wx:if="{{hideGuoduye && hiddenYinDaoTu}}" class="container">
   <view class="title-view">
     <view class="title-text">
-      <text>答对：</text>
-      <text style="color:#1ED545">{{rightCount}}</text>
+      <text>进程：</text>
+      <text style="color:#1ED545">{{currentNum+'/'+allNum}}</text>
       <text> 题</text>
     </view>
   </view>

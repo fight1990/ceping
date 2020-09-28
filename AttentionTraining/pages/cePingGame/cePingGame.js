@@ -91,6 +91,7 @@ Page({
    */
   data: {
     selectedIndex: -1,
+    currentNum: 0,
     result: 0, // 结果对错 0-错 1-对
     hideBottom: true, // 隐藏底部判断视图
     hideResult: true, // 隐藏结果视图
@@ -120,6 +121,9 @@ Page({
     ksjy_correct: 0,
     strp_time: 0,
     strp_correct: 0,
+
+    allNum: 85,
+    currentNum: 0,
 
     // 过渡页、引导页参数
     hideGuoduye: true,
@@ -476,6 +480,7 @@ Page({
 
     that.setData({
       selectedIndex: -1,
+      currentNum: 0,
       result: 0, 
       count: 4,
       globalTimer: 0,
@@ -534,6 +539,7 @@ Page({
       }
       that.setData({
         selectedIndex: nextIndex,
+        currentNum: nextIndex>0?nextIndex:0,
         stepText: time
       })
       
@@ -581,6 +587,7 @@ Page({
       }
       that.setData({
         selectedIndex: nextIndex,
+        currentNum: nextIndex>0?nextIndex:0,
         stepText: time,
         isShowTimer: showTimer
       })
@@ -630,6 +637,7 @@ Page({
       }
       that.setData({
         selectedIndex: nextIndex,
+        currentNum: nextIndex>0?nextIndex:0,
         stepText: time
       })
       
@@ -677,6 +685,7 @@ Page({
 
       that.setData({
         selectedIndex: nextIndex,
+        currentNum: nextIndex>0?nextIndex:0,
         stepText: time,
         hiddenSTRPGraph: hiddenSTRPGraph,
         strp_content_title: strp_content_title,
@@ -1631,12 +1640,24 @@ Page({
   // 游戏过度
   gotoGuoDuPage: function() {
     var guoduTitle = "即将进入交通灯测评";
+    this.setData({
+      allNum: trafficlight_gameDatas.length
+    })
     if (this.data.currentGameType == 0) {
       guoduTitle = "交通灯答题结束\n即将进入小符号测验";
+      this.setData({
+        allNum: xiaofuhao_gameDatas.length
+      })
     } else if (this.data.currentGameType == 1) {
       guoduTitle = "小符号答题结束\n即将进入快速记忆测验";
+      this.setData({
+        allNum: ksjy_gameDatas.length
+      })
     } else if (this.data.currentGameType == 2) {
       guoduTitle = "快速记忆答题结束\n即将进入斯特如普测验";
+      this.setData({
+        allNum: siterupu_gameDatas.length
+      })
     }
     this.setData({
       hideGuoduye: false,
