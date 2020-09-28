@@ -16,11 +16,11 @@
       </view>
     </view>
     <view class="header-right-view">
-      <button class="middel-score">
+      <!-- <button class="middel-score">
         <image class="middle-img" mode="center" src="../../style/images/home-score.png"></image>
         <text class="middel-info">积分</text>
         <text class="middel-info-score">999</text>
-      </button>
+      </button> -->
       <button class="middle-report" open-type='getUserInfo' bindgetuserinfo="reportTap">
         <image class="middle-img" mode="center" src="../../style/images/home-report.png"></image>
         <text class="middel-info">报告</text>
@@ -56,7 +56,7 @@
     
     <!-- 耗时 -->
     <view class='numView'>
-      <text class='numText'>平均反应时：{{gameScore[item.gId].useTime}}秒</text>
+      <text class='numText'>平均用时：{{gameScore[item.gId].useTime}}秒</text>
     </view>
 
     <!-- GO -->

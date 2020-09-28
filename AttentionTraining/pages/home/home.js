@@ -412,7 +412,7 @@ Page({
           allNum: allNum,
           pourcentage:corNum+'/'+allNum,
           rank: result.ceping.scale,
-          useTime: result.ceping.times
+          useTime: (result.ceping.times/allNum).toFixed(2)
         }
         
         for (var i=0;i<result.games.length;i++) {
@@ -425,7 +425,7 @@ Page({
                   allNum: 100,
                   pourcentage:game.score+'/'+'100',
                   rank: game.scale,
-                  useTime: game.times
+                  useTime: (game.times/100).toFixed(2)
                 }
               }
                 break;
@@ -435,7 +435,7 @@ Page({
                   allNum: '100',
                   pourcentage:game.score+'/'+'100',
                   rank: game.scale,
-                  useTime: game.times
+                  useTime: (game.times/100).toFixed(2)
                 }
               }
                 break;
@@ -445,7 +445,7 @@ Page({
                   allNum: '100',
                   pourcentage:game.score+'/'+'100',
                   rank: game.scale,
-                  useTime: game.times
+                  useTime: (game.times/100).toFixed(2)
                 }
               }
                 break;
@@ -455,7 +455,7 @@ Page({
                   allNum: '100',
                   pourcentage:game.score+'/'+'100',
                   rank: game.scale,
-                  useTime: game.times
+                  useTime: (game.times/100).toFixed(2)
                 }
               }
                 break;

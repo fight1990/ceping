@@ -192,7 +192,7 @@ Page({
       // if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
       //   time = xiaofuhao_gameDatas[that.data.selectedIndex].time
       // }
-    } else if(nextIndex == 7) {
+    } else if(nextIndex == 8) {
       time = 150
       // if (xiaofuhao_gameDatas[that.data.selectedIndex]) {
       //   time = xiaofuhao_gameDatas[that.data.selectedIndex].time
@@ -475,10 +475,10 @@ Page({
         gameCount = [3,'0',5];
         break;
       case 2:
-        gameCount = [4,'180',7];
+        gameCount = [5,'180',7];
         break;
       case 3:
-        gameCount = [4,'150',10];
+        gameCount = [5,'150',10];
           break;
       default:
         break;

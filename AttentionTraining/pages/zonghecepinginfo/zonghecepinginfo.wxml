@@ -5,7 +5,7 @@
 <view class="mainContent">
   <scroll-view class="scroll-View" scroll-y enable-flex>
     <view class="headView">
-      <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
+      <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" mode="aspectFill"/>
       <view class="headView-info">
         <image class="avatar" src="{{userData.avatar.length <= 0 ?'../../style/images/touxiang1.png':userData.avatar}}"></image>
         <view class="user_info">

@@ -193,10 +193,10 @@ Page({
                     var xx_score = that.data.gameData.score2;
                     var jy_score = that.data.gameData.score3;
 
-                    var fy_percentage = (that.data.gameData.percentage0 * 100).toFixed(2) + '%';
-                    var rz_percentage = (that.data.gameData.percentage1* 100).toFixed(2) + '%';
-                    var xx_percentage = (that.data.gameData.percentage2* 100).toFixed(2) + '%';
-                    var jy_percentage = (that.data.gameData.percentage3* 100).toFixed(2) + '%';
+                    var fy_percentage = (that.data.gameData.percentage0 * 1).toFixed(2) + '%';
+                    var rz_percentage = (that.data.gameData.percentage1* 1).toFixed(2) + '%';
+                    var xx_percentage = (that.data.gameData.percentage2* 1).toFixed(2) + '%';
+                    var jy_percentage = (that.data.gameData.percentage3* 1).toFixed(2) + '%';
 
                     var jtd_time = that.data.gameData.time0
                     var xfh_time = that.data.gameData.time1
@@ -245,9 +245,13 @@ Page({
                     }
                     strp_percent = ((strp_score/strp_list.length) * 100).toFixed(2)
 
+                    var times = jtd_time + xfh_time + ksjy_time + strp_time;
+                    var minute = Math.floor(times/340/60);
+                    var second = Math.floor(times/340%60)>0 ? Math.floor(times/340%60) : (times/340 - minute);
+
                     that.setData({
-                      time_minute: Math.floor(that.data.gameData.times/60),
-                      time_second: that.data.gameData.times%60,
+                      time_minute: minute,
+                      time_second: second,
                       games:[{
                         title:'交通灯：',
                         scole:jtd_score,
@@ -293,10 +297,10 @@ Page({
                           var xx_score = result.data.score2;
                           var jy_score = result.data.score3;
   
-                          var fy_percentage = (result.data.percentage0* 100).toFixed(2) + '%';
-                          var rz_percentage = (result.data.percentage1* 100).toFixed(2) + '%';
-                          var xx_percentage = (result.data.percentage2* 100).toFixed(2) + '%';
-                          var jy_percentage = (result.data.percentage3* 100).toFixed(2) + '%';
+                          var fy_percentage = (result.data.percentage0* 1).toFixed(2) + '%';
+                          var rz_percentage = (result.data.percentage1* 1).toFixed(2) + '%';
+                          var xx_percentage = (result.data.percentage2* 1).toFixed(2) + '%';
+                          var jy_percentage = (result.data.percentage3* 1).toFixed(2) + '%';
   
                           var jtd_time = result.data.time0
                           var xfh_time = result.data.time1
@@ -345,9 +349,12 @@ Page({
                           }
                           strp_percent = ((strp_score/strp_list.length) * 100).toFixed(2)
   
+                          var minute = Math.floor(result.data.times/340/60);
+                          var second = Math.floor(result.data.times/340%60)>0 ? Math.floor(result.data.times/340%60) : (result.data.times/340 - minute).toFixed(2);
+
                           that.setData({
-                            time_minute: Math.floor(result.data.times/60),
-                            time_second: result.data.times%60,
+                            time_minute: minute,
+                            time_second: second,
                             games:[{
                               title:'交通灯：',
                               scole:jtd_score,

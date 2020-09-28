@@ -515,10 +515,10 @@ Page({
         gameCount = [20,'4'];
         break;
       case 2:
-        gameCount = [30,'3'];
+        gameCount = [35,'3'];
         break;
       case 3:
-        gameCount = [35,'2'];
+        gameCount = [45,'2'];
           break;
       default:
         break;
