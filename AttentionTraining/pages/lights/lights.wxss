@@ -310,7 +310,16 @@
   height: 100vh;
   background: rgba(0, 0, 0, 0.75);
 }
-
+.shadow-img {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.light-info-shadow {
+  width: 662rpx;
+  height: 1188rpx;
+  z-index: -1;
+}
 .start-view {
   margin-top: 30rpx;
   display: flex;
