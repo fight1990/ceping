@@ -579,7 +579,7 @@ Page({
         if (xiaofuhao_gameDatas[nextIndex]) {
           time = xiaofuhao_gameDatas[nextIndex].time
         }
-      } else if(nextIndex == 7) {
+      } else if(nextIndex == 9) {
         time = 150
         if (xiaofuhao_gameDatas[nextIndex]) {
           time = xiaofuhao_gameDatas[nextIndex].time
@@ -617,7 +617,7 @@ Page({
       if (that.data.selectedIndex == 3) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
-      } else if (that.data.selectedIndex == 7) {
+      } else if (that.data.selectedIndex == 9) {
         this.timerCircleReady(ctxTimer);
         this.startCircleTime(ctxTimer);
       }
@@ -1321,7 +1321,7 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [21,countOne,1,5];
+        gameCount = [20,countOne,1,5];
         break;
       case 2:
         gameCount = [30,countTwo,1,5];
@@ -1393,7 +1393,7 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [16,countOne];
+        gameCount = [20,countOne];
         break;
       case 2:
         gameCount = [30,countTwo];
@@ -1452,10 +1452,10 @@ Page({
         gameCount = [3,countOne,5];
         break;
       case 2:
-        gameCount = [4,countTwo,7];
+        gameCount = [6,countTwo,5];
         break;
       case 3:
-        gameCount = [4,countThree,10];
+        gameCount = [8,countThree,5];
           break;
       default:
         break;
@@ -1516,10 +1516,10 @@ Page({
 
     switch (level) {
       case 1:
-        gameCount = [20,countOne];
+        gameCount = [15,countOne];
         break;
       case 2:
-        gameCount = [30,countTwo];
+        gameCount = [25,countTwo];
         break;
       case 3:
         gameCount = [35,countThree];
@@ -1586,7 +1586,9 @@ Page({
     var trafficlight_gameDatas2 = this.getTraffixLightDataWithLevel(2);
     var trafficlight_gameDatas3 = this.getTraffixLightDataWithLevel(3);
     trafficlight_gameDatas = trafficlight_gameDatas1.concat(trafficlight_gameDatas2,trafficlight_gameDatas3)
-
+    this.setData({
+      allNum: trafficlight_gameDatas.length
+    })
     var xiaofuhao_gameDatas1 = this.getXFHDataWithLevel(1);
     var xiaofuhao_gameDatas2 = this.getXFHDataWithLevel(2);
     var xiaofuhao_gameDatas3 = this.getXFHDataWithLevel(3);
