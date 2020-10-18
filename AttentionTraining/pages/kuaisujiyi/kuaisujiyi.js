@@ -462,35 +462,6 @@ Page({
   },
   
   /**
-   * 显示简介
-   */
-  showIntroduceTap: function () {
-    var that = this
-    that.setData({
-      showIntroduce: true,
-    })
-
-  },
-
-  /**
-   * 简介下一步
-   */
-  nextIntroductTap: function() {
-
-  },
-
-  /**
-   * 关闭简介
-   */
-  closeIntroduceTap: function () {
-    var that = this
-    that.setData({
-      showIntroduce: false,
-    })
-
-  }, 
-  
-  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
@@ -790,6 +761,29 @@ Page({
     }
     return gameLevelData;
   },
+
+  /**
+   * 显示简介
+   */
+  showIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: true,
+    })
+    clearInterval(valHandle)
+  },
+
+  /**
+   * 关闭简介
+   */
+  closeIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: false,
+    })
+    that.startCircleTime()
+  }, 
+
   getQuickMemoryLevelModel: function(level, shapes,colors,time) {
     var i = Math.floor(Math.random()*(colors.length));
     var j = Math.floor(Math.random()*(shapes.length));

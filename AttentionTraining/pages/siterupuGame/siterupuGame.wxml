@@ -6,16 +6,17 @@
       <text style="color:#1ED545">{{rightCount}}</text>
       <text> 题</text>
     </view>
+    <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
   </view>
 
   <view class="scroll_box">
-    <view wx:if="{{isShowTimer}}" class="timeCircle">
+    <view wx:if="{{isShowTimer}}" class="timeCircle" hidden="{{showIntroduce || !hideResultShadow}}">
       <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
       <view class='stepText'>{{stepText}}</view>
     </view>
     <block>
       <view class="gameView">
-        <view class="siterupu" hidden="{{!hideResultShadow}}">
+        <view class="siterupu" hidden="{{showIntroduce || !hideResultShadow}}">
           <text class="siterupu_title">{{strp_content_title}}</text>
           <view wx:if="{{hiddenSTRPGraph}}">
             <canvas class="siterupu_canvas_text"  canvas-id='siterupu_canvas_text'></canvas>
@@ -60,5 +61,11 @@
       </view>
       <view class="info-cancel" bindtap="cancelResultTap"></view>
     </view>
+  </view>
+</view>
+
+<view wx:if="{{showIntroduce}}" class="info-shadow" bindtap="closeIntroduceTap">
+  <view class="info-shadow-img">
+    <image class="info-shadow-pic" src="../../style/images/siterupu-info.png" mode="aspectFit"></image>
   </view>
 </view>

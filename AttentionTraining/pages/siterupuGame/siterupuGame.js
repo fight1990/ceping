@@ -50,6 +50,8 @@ Page({
     strp_content_title : "文字颜色与其表达的意思是否相同？",
     siterupu_color_word: "",
 
+    showIntroduce: false, // 显示简介
+
     strp_time: 0,
     strp_correct: 0,
 
@@ -468,6 +470,28 @@ Page({
       hideResultShadow: true, // 是否隐藏结果
     })
   },
+
+  /**
+   * 显示简介
+   */
+  showIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: true,
+    })
+    clearInterval(valHandle)
+  },
+
+  /**
+   * 关闭简介
+   */
+  closeIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: false,
+    })
+    that.startCircleTime()
+  }, 
 
    /**
    * 斯特如普游戏

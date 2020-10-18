@@ -397,3 +397,31 @@ button::after {
   width: 60%;
   height: 100rpx;
 }
+
+.info-shadow {
+  position: fixed;
+  flex-direction: row;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+}
+.info-shadow-img {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.info-shadow-pic {
+  width: 662rpx;
+  height: 1188rpx;
+  z-index: -1;
+}
+
+.title-image {
+  position: absolute;
+  width: 52rpx;
+  height: 52rpx;
+  margin-top: 0rpx;
+  margin-left: 670rpx;
+}

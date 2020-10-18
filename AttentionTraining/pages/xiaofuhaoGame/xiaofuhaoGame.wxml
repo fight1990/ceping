@@ -6,16 +6,17 @@
       <text style="color:#1ED545">{{rightCount+'/'+100}}</text>
       <text> 题</text>
     </view>
+    <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
   </view>
 
   <view class="scroll_box">
-    <view wx:if="{{isShowTimer}}" class="timeCircle">
+    <view wx:if="{{isShowTimer}}" class="timeCircle" hidden="{{showIntroduce || !hideResultShadow}}">
       <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
       <view class='stepText'>{{stepText}}</view>
     </view>
     <block>
       <view class="gameView">
-        <view class="xiaofuhao" hidden="{{!hideResultShadow}}">
+        <view class="xiaofuhao" hidden="{{showIntroduce || !hideResultShadow}}">
           <view class="table">
             <view class="tr">
               <block  wx:for="{{xiaofuhao_currentData}}" wx:key="navItems" wx:for-item="item" wx:for-index="itemIdx">
@@ -115,5 +116,11 @@
       </view>
       <view class="info-cancel" bindtap="cancelResultTap"></view>
     </view>
+  </view>
+</view>
+
+<view wx:if="{{showIntroduce}}" class="info-shadow" bindtap="closeIntroduceTap">
+  <view class="info-shadow-img">
+    <image class="info-shadow-pic" src="../../style/images/xiaofuhao-info.png" mode="aspectFit"></image>
   </view>
 </view>

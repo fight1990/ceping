@@ -309,55 +309,19 @@
   font-size:34rpx;
   font-family:SimHei;
   font-weight:400;
-  color:rgba(254,255,222,1);
-  line-height:44rpx;
-  
-  /* display: -webkit-box;
-  word-break: break-all;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp:6; */
-
+  color:white;
+  line-height:44rpx;  
 }
-
-/* .detail-content .content textarea{
-  width: 540rpx;
-  font-size:34rpx;
-  font-family:SimHei;
-  font-weight:400;
-  color:rgba(254,255,222,1);
-  line-height:44rpx;
-  text-align: justify;
-}
-.detail-content .content textarea::after{
-  width: 100%;
-  display: inline-block;
-  content: '';
-} */
-
 
 .detail-content .content textarea {
   width: 540rpx;
   font-size:34rpx;
   font-family:SimHei;
   font-weight:400;
-  color:rgba(254,255,222,1);
+  color:white;
   line-height:44rpx;
 }
 
-/* .detail-content {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  margin-right: 34rpx;
-}
-
-.detail-content text{
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #666666;
-  line-height:32rpx;
-} */
 
 
 

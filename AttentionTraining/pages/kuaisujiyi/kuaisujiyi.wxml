@@ -7,17 +7,18 @@
         <text style="color:#1ED545">{{rightCount}}</text>
         <text> 题</text>
       </view>
+      <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
     </view>
 
   <view class="scroll_box">
-    <view class="timeCircle">
+    <view class="timeCircle" hidden="{{!hideResultShadow}}">
       <canvas class='bgCanvas' canvas-id='bgCanvas'></canvas>
       <view class='stepText'>{{stepText}}</view>
     </view>
     <block>
       <view class="item_list">
         <view class="lights-view">
-          <view class="waterview" hidden="{{!hideResultShadow}}">
+          <view class="waterview" hidden="{{showIntroduce||!hideResultShadow}}">
             <canvas class="canvasArcCir_bg"  canvas-id='canvasArcCir'></canvas>
             <text class="canvas_text" decode="{{true}}">{{canvasContent}}</text>
             <view class="canvasgraph_bg_view">
@@ -97,5 +98,11 @@
       </view>
       <view class="info-cancel" bindtap="cancelResultTap"></view>
     </view>
+  </view>
+</view>
+
+<view wx:if="{{showIntroduce}}" class="info-shadow" bindtap="closeIntroduceTap">
+  <view class="info-shadow-img">
+    <image class="info-shadow-pic" src="../../style/images/kuaisujiyi-info.png" mode="aspectFit"></image>
   </view>
 </view>

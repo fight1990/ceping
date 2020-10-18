@@ -4,6 +4,7 @@
 </view> -->
 <view class="mainContent">
   <scroll-view class="scroll-View" scroll-y enable-flex>
+    <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" bindload="imgLoaded" mode="aspectFill"/>
     <view class="headView">
       <image class="backgroundimg" src="../../style/images/bg_ceping_info.png" mode="aspectFill"/>
       <view class="headView-info">

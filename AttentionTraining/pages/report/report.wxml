@@ -82,8 +82,7 @@
         </view>
 
         <view class="content">
-          <textarea disabled="{{true}}">
-            {{game.questions}}
+          <textarea disabled="{{true}}" value="{{game.questions}}" auto-height>
           </textarea>
         </view>  
       </view>

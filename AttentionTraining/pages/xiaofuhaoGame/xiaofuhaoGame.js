@@ -34,6 +34,8 @@ Page({
     xiaofuhao_currentData : {},
     xiaofuhao_currentData_test : {},
 
+    showIntroduce: false, // 显示简介
+
     xfh_time: 0,
     xfh_correct: 0,
 
@@ -459,6 +461,28 @@ Page({
       hideResultShadow: true, // 是否隐藏结果
     })
   },
+
+  /**
+   * 显示简介
+   */
+  showIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: true,
+    })
+    clearInterval(valHandle)
+  },
+
+  /**
+   * 关闭简介
+   */
+  closeIntroduceTap: function () {
+    var that = this
+    that.setData({
+      showIntroduce: false,
+    })
+    that.startCircleTime()
+  }, 
 
   /**
    * 小符号游戏数据

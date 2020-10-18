@@ -248,7 +248,7 @@ Page({
 
                     var times = jtd_time + xfh_time + ksjy_time + strp_time;
                     var minute = Math.floor(times/340/60);
-                    var second = Math.floor(times/340%60)>0 ? Math.floor(times/340%60) : (times/340 - minute);
+                    var second = Math.floor(times/340%60)>0 ? Math.floor(times/340%60) : (times/340 - minute).toFixed(2);
 
                     that.setData({
                       time_minute: minute,
@@ -390,7 +390,7 @@ Page({
 
                     var times = jtd_time + xfh_time + ksjy_time + strp_time;
                     var minute = Math.floor(times/340/60);
-                    var second = Math.floor(times/340%60)>0 ? Math.floor(times/340%60) : (times/340 - minute);
+                    var second = Math.floor(times/340%60)>0 ? Math.floor(times/340%60) : (times/340 - minute).toFixed(2);
 
                     that.setData({
                       time_minute: minute,

@@ -13,6 +13,8 @@ Page({
     nickName: "", // 昵称
     name: "", // 注册name
     avatar: "", // 头像
+    statusBarHeight: wx.getSystemInfoSync()['statusBarHeight'],  //顶部导航适配
+    navigationBarHeight:210,
     gameScore: {
       zhpc: {
         corNum: 0,
