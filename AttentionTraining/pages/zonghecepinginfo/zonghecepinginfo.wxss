@@ -11,10 +11,15 @@
   height: 100%;
   z-index: -9999;
 }
-.scroll-View, .mainContent {
+ /* .scroll-View {
+  width: 100%;
+  height: 80%;
+ } */
+
+ /* .mainContent {
   width: 100%;
   height: 1472rpx;
-}
+}  */
 .headView {
   position: relative;
   display: flex;
@@ -95,13 +100,14 @@
 .right_scole_info {
   margin-left: 80rpx;
   width: 200rpx;
-  height: 100%;
+  height: 120rpx;
   flex-direction: column; 
   align-items: center;
 }
 
 .times_info {
   flex-direction: row;
+  margin-top: 20rpx;
 }
 
 .times_info text {
@@ -224,7 +230,7 @@
   display: flex;
   top: -164rpx;
   width: 750rpx;
-  height: 1788rpx;
+  height: 1624rpx;
 }
 .ceping_bottom_bg {
   position: absolute;
