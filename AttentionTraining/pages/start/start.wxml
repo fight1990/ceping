@@ -8,13 +8,13 @@
     </view>
   </view>
   <block wx:if="{{!loading}}">
-    <image class="pic_background" src="../../style/images/beijing3.png" mode="aspectFit"></image>
+    <image class="pic_background" src="../../style/images/beijing3.png" mode="aspectFill"></image>
     <view class="guide-view">
-      <view class="start-view">
-        <button bindtap="readBtnAction" class="start-button">已阅读开始</button>
-      </view>
       <view class="tip-view">
         <text class="tip-text">请将手机交于您的孩子，开始测试</text>
+      </view>
+      <view class="start-view">
+        <button bindtap="readBtnAction" class="start-button">已阅读开始</button>
       </view>
     </view>
   </block>

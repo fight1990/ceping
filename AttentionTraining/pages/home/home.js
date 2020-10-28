@@ -324,10 +324,6 @@ Page({
       wx.redirectTo({
         url: '/pages/cePingInfo/cePingInfo',
       })
-    } else if (0) {
-      wx.navigateTo({
-        url: '/pages/zonghecepinginfo/zonghecepinginfo',
-      })
     } else {
       if (((guide_key.length > 0) && wx.getStorageSync(guide_key)) || (guide_key.length == 0)) {
         wx.navigateTo({

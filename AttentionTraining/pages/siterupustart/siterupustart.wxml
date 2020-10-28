@@ -1,6 +1,6 @@
 <!--pages/siterupustart/siterupustart.wxml-->
 <view class="container">
-  <image class="pic_background" src="../../style/images/siterupu-info.png" mode="aspectFit"></image>
+  <image class="pic_background" src="../../style/images/siterupu-info.png" mode="aspectFill"></image>
   <view class="guide-view">
     <view class="tip-view">
       <text class="tip-text">请将手机交于您的孩子，开始测试</text>
