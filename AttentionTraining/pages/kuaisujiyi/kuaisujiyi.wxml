@@ -7,7 +7,7 @@
         <text style="color:#1ED545">{{rightCount}}</text>
         <text> 题</text>
       </view>
-      <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image>
+      <!-- <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image> -->
     </view>
 
   <view class="scroll_box">

@@ -107,7 +107,6 @@
 
 .times_info {
   flex-direction: row;
-  margin-top: 20rpx;
 }
 
 .times_info text {

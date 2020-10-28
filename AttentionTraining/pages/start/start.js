@@ -39,38 +39,48 @@ Page({
 
   isReadBtnAction:function (e) {
     var that = this
-    wx.getStorage({
-      key: 'userInfo',
-      success: function (result) {
-        if (result.data) {
-          wx.getStorage({
-            key: 'hasGuide',
-            success: function (res) {
-              if (res.data == "true") {
-                wx.navigateTo({
-                  url: '/pages/lights/lights',
-                })
-              } else {
-                wx.navigateTo({
-                  url: '/pages/guide/guide',
-                })
-              }
-            },
-            fail: function () {
-              wx.navigateTo({
-                url: '/pages/guide/guide',
-              })
-            }
-          })
-        } else {
-          that.getOpenid()
-        }
+    var that = this
+    if (wx.getStorageSync("hasGuide")) {
+      wx.navigateTo({
+        url: '/pages/lights/lights',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/guide/guide',
+      })
+    }
+    // wx.getStorage({
+    //   key: 'userInfo',
+    //   success: function (result) {
+    //     if (result.data) {
+    //       wx.getStorage({
+    //         key: 'hasGuide',
+    //         success: function (res) {
+    //           if (res.data == "true") {
+    //             wx.navigateTo({
+    //               url: '/pages/lights/lights',
+    //             })
+    //           } else {
+    //             wx.navigateTo({
+    //               url: '/pages/guide/guide',
+    //             })
+    //           }
+    //         },
+    //         fail: function () {
+    //           wx.navigateTo({
+    //             url: '/pages/guide/guide',
+    //           })
+    //         }
+    //       })
+    //     } else {
+    //       that.getOpenid()
+    //     }
         
-      },
-      fail: function (res) {
-        that.getOpenid()
-      }
-    })
+    //   },
+    //   fail: function (res) {
+    //     that.getOpenid()
+    //   }
+    // })
     
 
   },

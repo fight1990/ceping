@@ -22,7 +22,10 @@
     "pages/xiaofuhaoGame/xiaofuhaoGame",
     "pages/siterupuGame/siterupuGame",
     "pages/kuaisujiyiGuide/kuaisujiyiGuide",
-    "pages/zonghecepinginfo/zonghecepinginfo"
+    "pages/zonghecepinginfo/zonghecepinginfo",
+    "pages/xiaofuhaostart/xiaofuhaostart",
+    "pages/siterupustart/siterupustart",
+    "pages/kuaisujiyistart/kuaisujiyistart"
   ],
   "window": {
     "backgroundTextStyle": "light",

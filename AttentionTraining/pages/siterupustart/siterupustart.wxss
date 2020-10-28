@@ -1,4 +1,4 @@
-/* pages/start/start.wxss */
+/* pages/siterupustart/siterupustart.wxss */
 .container {
   padding: 0rpx;
   margin: 0rpx;
@@ -87,7 +87,6 @@
   bottom: 50rpx;
   /* margin-top: 24rpx; */
   width: 100%;
-  text-align: center;
 }
 
 .start-button {
@@ -100,13 +99,8 @@
   background-color: #fff;
   padding: 0rpx;
   font-weight: bold;
-  border-radius: 10rpx;
+  border-radius: 10rpx;  
 }
-
-
-
-
-
 
 button::after {
   border: none;

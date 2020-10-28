@@ -71,23 +71,23 @@ Page({
       imgUrl : "xfh",
       gId : "xfh",
       title : "小符号",
-      url: "/pages/xiaofuhaoGame/xiaofuhaoGame",
-      url_guide: "/pages/xiaofuhaoGuide/xiaofuhaoGuide",
-      guide_key: "xiaofuhao_guide"
+      url: "/pages/xiaofuhaostart/xiaofuhaostart",
+      url_guide: "/pages/xiaofuhaostart/xiaofuhaostart",
+      guide_key: ""
     },{
       imgUrl : "ksjy",
       gId : "ksjy",
       title : "快速记忆",
-      url : "/pages/kuaisujiyi/kuaisujiyi",
-      url_guide: "/pages/kuaisujiyiGuide/kuaisujiyiGuide",
-      guide_key: "kuaisujiyi_guide"
+      url : "/pages/kuaisujiyistart/kuaisujiyistart",
+      url_guide: "/pages/kuaisujiyistart/kuaisujiyistart",
+      guide_key: ""
     },{
       imgUrl : "strpcs",
       gId : "strp",
       title : "斯特如普",
-      url: "/pages/siterupuGame/siterupuGame",
-      url_guide: "/pages/siterupuGuide/siterupuGuide",
-      guide_key: "siterupu_guide"
+      url: "/pages/siterupustart/siterupustart",
+      url_guide: "/pages/siterupustart/siterupustart",
+      guide_key: ""
     }], // 图片
     hideShadow: true, // 无报告显示
     hasReports: false, // 是否有报告
