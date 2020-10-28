@@ -644,11 +644,11 @@ Page({
                     }
                   })
                 } else {
-                  if (that.data.rightCount <= 3) {
-                    that.setData({
-                      hideThreeShadow: false
-                    })
-                  } else {
+                  // if (that.data.rightCount <= 3) {
+                  //   that.setData({
+                  //     hideThreeShadow: false
+                  //   })
+                  // } else {
                     // wx.navigateTo({
                     //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
                     // })
@@ -658,13 +658,13 @@ Page({
                     })
                   }
                   
-                }    
+                // }    
               } else {
-                if (that.data.rightCount <= 3) {
-                  that.setData({
-                    hideThreeShadow: false
-                  })
-                } else {
+                // if (that.data.rightCount <= 3) {
+                //   that.setData({
+                //     hideThreeShadow: false
+                //   })
+                // } else {
                   // wx.navigateTo({
                   //   url: '/pages/information/information' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
                   // })
@@ -672,7 +672,7 @@ Page({
                   wx.navigateTo({
                     url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
                   })
-                }
+                // }
               }
             },
             fail: function (res) {
@@ -682,17 +682,17 @@ Page({
         }
       },
       fail: function (res) {
-        if (that.data.rightCount <= 3) {
-          that.setData({
-            hideThreeShadow: false
-          })
-        } else {
+        // if (that.data.rightCount <= 3) {
+        //   that.setData({
+        //     hideThreeShadow: false
+        //   })
+        // } else {
 
           wx.navigateTo({
             url: '/pages/transition/transition' + "?score=" + that.data.rightCount + "&times=" + that.data.globalCount,
           })
         }
-      }
+      // }
     })
   },
   
