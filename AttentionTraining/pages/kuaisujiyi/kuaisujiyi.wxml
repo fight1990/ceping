@@ -3,8 +3,8 @@
   <view class="main-view">
     <view class="title-view">
       <view class="title-text">
-        <text>答对：</text>
-        <text style="color:#1ED545">{{rightCount}}</text>
+        <text>题数：</text>
+        <text style="color:#1ED545">{{rightCount+'/'+100}}</text>
         <text> 题</text>
       </view>
       <!-- <image class="title-image" src="../../style/images/jieshao.png" bindtap="showIntroduceTap"></image> -->
@@ -89,12 +89,12 @@
       </block>
       <text class="info-end">{{result_info_value}}</text>
       <view class="info-buttons">
+        <button open-type="share" class="info-share-report">
+          <image src="../../style/images/custom_share.png" mode="aspectFit"></image>
+        </button>
         <button class="info-once-more" bindtap="moreTap" >
           <image src="../../style/images/game-replay-green.png" mode="aspectFit"></image>
         </button>
-        <!-- <button open-type="share" class="info-share-report">
-          <image src="../../style/images/share-report.png" mode="aspectFit"></image>
-        </button> -->
       </view>
       <view class="info-cancel" bindtap="cancelResultTap"></view>
     </view>

@@ -154,31 +154,6 @@ Page({
         })
       }
     })
-
-
-    // wx.getStorage({
-    //   key: 'userInfo',
-    //   success: function (res) {
-    //     if (res.data) {
-    //       that.setData({
-    //         userInfo: true,
-    //         "nickName": res.data.nickName,
-    //         "avatar": res.data.avatarUrl
-    //       })
-    //     }
-    //     wx.navigateTo({
-    //       url: '/pages/information/information'
-    //     })
-    //   },
-    //   fail: function (res) {
-    //     // that.getOpenId()
-
-    //     wx.navigateTo({
-    //       url: '/pages/information/information'
-    //     })  
-    //   }
-    // })
-
   },
 
   getOpenId: function () {
@@ -289,8 +264,7 @@ Page({
       globalCount: globalCount,
       from: from,
       gameResult: gameResult
-    })
-
+    }) 
   },
 
   /**

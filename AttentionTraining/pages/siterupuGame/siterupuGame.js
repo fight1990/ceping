@@ -386,16 +386,28 @@ Page({
                     }
                   })
                 }
+              } else {
+                wx.navigateTo({
+                  url: '/pages/transition/transition'
+                })
               }
             },
             fail: function (res) {
-
+              wx.navigateTo({
+                url: '/pages/transition/transition'
+              })
             }
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/transition/transition'
           })
         }
       },
       fail: function (res) {
-      
+        wx.navigateTo({
+          url: '/pages/transition/transition'
+        })
       }
     })
   },

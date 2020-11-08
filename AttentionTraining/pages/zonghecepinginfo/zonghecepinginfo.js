@@ -330,7 +330,8 @@ Page({
                     },
                   })
 
-                  if (that.data.gameData != undefined) {
+                  if (0) {
+                  // if (that.data.gameData != undefined) {
                     var fy_score = that.data.gameData.score0;
                     var rz_score = that.data.gameData.score1;
                     var xx_score = that.data.gameData.score2;

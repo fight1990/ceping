@@ -402,15 +402,23 @@ Page({
       success: function (result) {
         
         var gameScole = that.data.gameScore;
-        var corNum = result.ceping.score_0 + result.ceping.score_1 + result.ceping.score_2 + result.ceping.score_3;
-        var allNum = result.ceping.scantron0.split(",").length + result.ceping.scantron1.split(",").length + result.ceping.scantron2.split(",").length + result.ceping.scantron3.split(",").length;
+        var corNum = 0;
+        var allNum = 340;
+        var rank = 0;
+        var times = 0;
+        if(result.ceping) {
+          corNum = result.ceping.score_0 + result.ceping.score_1 + result.ceping.score_2 + result.ceping.score_3;
+          allNum = result.ceping.scantron0.split(",").length + result.ceping.scantron1.split(",").length + result.ceping.scantron2.split(",").length + result.ceping.scantron3.split(",").length;
+          rank = result.ceping.scale;
+          times = (result.ceping.times/allNum).toFixed(2);
+        }
         
         gameScole.zhpc = {
           corNum: corNum,
           allNum: allNum,
           pourcentage:corNum+'/'+allNum,
-          rank: result.ceping.scale,
-          useTime: (result.ceping.times/allNum).toFixed(2)
+          rank: rank,
+          useTime: times
         }
         
         for (var i=0;i<result.games.length;i++) {
