@@ -35,6 +35,7 @@ Page({
     xiaofuhao_currentData_test : {},
 
     showIntroduce: false, // 显示简介
+    rankPercent: '0.0%',
 
     xfh_time: 0,
     xfh_correct: 0,
@@ -123,7 +124,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: '答对'+this.data.rightCount+'题，超过了'+this.data.rankPercent+'同龄人，来让孩子训练一下专注力吧！'
+    }
   },
 
   /**
@@ -284,6 +287,7 @@ Page({
                       that.data.gameid = response.gameid
                       that.setData({
                         result_info_value: response.remark,
+                        rankPercent: response.scale,
                         result_info_items:[{
                           one: '我是',
                           two: response.rank,

@@ -87,6 +87,7 @@ Page({
     hideThreeShadow: true, // 隐藏 请认真答题弹框
 
     stepText: 5,  //设置倒计时初始值
+    rankPercent: '0.0%',
 
     result_info_value: "",
     result_info_items:[{
@@ -116,11 +117,11 @@ Page({
    * 分享
    */
   shareTap: function () {
-    var that = this
-    wx.navigateTo({
-      url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1",
-    })
-    that.data.share = false
+    // var that = this
+    // wx.navigateTo({
+    //   url: '/pages/analysis/analysis' + "?gameid=" + that.data.gameid + "&isShare=1",
+    // })
+    // that.data.share = false
   },
   
   /**
@@ -417,6 +418,7 @@ Page({
                       that.data.gameid = response.gameid
                       that.setData({
                         result_info_value: response.remark,
+                        rankPercent: response.scale,
                         result_info_items:[{
                           one: '我是',
                           two: response.rank,
@@ -533,7 +535,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    
+    return {
+      title: '答对'+this.data.rightCount+'题，超过了'+this.data.rankPercent+'同龄人，来让孩子训练一下专注力吧！'
+    }
   },
   timerCircleReady: function() {
     ctxTimer.setLineWidth(15)
