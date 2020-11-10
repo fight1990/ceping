@@ -122,7 +122,7 @@
           <image src="../../style/images/game-replay-green.png" mode="aspectFit"></image>
         </button>
         <button open-type="share" class="info-share-report">
-          <image src="../../style/images/share-report.png" mode="aspectFit"></image>
+          <image src="../../style/images/custom_share.png" mode="aspectFit"></image>
         </button>
       </view>
       <view class="info-cancel" bindtap="cancelResultTap"></view>

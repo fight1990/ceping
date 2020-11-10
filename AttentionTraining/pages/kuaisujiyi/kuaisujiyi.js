@@ -47,6 +47,8 @@ var kMaxTime = 5000; //倒计时时间
 var timestamp = Date.parse(new Date());  
 
 var constColors = ["Blue","Purple","Green","Red"];
+
+var isCurrentTimer = false;
 /**
  * 0 -- 圆形
  * 3 -- 三角形
@@ -232,6 +234,7 @@ Page({
   noSelectTap: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
 
     if (that.data.selectedIndex == 0) {
       that.setData({
@@ -262,6 +265,7 @@ Page({
   differentTap: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
 
     that.setData({
       hideResult: false,
@@ -300,6 +304,7 @@ Page({
   identicalTap: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
 
     that.setData({
       hideResult: false,
@@ -507,6 +512,7 @@ Page({
   onHide: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
   },
 
   /**
@@ -515,6 +521,7 @@ Page({
   onUnload: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
   },
 
   /**
@@ -536,7 +543,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     return {
-      title: '答对'+this.data.rightCount+'题，超过了'+this.data.rankPercent+'同龄人，来让孩子训练一下专注力吧！'
+      title: '答对'+this.data.rightCount+'题，超过'+this.data.rankPercent+'同龄人，让孩子训练专注力吧！'
     }
   },
   timerCircleReady: function() {
@@ -555,6 +562,11 @@ Page({
   },
   startCircleTime: function() {    
     var that = this
+
+    if (isCurrentTimer) {
+      return;
+    }
+    isCurrentTimer = true;
 
     var step = that.data.stepText ;  //定义倒计时
     var num = -0.5;
@@ -587,6 +599,7 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
+        isCurrentTimer = false;
         if (that.data.selectedIndex >=1) {
           that.lastQuestion()
         } else {
@@ -787,6 +800,7 @@ Page({
       showIntroduce: true,
     })
     clearInterval(valHandle)
+    isCurrentTimer = false;
   },
 
   /**

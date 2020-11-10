@@ -27,6 +27,8 @@ var lineWidth = 2;
 var r = (oW / 2);
 var cR = r - 10 * lineWidth;
 
+var isCurrentTimer = false;
+
 Page({
 
   /**
@@ -109,6 +111,8 @@ Page({
    */
   onHide: function () {
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
+
   },
 
   /**
@@ -137,7 +141,7 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '答对'+this.data.rightCount+'题，超过了'+this.data.rankPercent+'同龄人，来让孩子训练一下专注力吧！'
+      title: '答对'+this.data.rightCount+'题，超过'+this.data.rankPercent+'同龄人，让孩子训练专注力吧！'
     }
   },
 
@@ -168,6 +172,7 @@ Page({
   differentTap: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
 
     that.setData({
       hideResult: false,
@@ -207,6 +212,7 @@ Page({
   identicalTap: function () {
     var that = this
     clearInterval(valHandle)  //销毁定时器
+    isCurrentTimer = false;
 
     that.setData({
       hideResult: false,
@@ -435,6 +441,11 @@ Page({
     console.log("倒计时动画开始")
     var that = this
 
+    if (isCurrentTimer) {
+      return;
+    }
+    isCurrentTimer = true;
+
     var step = that.data.stepText ;  //定义倒计时
     var num = -0.5;
     var decNum = 2/step/10
@@ -465,6 +476,8 @@ Page({
       drawArc(num*Math.PI)
       if(step<=0){
         clearInterval(valHandle)  //销毁定时器
+        isCurrentTimer = false;
+
         if (that.data.selectedIndex >=0) {
           that.lastQuestion()
         } else {
@@ -496,6 +509,8 @@ Page({
       showIntroduce: true,
     })
     clearInterval(valHandle)
+    isCurrentTimer = false;
+
   },
 
   /**

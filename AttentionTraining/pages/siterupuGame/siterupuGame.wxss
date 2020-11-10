@@ -357,7 +357,7 @@ button::after {
   height: 50rpx;
   width: 70%;
   color: chocolate;
-  font-size: 45rpx;
+  font-size: 38rpx;
   font-weight: bold;
   display: block;
 }
