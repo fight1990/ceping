@@ -3,7 +3,7 @@
 var api = require("../../../Api/api.js")
 const util = require("../../../utils/util.js");
 
-//交通灯
+//选择注意力训练
 var trafficlight_canvasgraph = wx.createCanvasContext('trafficlight_canvasgraph',this)
 var ctxTimer = wx.createCanvasContext("bgCanvas",this)
 var ctxTimer_two = wx.createCanvasContext("bgCanvas_two",this)
@@ -91,7 +91,7 @@ Component({
         hideResult: false,
       })
 
-      //交通灯
+      //选择注意力训练
       var currentData = trafficlight_gameDatas[that.data.selectedIndex];
       var beforeData = trafficlight_gameDatas[that.data.selectedIndex-1];
       if(currentData.position != beforeData.position) {
@@ -127,7 +127,7 @@ Component({
         hideResult: false,
       })
 
-      //交通灯
+      //选择注意力训练
       var currentData = trafficlight_gameDatas[that.data.selectedIndex];
       var beforeData = trafficlight_gameDatas[that.data.selectedIndex-1];
       if(currentData.position == beforeData.position) {
@@ -211,7 +211,7 @@ Component({
         hideResult: true,
       })
 
-      //交通灯
+      //选择注意力训练
       that.trafficlight_gameCreater();
     },
 
@@ -221,7 +221,7 @@ Component({
     lastQuestion: function () {
       var that = this
 
-      //交通灯
+      //选择注意力训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - trafficlight_gameDatas.length - trafficlight_gameDatas[0].time;
 
@@ -253,7 +253,7 @@ Component({
       console.log("倒计时动画开始")
       var that = this
 
-          //交通灯
+      //选择注意力训练
       that.data.stepText = trafficlight_gameDatas[this.data.selectedIndex].time //重新设置一遍初始值，防止初始值被改变
       
       var step = that.data.stepText ;  //定义倒计时
@@ -293,7 +293,7 @@ Component({
     },
 
     /**
-     * 交通灯游戏
+     * 选择注意力训练游戏
      */
     trafficlight_gameCreater: function() {
       trafficlight_canvasgraph.clearRect(0, 0, oW, oH);
@@ -321,7 +321,7 @@ Component({
     },
 
     /**
-     * 交通灯游戏数据
+     * 选择注意力训练游戏数据
      */
     countWithTraffixLightLevel: function(level) {
       var gameCount = [];

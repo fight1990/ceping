@@ -30,7 +30,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '斯特如普',    //页面标题
+      title: '斯特如普训练',    //页面标题
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',

@@ -69,7 +69,7 @@
   align-items: center;
 }
 
-/* 小符号游戏 */
+/* 工作记忆区训练游戏 */
 .xiaofuhao {
   position: fixed;
   width: 100%;

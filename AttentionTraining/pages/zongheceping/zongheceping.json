@@ -2,5 +2,5 @@
   "usingComponents": {
     "s-table": "../components/table/index"
   },
-  "navigationBarTitleText": "综合测评"
+  "navigationBarTitleText": "注意力综合测评"
 }

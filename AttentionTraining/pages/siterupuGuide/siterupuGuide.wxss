@@ -69,7 +69,7 @@
   align-items: center;
 }
 
-/* 斯特如普 */
+/* 斯特如普训练 */
 .siterupu {
   position: fixed;
   width: 650rpx;

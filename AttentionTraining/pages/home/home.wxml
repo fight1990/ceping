@@ -44,6 +44,11 @@
       <text class='productNameText'>{{item.title}}</text>
     </view>
 
+    <!-- 产品名称 -->
+    <view class='productNameEnglishView'>
+      <text class='productNameEnglishText'>{{item.subTitle}}</text>
+    </view>
+
     <!-- 题数 -->
     <view class='needScoreView'>
       <text class='needSocreText'>{{gameScore[item.gId].pourcentage}}</text>

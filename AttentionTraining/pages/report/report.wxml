@@ -8,9 +8,9 @@
     <block wx:for="{{gameList}}" wx:key="item-id"> 
       <view class="item-view" bindtap="showDetailTap" data-gameid="{{item.id}}" data-gametype="{{item.type}}" data-gamedata="{{item}}">
         <view class="point"></view>
-        <!-- 专注力交通灯分析报告 -->
+        <!-- 选择注意力训练分析报告 -->
         <view class="title">
-          <text wx:if='{{item.zhcp}}'>综合测评分析报告</text>
+          <text wx:if='{{item.zhcp}}'>注意力综合测评分析报告</text>
           <text wx:else>练习时长{{item.times}}秒（{{item.score}}积分）</text>
         </view>
         <view class="item-time">
@@ -28,18 +28,12 @@
   <view class="detail">
     <view class="detail-head">
       <view class="detail-title">
-        <text>专注力交通灯分析报告2</text>
+        <text>选择注意力训练分析报告</text>
       </view>
       <image class="detail-close" src="../../style/images/guanbi.png" bindtap="closeDetailTap"></image>
     </view>
     <image class="detail-backgroud" src="../../style/images/beijing.png"></image>
     <view class="detail-medium">
-      <!-- <view class="detail-time">
-        <text>答题数44题，用时66秒</text>
-      </view>
-      <view class="detail-content">
-        <text>交通灯分析报告交通灯分析报告交通灯 分析报告交通灯分析报告交通灯分析报 告交通灯分析交通灯分析报告报告...交通灯分析报告交通灯分析报告交通灯 分析报告交通灯分析报告交通灯分析报 告交通灯分析交通灯分析报告报告...</text>
-      </view> -->
       <view class="detail-info">
         <view class="right">
           <view class="right-head">

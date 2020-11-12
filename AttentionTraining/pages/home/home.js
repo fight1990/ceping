@@ -55,7 +55,8 @@ Page({
     itemList: [{
       imgUrl : "zhcp",
       gId: "zhpc",
-      title : "综合测评",
+      title : "注意力综合测评",
+      subTitle: "Attention Abilities Test",
       // url: "/pages/zongheceping/zongheceping"
       url : "/pages/cePingGame/cePingGame",
       url_guide: "",
@@ -63,28 +64,32 @@ Page({
     },{
       imgUrl : "zzljtd",
       gId : "jtd",
-      title : "专注力交通灯",
+      title : "选择注意力训练",
+      subTitle: "Selective Attention Training",
       url : "/pages/start/start",
       url_guide: "/pages/start/start",
       guide_key: ""
     },{
       imgUrl : "xfh",
       gId : "xfh",
-      title : "小符号",
+      title : "工作记忆区训练",
+      subTitle: "Working Memory Training",
       url: "/pages/xiaofuhaostart/xiaofuhaostart",
       url_guide: "/pages/xiaofuhaostart/xiaofuhaostart",
       guide_key: ""
     },{
       imgUrl : "ksjy",
       gId : "ksjy",
-      title : "快速记忆",
+      title : "注意力保持训练",
+      subTitle: "etaining Attention Training",
       url : "/pages/kuaisujiyistart/kuaisujiyistart",
       url_guide: "/pages/kuaisujiyistart/kuaisujiyistart",
       guide_key: ""
     },{
       imgUrl : "strpcs",
       gId : "strp",
-      title : "斯特如普",
+      title : "斯特如普训练",
+      subTitle: "Stroop Interference Training",
       url: "/pages/siterupustart/siterupustart",
       url_guide: "/pages/siterupustart/siterupustart",
       guide_key: ""

@@ -3,14 +3,14 @@
 var api = require("../../Api/api.js")
 const util = require("../../utils/util.js");
 
-//交通灯
+//选择注意力训练
 const trafficlight_canvasgraph = wx.createCanvasContext('trafficlight_canvasgraph')
 
-// 快速记忆
+// 注意力保持训练
 const ksjy_ctxWave = wx.createCanvasContext('ksjy_canvasArcCir')
 const ksjy_ctxGraph = wx.createCanvasContext('ksjy_canvasgraph')
 
-//斯特如普
+//斯特如普训练
 const siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text')
 const siterupu_ctxtext_Graph = wx.createCanvasContext('siterupu_canvas_graph')
 
@@ -105,7 +105,7 @@ Page({
     strp_content_title : "文字颜色与其表达的意思是否相同？",
     siterupu_color_word: "",
     /**
-     * 游戏模式 0-交通灯；1-小符号；2-快速记忆；3-斯特如普
+     * 游戏模式 0-选择注意力训练；1-工作记忆区训练；2-注意力保持训练；3-斯特如普训练
      */
     currentGameType: 0,
 
@@ -127,7 +127,7 @@ Page({
 
     // 过渡页、引导页参数
     hideGuoduye: true,
-    guoduyeTitle: "即将进入小符号游戏",
+    guoduyeTitle: "即将进入工作记忆区训练游戏",
     hiddenYinDaoTu: false,
     yindaotuIndex: 0,
     age: -1, // 年纪
@@ -252,7 +252,7 @@ Page({
       if (that.data.selectedIndex >= trafficlight_gameDatas.length) {
         return
       }
-      //交通灯
+      //选择注意力训练
       var currentData = trafficlight_gameDatas[that.data.selectedIndex];
       var beforeData = trafficlight_gameDatas[that.data.selectedIndex-1];
       if(currentData.position != beforeData.position) {
@@ -278,10 +278,10 @@ Page({
         }, 1000);
       }
     } else if (this.data.currentGameType == 1) {
-      //小符号
+      //工作记忆区训练
       
     } else if (this.data.currentGameType == 2) {
-      //快速记忆
+      //注意力保持训练
       if (that.data.selectedIndex >= ksjy_gameDatas.length) {
         return
       }
@@ -319,7 +319,7 @@ Page({
         }, 1000);
       }
     }  else if (this.data.currentGameType == 3) {
-      //斯特如普
+      //斯特如普训练
       if (that.data.selectedIndex >= siterupu_gameDatas.length) {
         return
       }
@@ -371,7 +371,7 @@ Page({
     }, 1000)
 
     if (this.data.currentGameType == 0) {
-      //交通灯
+      //选择注意力训练
       if (that.data.selectedIndex >= trafficlight_gameDatas.length) {
         return
       }
@@ -401,10 +401,10 @@ Page({
         }, 1000);
       }
     } else if (this.data.currentGameType == 1) {
-      //小符号
+      //工作记忆区训练
 
     } else if (this.data.currentGameType == 2) {
-      //快速记忆
+      //注意力保持训练
       if (that.data.selectedIndex >= ksjy_gameDatas.length) {
         return
       }
@@ -442,7 +442,7 @@ Page({
         }, 1000);
       }
     }  else if (this.data.currentGameType == 3) {
-      //斯特如普
+      //斯特如普训练
       if (that.data.selectedIndex >= siterupu_gameDatas.length) {
         return
       }
@@ -502,7 +502,7 @@ Page({
 
       // 过渡页、引导页参数
       hideGuoduye: true,
-      guoduyeTitle: "即将进入小符号游戏",
+      guoduyeTitle: "即将进入工作记忆区训练游戏",
 
       hiddenYinDaoTu: false,
       yindaotuIndex: 0
@@ -558,7 +558,7 @@ Page({
         hideResult: true,
       })
 
-      //交通灯
+      //选择注意力训练
       that.trafficlight_gameCreater();
     } else if (this.data.currentGameType == 1) {
       if(that.data.selectedIndex == xiaofuhao_gameDatas.length-1) {
@@ -608,7 +608,7 @@ Page({
         xiaofuhao[element] = ''
       });
 
-      //小符号
+      //工作记忆区训练
       that.setData({
         xiaofuhao_currentData: xiaofuhao_gameDatas[that.data.selectedIndex].data,
         xiaofuhao_currentData_test: xiaofuhao
@@ -656,12 +656,12 @@ Page({
         hideResult: true,
       })
 
-      //快速记忆
+      //注意力保持训练
       that.ksjy_CircleCreater();
       
     }  else if (this.data.currentGameType == 3) {
 
-      //斯特如普
+      //斯特如普训练
       if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
         that.lastQuestion()
         return
@@ -712,7 +712,7 @@ Page({
     var that = this
 
     if (this.data.currentGameType == 0) {
-      //交通灯
+      //选择注意力训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - trafficlight_gameDatas.length - trafficlight_gameDatas[0].time;
 
@@ -725,7 +725,7 @@ Page({
       that.gotoGuoDuPage()
 
     } else if (this.data.currentGameType == 1) {
-      //小符号
+      //工作记忆区训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - xiaofuhao_gameDatas.length;
 
@@ -738,7 +738,7 @@ Page({
       that.gotoGuoDuPage()
 
     } else if (this.data.currentGameType == 2) {
-      //快速记忆
+      //注意力保持训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - ksjy_gameDatas.length - ksjy_gameDatas[0].time;
 
@@ -751,7 +751,7 @@ Page({
       that.gotoGuoDuPage()
 
     }  else if (this.data.currentGameType == 3) {
-      //斯特如普
+      //斯特如普训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000) - siterupu_gameDatas.length;
 
@@ -901,21 +901,21 @@ Page({
 
     if (this.data.hideGuoduye == true) {
       if (this.data.currentGameType == 0) {
-        //交通灯
+        //选择注意力训练
         that.setData({
           stepText : parseInt(trafficlight_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
         })
       } else if (this.data.currentGameType == 1) {
-        //小符号
+        //工作记忆区训练
         
       } else if (this.data.currentGameType == 2) {
-        //快速记忆
+        //注意力保持训练
         that.setData({
           stepText : parseInt(ksjy_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
         })
 
       }  else if (this.data.currentGameType == 3) {
-        //斯特如普
+        //斯特如普训练
         that.setData({
           stepText : parseInt(siterupu_gameDatas[this.data.selectedIndex].time) //重新设置一遍初始值，防止初始值被改变
         })
@@ -1005,7 +1005,7 @@ Page({
   },
 
   /**
-   * 小符号游戏
+   * 工作记忆区训练游戏
    */
   inputValueAction: function(event) {
     var that = this
@@ -1137,7 +1137,7 @@ Page({
   },
 
   /**
-   * 交通灯游戏
+   * 选择注意力训练游戏
    */
   trafficlight_gameCreater: function() {
     trafficlight_canvasgraph.clearRect(0, 0, oW, oH);
@@ -1165,7 +1165,7 @@ Page({
   },
 
   /**
-   * 快速记忆图形绘制
+   * 注意力保持训练图形绘制
    */
   //绘制圆圈进度
   ksjy_CircleCreater: function() {
@@ -1267,7 +1267,7 @@ Page({
   },
 
    /**
-   * 斯特如普游戏
+   * 斯特如普训练游戏
    */
   siterupu_createGame: function() {
     var txt = siterupu_gameDatas[this.data.selectedIndex].text
@@ -1297,7 +1297,7 @@ Page({
   },
   
   /**
-   * 快速记忆游戏数据
+   * 注意力保持训练游戏数据
    * @param {*} level 
    */
   countWithMemoryLevel: function(level) {
@@ -1371,7 +1371,7 @@ Page({
   },
 
   /**
-   * 交通灯游戏数据
+   * 选择注意力训练游戏数据
    */
   countWithTraffixLightLevel: function(level) {
     var gameCount = [];
@@ -1427,7 +1427,7 @@ Page({
           };
   },
   /**
-   * 小符号游戏数据
+   * 工作记忆区训练游戏数据
    */
   countWithXFHLevel: function(level) {
     var gameCount = [];
@@ -1494,7 +1494,7 @@ Page({
   },
  
   /**
-   * 斯特如普游戏数据
+   * 斯特如普训练游戏数据
    */
   countWithSTRPLevel: function(level) {
     var gameCount = [];
@@ -1641,22 +1641,22 @@ Page({
   
   // 游戏过度
   gotoGuoDuPage: function() {
-    var guoduTitle = "即将进入交通灯测评";
+    var guoduTitle = "即将进入选择注意力训练";
     this.setData({
       allNum: trafficlight_gameDatas.length
     })
     if (this.data.currentGameType == 0) {
-      guoduTitle = "交通灯答题结束\n即将进入小符号测验";
+      guoduTitle = "选择注意力训练答题结束\n即将进入工作记忆区训练测验";
       this.setData({
         allNum: xiaofuhao_gameDatas.length
       })
     } else if (this.data.currentGameType == 1) {
-      guoduTitle = "小符号答题结束\n即将进入快速记忆测验";
+      guoduTitle = "工作记忆区训练答题结束\n即将进入注意力保持训练测验";
       this.setData({
         allNum: ksjy_gameDatas.length
       })
     } else if (this.data.currentGameType == 2) {
-      guoduTitle = "快速记忆答题结束\n即将进入斯特如普测验";
+      guoduTitle = "注意力保持训练答题结束\n即将进入斯特如普训练测验";
       this.setData({
         allNum: siterupu_gameDatas.length
       })
@@ -1681,7 +1681,7 @@ Page({
   },
 
   _readyJiaoTongDengGame (){
-    console.log("开始交通灯游戏");
+    console.log("开始选择注意力训练游戏");
     
     var that = this
     this.setData({
@@ -1691,7 +1691,7 @@ Page({
     that.startingGame()
   },
   _readyXiaoFuHaoGame () {
-    console.log("开始小符号游戏");
+    console.log("开始工作记忆区训练游戏");
     
     var that = this
     that.setData({
@@ -1701,7 +1701,7 @@ Page({
     that.moreNextTap()
   },
   _readyKuaiSuJiYiGame () {
-    console.log("开始快速记忆游戏");
+    console.log("开始注意力保持训练游戏");
 
     var that = this
     that.setData({
@@ -1711,7 +1711,7 @@ Page({
     that.moreNextTap()
   },
   _readySiTeRuPuGame () {
-    console.log("开始斯特如普游戏");
+    console.log("开始斯特如普训练游戏");
 
     var that = this
     that.setData({
@@ -1747,7 +1747,7 @@ Page({
 
       // 过渡页、引导页参数
       hideGuoduye: true,
-      guoduyeTitle: "即将进入小符号游戏",
+      guoduyeTitle: "即将进入工作记忆区训练游戏",
 
       hiddenYinDaoTu: false,
       yindaotuIndex: 0

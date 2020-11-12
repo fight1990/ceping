@@ -3,7 +3,7 @@
 var api = require("../../../Api/api.js")
 const util = require("../../../utils/util.js");
 
-//斯特如普
+//斯特如普训练
 var siterupu_ctxtext = wx.createCanvasContext('siterupu_canvas_text', this)
 var ctxTimer = wx.createCanvasContext("bgCanvas", this)
 var ctxTimer_two = wx.createCanvasContext("bgCanvas_two", this)
@@ -94,7 +94,7 @@ Component({
         hideResult: false,
       })
       
-      //斯特如普
+      //斯特如普训练
       var currentData = siterupu_gameDatas[that.data.selectedIndex];
       var color = currentData.color;
       if(siterupu_wordForColor[color] != currentData.text) {
@@ -130,7 +130,7 @@ Component({
         hideResult: false,
       })
 
-    //斯特如普
+    //斯特如普训练
       var currentData = siterupu_gameDatas[that.data.selectedIndex];
       var color = currentData.color;
       if(siterupu_wordForColor[color] == currentData.text) {
@@ -183,7 +183,7 @@ Component({
     doNext: function () {
       var that = this
 
-      //斯特如普
+      //斯特如普训练
       if(that.data.selectedIndex == siterupu_gameDatas.length-1) {
         that.lastQuestion()
         return
@@ -221,7 +221,7 @@ Component({
     lastQuestion: function () {
       var that = this
 
-      //斯特如普
+      //斯特如普训练
       var timesend = Date.parse(new Date());  
       var spandTimer = Math.floor((timesend - timestamp) / 1000);
 
@@ -306,7 +306,7 @@ Component({
     },
 
     /**
-     * 斯特如普游戏
+     * 斯特如普训练游戏
      */
     siterupu_createGame: function() {
       siterupu_ctxtext.clearRect(0, 0, oW, oH)
@@ -327,7 +327,7 @@ Component({
     },
   
     /**
-     * 斯特如普游戏数据
+     * 斯特如普训练游戏数据
      */
     countWithSTRPLevel: function(level) {
       var gameCount = [];

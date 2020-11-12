@@ -30,7 +30,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '小符号',    //页面标题
+      title: '工作记忆区训练',    //页面标题
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',

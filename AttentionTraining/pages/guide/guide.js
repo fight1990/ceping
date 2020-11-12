@@ -495,7 +495,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '专注力交通灯',    //页面标题
+      title: '选择注意力训练',    //页面标题
     })
     var that = this
     that.doNext()

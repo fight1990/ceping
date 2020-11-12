@@ -103,7 +103,7 @@ Page({
     var gametype = e.currentTarget.dataset.gametype
     var gameData= e.currentTarget.dataset.gamedata
 
-    if (gametype == 1) {
+    if (gametype == 99) {
      wx.navigateTo({
        url: '/pages/zonghecepinginfo/zonghecepinginfo?gameData='+JSON.stringify(gameData),
      })
@@ -196,22 +196,14 @@ Page({
               }
 
               var ceping = res.ceping
-              // if (typeof(ceping) == 'array') {
-                for (var i = 0; i < ceping.length;i++) {
-                  var obj = ceping[i]
-                  obj.zhcp = true
-                  obj.id = 'zhcp'
-                  obj.type = 1
-                  obj.time = that.formatTimeTwo(obj.creatime/1000, 'Y/M/D h:m')
-                }
-                list = list.concat(ceping)
-              // } else if (typeof(ceping) == 'object') {
-              //   ceping.zhcp = true
-              //   ceping.id = 'zhcp'
-              //   ceping.type = 1
-              //   ceping.time = that.formatTimeTwo(ceping.creatime/1000, 'Y/M/D h:m')
-              //   list = list.concat([ceping])
-              // }
+              for (var i = 0; i < ceping.length;i++) {
+                var obj = ceping[i]
+                obj.zhcp = true
+                obj.id = 'zhcp'
+                obj.type = 99
+                obj.time = that.formatTimeTwo(obj.creatime/1000, 'Y/M/D h:m')
+              }
+              list = list.concat(ceping)
 
               list.sort(that.compare('creatime'))
 

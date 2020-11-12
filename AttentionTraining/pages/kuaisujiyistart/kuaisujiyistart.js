@@ -30,7 +30,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '快速记忆',    //页面标题
+      title: '注意力保持训练',    //页面标题
     })
     wx.setNavigationBarColor({
       frontColor: '#ffffff',

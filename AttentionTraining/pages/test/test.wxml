@@ -69,14 +69,14 @@
   <view class="introduce">
     <view class="introduce-head">
       <view class="introduce-title">
-        <text>专注力交通灯推荐</text>
+        <text>选择注意力训练推荐</text>
       </view>
       <image class="introduce-close" src="../../style/images/guanbi.png" bindtap="closeIntroduceTap"></image>
     </view>
     <image class="introduce-backgroud" src="../../style/images/beiijingkuang.png"></image>
     <view class="introduce-medium">
       <view class="introduce-content">
-        <text>专注力交通灯是一款专业的专注力测试 和练习游戏，初期可以有效检测孩子大 脑的选择性注意力，注意力持久度，注 意力转移能力，复杂注意力，冲动控制能力，大脑总执行功能和信息处理速度。长期练习可以提高孩子在学习生活中的注意力，观察力、短期记忆力、反应力、思维力能力水平。</text>
+        <text>选择注意力训练是一款专业的专注力测试 和练习游戏，初期可以有效检测孩子大 脑的选择性注意力，注意力持久度，注 意力转移能力，复杂注意力，冲动控制能力，大脑总执行功能和信息处理速度。长期练习可以提高孩子在学习生活中的注意力，观察力、短期记忆力、反应力、思维力能力水平。</text>
       </view>
     </view>
   </view>

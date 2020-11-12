@@ -70,7 +70,7 @@
   flex-direction: column;
   align-items: center;
 }
-/* 交通灯游戏 */
+/* 选择注意力训练游戏 */
 .trafficlight {
   position: fixed;
   width: 650rpx;
@@ -85,7 +85,7 @@
   align-items: center;
 }
 
-/* 小符号游戏 */
+/* 工作记忆区训练游戏 */
 .xiaofuhao {
   position: fixed;
   width: 100%;
@@ -121,7 +121,7 @@
   color: black;
 }
 
-/* 快速记忆游戏 */
+/* 注意力保持训练游戏 */
 .waterview {
   position: fixed;
   width: 650rpx;
@@ -163,7 +163,7 @@
   margin: auto; 
 }
 
-/* 斯特如普 */
+/* 斯特如普训练 */
 .siterupu {
   position: fixed;
   width: 650rpx;

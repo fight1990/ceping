@@ -18,10 +18,10 @@ Page({
     deFen: {
       headers:[{ text: 'one', display: '类型' }, { text: 'three', display: '用时' }, { text: 'four', display: '正确数' }, { text: 'five', display: '正确率' }, { text: 'six', display: '得分' }],
       row: [
-          {'one': '交通灯','three': '-','four': '-','five': '-','six': '-'},
-          {'one': '小符号','three': '-','four': '-','five': '-','six': '-'},
-          {'one': '快速记忆','three': '-','four': '-','five': '-','six': '-'},
-          {'one': '斯特如普','three': '-','four': '-','five': '-','six': '-'}]
+          {'one': '选择注意力训练','three': '-','four': '-','five': '-','six': '-'},
+          {'one': '工作记忆区训练','three': '-','four': '-','five': '-','six': '-'},
+          {'one': '注意力保持训练','three': '-','four': '-','five': '-','six': '-'},
+          {'one': '斯特如普训练','three': '-','four': '-','five': '-','six': '-'}]
     },
     tiXian: {
       headers:[{ text: 'one', display: '类型' }, { text: 'two', display: '反应能力' }, { text: 'three', display: '认知灵活度' }, { text: 'four', display: '信息处理能力' }, { text: 'five', display: '记忆能力' }],
@@ -112,10 +112,10 @@ Page({
                   deFen: {
                     headers:[{ text: 'one', display: '类型' }, { text: 'three', display: '用时' }, { text: 'four', display: '正确数' }, { text: 'five', display: '正确率' }, { text: 'six', display: '得分' }],
                     row: [
-                        {'one': '交通灯','three': '-','four': '-','five': result.data.percentage0,'six': result.data.score0},
-                        {'one': '小符号','three': '-','four': '-','five': result.data.percentage1,'six': result.data.score1},
-                        {'one': '快速记忆','three': '-','four': '-','five': result.data.percentage2,'six': result.data.score2},
-                        {'one': '斯特如普','three': '-','four': '-','five': result.data.percentage3,'six': result.data.score3}]
+                        {'one': '选择注意力训练','three': '-','four': '-','five': result.data.percentage0,'six': result.data.score0},
+                        {'one': '工作记忆区训练','three': '-','four': '-','five': result.data.percentage1,'six': result.data.score1},
+                        {'one': '注意力保持训练','three': '-','four': '-','five': result.data.percentage2,'six': result.data.score2},
+                        {'one': '斯特如普训练','three': '-','four': '-','five': result.data.percentage3,'six': result.data.score3}]
                   },
                   tiXian: {
                     headers:[{ text: 'one', display: '类型' }, { text: 'two', display: '反应能力' }, { text: 'three', display: '认知灵活度' }, { text: 'four', display: '信息处理能力' }, { text: 'five', display: '记忆能力' }],

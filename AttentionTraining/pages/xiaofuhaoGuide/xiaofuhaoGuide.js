@@ -193,7 +193,7 @@ Page({
       xiaofuhao[element] = ''
     });
 
-    //小符号
+    //工作记忆区训练
     that.setData({
       xiaofuhao_currentData: xiaofuhao_gameDatas[that.data.selectedIndex],
       xiaofuhao_currentData_test: xiaofuhao
@@ -211,7 +211,7 @@ Page({
   lastQuestion: function () {
     var that = this
 
-    //小符号
+    //工作记忆区训练
     var timesend = Date.parse(new Date());  
     var spandTimer = Math.floor((timesend - timestamp) / 1000);
 
@@ -282,7 +282,7 @@ Page({
   },
 
   /**
-   * 小符号游戏
+   * 工作记忆区训练游戏
    */
   inputValueAction: function(event) {
     var that = this
@@ -351,7 +351,7 @@ Page({
   },
 
   /**
-   * 小符号游戏数据
+   * 工作记忆区训练游戏数据
    */
   countWithXFHLevel: function(level) {
     var gameCount = [];

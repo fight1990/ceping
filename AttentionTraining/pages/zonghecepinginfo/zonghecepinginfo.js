@@ -39,19 +39,19 @@ Page({
       }
     ],
     games:[{
-      title:'交通灯：',
+      title:'选择注意力训练：',
       scole:'--',
       info:'用时--秒 正确题数--题 正确率--',
     },{
-      title:'小符号：',
+      title:'工作记忆区训练：',
       scole:'--',
       info:'用时--秒 正确题数--题 正确率--',
     },{
-      title:'快速记忆：',
+      title:'注意力保持训练：',
       scole:'--',
       info:'用时--秒 正确题数--题 正确率--',
     },{
-      title:'斯特如普：',
+      title:'斯特如普训练：',
       scole:'--',
       info:'用时--秒 正确题数--题 正确率--',
     }],
@@ -254,19 +254,19 @@ Page({
                       time_minute: minute,
                       time_second: second,
                       games:[{
-                        title:'交通灯：',
+                        title:'选择注意力训练：',
                         scole:jtd_score,
                         info:'用时'+jtd_time+'秒 正确题数'+jtd_score+'题 正确率'+jtd_percent+'%'
                       },{
-                        title:'小符号：',
+                        title:'工作记忆区训练：',
                         scole:xfh_score,
                         info:'用时'+xfh_time+'秒 正确题数'+xfh_score+'题 正确率'+xfh_percent+'%'
                       },{
-                        title:'快速记忆：',
+                        title:'注意力保持训练：',
                         scole:ksjy_score,
                         info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                       },{
-                        title:'交斯特如普：',
+                        title:'交斯特如普训练：',
                         scole:strp_score,
                         info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                       }],
@@ -397,19 +397,19 @@ Page({
                       time_minute: minute,
                       time_second: second,
                       games:[{
-                        title:'交通灯：',
+                        title:'选择注意力训练：',
                         scole:jtd_score,
                         info:'用时'+jtd_time+'秒 正确题数'+jtd_score+'题 正确率'+jtd_percent+'%'
                       },{
-                        title:'小符号：',
+                        title:'工作记忆区训练：',
                         scole:xfh_score,
                         info:'用时'+xfh_time+'秒 正确题数'+xfh_score+'题 正确率'+xfh_percent+'%'
                       },{
-                        title:'快速记忆：',
+                        title:'注意力保持训练：',
                         scole:ksjy_score,
                         info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                       },{
-                        title:'交斯特如普：',
+                        title:'交斯特如普训练：',
                         scole:strp_score,
                         info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                       }],
@@ -500,19 +500,19 @@ Page({
                             time_minute: minute,
                             time_second: second,
                             games:[{
-                              title:'交通灯：',
+                              title:'选择注意力训练：',
                               scole:jtd_score,
                               info:'用时'+jtd_time+'秒 正确题数'+jtd_score+'题 正确率'+jtd_percent+'%'
                             },{
-                              title:'小符号：',
+                              title:'工作记忆区训练：',
                               scole:xfh_score,
                               info:'用时'+xfh_time+'秒 正确题数'+xfh_score+'题 正确率'+xfh_percent+'%'
                             },{
-                              title:'快速记忆：',
+                              title:'注意力保持训练：',
                               scole:ksjy_score,
                               info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                             },{
-                              title:'交斯特如普：',
+                              title:'交斯特如普训练：',
                               scole:strp_score,
                               info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                             }],
