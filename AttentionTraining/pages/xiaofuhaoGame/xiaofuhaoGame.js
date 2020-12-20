@@ -64,7 +64,7 @@ Page({
       color:'red'
     },{
       one: '平均答题时长：',
-      two: "2.12",
+      two: "0.00",
       three: "秒",
       color:'red'
     }],
@@ -139,6 +139,9 @@ Page({
    */
   cancelResultTap: function () {
     var that = this
+    wx.navigateBack({
+      delta: 2,
+    })
     that.setData({
       hideResultShadow: true,
     })
@@ -310,7 +313,7 @@ Page({
                           color:'red'
                         },{
                           one: '平均答题时长：',
-                          two: that.data.globalTimer,
+                          two: (that.data.globalTimer/that.data.selectedIndex).toFixed(2),
                           three: "秒",
                           color:'red'
                         }]
