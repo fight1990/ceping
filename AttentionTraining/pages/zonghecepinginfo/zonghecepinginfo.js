@@ -266,7 +266,7 @@ Page({
                         scole:ksjy_score,
                         info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                       },{
-                        title:'交斯特如普训练：',
+                        title:'斯特如普训练：',
                         scole:strp_score,
                         info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                       }],
@@ -409,7 +409,7 @@ Page({
                         scole:ksjy_score,
                         info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                       },{
-                        title:'交斯特如普训练：',
+                        title:'斯特如普训练：',
                         scole:strp_score,
                         info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                       }],
@@ -512,7 +512,7 @@ Page({
                               scole:ksjy_score,
                               info:'用时'+ksjy_time+'秒 正确题数'+ksjy_score+'题 正确率'+ksjy_percent+'%'
                             },{
-                              title:'交斯特如普训练：',
+                              title:'斯特如普训练：',
                               scole:strp_score,
                               info:'用时'+strp_time+'秒 正确题数'+strp_score+'题 正确率'+strp_percent+'%'
                             }],
